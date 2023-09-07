@@ -1,16 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/presentation/modules/sign_up/bloc/event.dart';
-import 'package:gss/presentation/modules/sign_up/bloc/states.dart';
+import 'package:gss/presentation/blocs/sign_up/sign_up_events.dart';
+import 'package:gss/presentation/blocs/sign_up/sign_up_states.dart';
+
 
 class RegisterBloc extends Bloc<RegisterEvents,RegisterStates>{
   RegisterBloc():super(InitialRegisterStates()){
     on<SignUpEvents>((event, emit) {
       emit(LoadingRegisterStates());
-       signUp().then((value) {
-         emit(SuccessRegisterStates());
-       }).catchError((onError){
-         emit(ErrorRegisterStates());
-       });
+      signUp().then((value) {
+        emit(SuccessRegisterStates());
+      }).catchError((onError){
+        emit(ErrorRegisterStates());
+      });
     });
     on<ValidatePhoneEvents>((event, emit) async{
       emit(InitialRegisterStates());

@@ -2,12 +2,13 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/presentation/modules/home/home.dart';
-import 'package:gss/presentation/modules/sign_in/sign_in.dart';
-import 'package:gss/presentation/modules/sign_up/bloc/bloc.dart';
-import 'package:gss/presentation/modules/sign_up/bloc/event.dart';
-import 'package:gss/presentation/modules/sign_up/bloc/states.dart';
-import 'package:gss/presentation/resources/components.dart';
+import 'package:gss/presentation/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gss/presentation/blocs/sign_up/sign_up_events.dart';
+import 'package:gss/presentation/blocs/sign_up/sign_up_states.dart';
+import 'package:gss/presentation/screens/home_screen.dart';
+import 'package:gss/presentation/screens/sign_in_screen.dart';
+import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
+import 'package:gss/utils/navigate_with_return.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
   @override
@@ -113,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const SizedBox(
               height: 35,
             ),
-            defaultTextForm(
+            CustomTextFiledWidget(
               context: context,
               type: TextInputType.text,
               controller: nameController,
@@ -168,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const SizedBox(
               height: 15,
             ),
-            defaultTextForm(
+            CustomTextFiledWidget(
                 context: context,
                 type: TextInputType.emailAddress,
                 controller: emailController,
@@ -186,7 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const SizedBox(
               height: 15,
             ),
-            defaultTextForm(
+            CustomTextFiledWidget(
               context: context,
               type: TextInputType.visiblePassword,
               controller: passwordController,

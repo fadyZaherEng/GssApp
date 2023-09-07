@@ -1,17 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/presentation/modules/sign_in/bloc/event.dart';
-import 'package:gss/presentation/modules/sign_in/bloc/states.dart';
+import 'package:gss/presentation/blocs/sign_in/sign_in_events.dart';
+import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
+
 
 class LogInBloc extends Bloc<LogInEvents,LogInStates>{
   LogInBloc():super(InitialLogINStates()){
     //login
     on<AppLogInEvent>((event, emit) {
       emit(LoadingLogINStates());
-       signIn().then((value) {
-         emit(SuccessLogINStates());
-       }).catchError((onError){
-         emit(ErrorLogINStates());
-       });
+      signIn().then((value) {
+        emit(SuccessLogINStates());
+      }).catchError((onError){
+        emit(ErrorLogINStates());
+      });
     });
     //phone
     on<ValidatePhoneEventsSignIn>((event, emit) async{

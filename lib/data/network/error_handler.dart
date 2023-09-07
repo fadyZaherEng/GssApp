@@ -2,8 +2,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:gss/data/network/failure.dart';
-import 'package:gss/presentation/resources/strings_manager.dart';
 import 'package:gss/app/extension.dart';
+import 'package:gss/resources/strings_manager.dart';
 
 class ErrorHandler  {
   late Failure failure;

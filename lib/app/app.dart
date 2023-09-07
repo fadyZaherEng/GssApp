@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gss/presentation/modules/home/cubit/bloc.dart';
-import 'package:gss/presentation/modules/home/cubit/states.dart';
-import 'package:gss/presentation/modules/sign_in/bloc/bloc.dart';
-import 'package:gss/presentation/modules/sign_in/sign_in.dart';
-import 'package:gss/presentation/modules/sign_up/bloc/bloc.dart';
-import 'package:gss/presentation/modules/sign_up/sign_up.dart';
-import 'package:gss/presentation/resources/theme_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gss/presentation/blocs/home/home_bloc.dart';
+import 'package:gss/presentation/blocs/home/home_states.dart';
+import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
+import 'package:gss/presentation/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gss/presentation/screens/sign_in/sign_in_screen.dart';
+import 'package:gss/utils/light_theme.dart';
 
 import 'package:sizer/sizer.dart';
 

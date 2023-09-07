@@ -1,12 +1,14 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use, avoid_print
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/presentation/modules/home/home.dart';
-import 'package:gss/presentation/modules/sign_in/bloc/bloc.dart';
-import 'package:gss/presentation/modules/sign_in/bloc/event.dart';
-import 'package:gss/presentation/modules/sign_in/bloc/states.dart';
-import 'package:gss/presentation/modules/sign_up/sign_up.dart';
-import 'package:gss/presentation/resources/components.dart';
+import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
+import 'package:gss/presentation/blocs/sign_in/sign_in_events.dart';
+import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
+import 'package:gss/presentation/screens/home/home_screen.dart';
+import 'package:gss/presentation/screens/sign_up/sign_up_screen.dart';
+import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
+import 'package:gss/utils/navigate_with_return.dart';
+import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -141,7 +143,7 @@ class _SignInScreenState extends State<SignInScreen> {
             const SizedBox(
               height: 35,
             ),
-            defaultTextForm(
+            CustomTextFiledWidget(
               context: context,
               type: TextInputType.visiblePassword,
               controller: passwordController,
@@ -171,9 +173,9 @@ class _SignInScreenState extends State<SignInScreen> {
               child: TextButton(onPressed: (){
 
               }, child:const Text("Forget Password?",style: TextStyle(
-                color: Color.fromRGBO(3, 106, 130, 1),
-                fontWeight: FontWeight.normal,
-                fontSize: 13
+                  color: Color.fromRGBO(3, 106, 130, 1),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 13
               ),)),
             ),
             const SizedBox(
@@ -192,7 +194,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     //sign in
-                     navigateToWithoutReturn(context,const MyHomePage());
+                    navigateToWithoutReturn(context,const MyHomePage());
                   }
                 },
                 color: const Color.fromRGBO(3, 106, 130, 1),
