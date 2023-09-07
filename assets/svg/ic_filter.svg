@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path d="M6.75 1.5h-6A.755.755 0 0 1 0 .75.755.755 0 0 1 .75 0h6a.755.755 0 0 1 .75.75.755.755 0 0 1-.75.75z" transform="translate(15.25 5.75)" style="fill:#036a82"/>
+    <path data-name="Vector" d="M4.75 1.5h-4A.755.755 0 0 1 0 .75.755.755 0 0 1 .75 0h4a.755.755 0 0 1 .75.75.755.755 0 0 1-.75.75z" transform="translate(1.25 5.75)" style="fill:#036a82"/>
+    <path data-name="Vector" d="M4.25 8.5A4.25 4.25 0 1 1 8.5 4.25 4.259 4.259 0 0 1 4.25 8.5zm0-7A2.75 2.75 0 1 0 7 4.25 2.748 2.748 0 0 0 4.25 1.5z" transform="translate(5.75 2.25)" style="fill:#036a82"/>
+    <path data-name="Vector" d="M4.75 1.5h-4A.755.755 0 0 1 0 .75.755.755 0 0 1 .75 0h4a.755.755 0 0 1 .75.75.755.755 0 0 1-.75.75z" transform="translate(17.25 16.75)" style="fill:#036a82"/>
+    <path data-name="Vector" d="M6.75 1.5h-6A.755.755 0 0 1 0 .75.755.755 0 0 1 .75 0h6a.755.755 0 0 1 .75.75.755.755 0 0 1-.75.75z" transform="translate(1.25 16.75)" style="fill:#036a82"/>
+    <path data-name="Vector" d="M4.25 8.5A4.25 4.25 0 1 1 8.5 4.25 4.259 4.259 0 0 1 4.25 8.5zm0-7A2.75 2.75 0 1 0 7 4.25 2.748 2.748 0 0 0 4.25 1.5z" transform="translate(9.75 13.25)" style="fill:#036a82"/>
+</svg>
