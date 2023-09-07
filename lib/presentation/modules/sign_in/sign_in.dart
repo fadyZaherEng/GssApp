@@ -187,9 +187,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               clipBehavior: Clip.antiAlias,
               child: MaterialButton(
-                //git follow
-                //////////////
-                //branching models
+
                 height: 50,
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
