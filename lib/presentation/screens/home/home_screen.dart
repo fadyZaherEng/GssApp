@@ -52,11 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: AppBarTitle(),
             actions: const [AppBarAction()],
           ),
-          body: Column(
-            children: [
-              HomeBody(appGetDataSuccessState),
-            ],
-          ),
+          body: HomeBody(appGetDataSuccessState),
           bottomNavigationBar: HomeBottomNav(
               context: context,
               changeNavState: state is AppEChangeNavState?state:changeNavState),
