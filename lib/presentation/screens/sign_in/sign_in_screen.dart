@@ -15,9 +15,11 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  /// rename to validationMessage
   String? _res;
-  final _formKey = GlobalKey<FormState>();
 
+  final _formKey = GlobalKey<FormState>();
+///Make it privet
   LogInBloc get bloc => BlocProvider.of<LogInBloc>(context);
 
   final TextEditingController _passwordController = TextEditingController();
@@ -41,6 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SignInBackgroundWidget(),
                 SignInBodyWidget(validationMessage:_res,
                 formKey: _formKey,
+                /// rename onChange to onChangePhoneNumber
                 onChanged: (val) {
                   bloc.add(ValidatePhoneEventsSignIn(val: val??""));
                 },

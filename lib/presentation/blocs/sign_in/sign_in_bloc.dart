@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_events.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
 
-
+/// Change any Login to Sign in , bloc ,event state
 class LogInBloc extends Bloc<LogInEvents,LogInStates>{
   LogInBloc():super(InitialLogINStates()){
     on<AppLogInEvent>(_onAppLogInEvent);
    on<ValidatePhoneEventsSignIn>(_onValidatePhoneEventsSignIn);
   }
+  /// if we don't need this remove it
+  ///
   Future<void> signIn()async{
     //here register methods
   }

@@ -9,7 +9,6 @@ import 'package:gss/utils/navigate_with_return.dart';
 import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInBodyWidget extends StatefulWidget {
-  /// change it to validationMessage
   final GlobalKey<FormState> formKey;
   Function(String?)? onChanged;
   final TextEditingController passwordController ;
@@ -68,7 +67,6 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
             const SizedBox(
               height: 35,
             ),
-            // create new widget and called it CustomTextFieldWidget and receive controller and on change function only  then call it where what you need
             PhoneTextFieldWidget(
                 controller: widget.phoneController,
                 text: "Phone Number",
@@ -80,7 +78,6 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
               height: 35,
             ),
 
-            /// Change it to PasswordTextFieldWidget and handle show and hide password inside this widget and receive controller and on change function only  then call it where what you need
             PasswordTextFieldWidget(
               controller: widget.passwordController,
               onChanged: (value) {},
