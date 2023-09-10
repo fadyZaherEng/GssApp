@@ -7,8 +7,8 @@ import 'package:gss/presentation/blocs/home/home_bloc.dart';
 import 'package:gss/presentation/blocs/home/home_events.dart';
 import 'package:gss/presentation/blocs/home/home_states.dart';
 
-import 'package:gss/presentation/screens/home/widgets/home_body.dart';
-import 'package:gss/presentation/screens/home/widgets/home_bottom_nav.dart';
+import 'package:gss/presentation/screens/home/widgets/home_body_widget.dart';
+import 'package:gss/presentation/screens/home/widgets/home_bottom_nav_widget.dart';
 import 'package:gss/presentation/screens/home/widgets/home_floating_widget.dart';
 import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
 
@@ -99,8 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             )],
           ),
-          body: HomeBody(towers:_towers),
-          bottomNavigationBar: HomeBottomNav(context: context, idx: _idx),
+          body: HomeBodyWidget(towers:_towers),
+          bottomNavigationBar: HomeBottomNavWidget(context: context, idx: _idx),
           floatingActionButton: HomeFloatingWidget(context: context),
           floatingActionButtonLocation:
           FloatingActionButtonLocation.centerFloat,

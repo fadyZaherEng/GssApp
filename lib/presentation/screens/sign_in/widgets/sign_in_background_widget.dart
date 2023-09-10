@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 
-class SignUpBackground extends StatelessWidget {
-  const SignUpBackground({super.key});
+class SignInBackgroundWidget extends StatelessWidget {
+  const SignInBackgroundWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

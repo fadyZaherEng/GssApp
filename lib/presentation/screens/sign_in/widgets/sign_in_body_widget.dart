@@ -11,15 +11,15 @@ import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 import 'package:gss/utils/navigate_without_return.dart';
 
-class SignInBody extends StatefulWidget {
+class SignInBodyWidget extends StatefulWidget {
  String ? res;
- SignInBody({this.res});
+ SignInBodyWidget({this.res});
 
   @override
-  State<SignInBody> createState() => _SignInBodyState();
+  State<SignInBodyWidget> createState() => _SignInBodyWidgetState();
 }
 
-class _SignInBodyState extends State<SignInBody> {
+class _SignInBodyWidgetState extends State<SignInBodyWidget> {
   final _formKey = GlobalKey<FormState>();
   Icon _suffixIcon = const Icon(
     Icons.remove_red_eye_outlined,
