@@ -12,9 +12,7 @@ import 'package:gss/utils/navigate_with_return.dart';
 import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInBody extends StatefulWidget {
- String?res;
-
-
+ String ? res;
  SignInBody({this.res});
 
   @override
