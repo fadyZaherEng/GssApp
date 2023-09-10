@@ -27,9 +27,9 @@ class RegisterBloc extends Bloc<RegisterEvents,RegisterStates>{
     return null;
   }
 
-  FutureOr<void> _onSignUpEvents(SignUpEvents event, Emitter<RegisterStates> emit) {
+  FutureOr<void> _onSignUpEvents(SignUpEvents event, Emitter<RegisterStates> emit)async {
     emit(LoadingRegisterStates());
-    Future.delayed(Duration(seconds: 2))
+    await Future.delayed(const Duration(seconds: 1))
     .then((value) {
       signUp().then((value) {
         emit(SuccessRegisterStates());
@@ -42,10 +42,10 @@ class RegisterBloc extends Bloc<RegisterEvents,RegisterStates>{
     });
   }
 
-  FutureOr<void> _onValidate(ValidatePhoneEvents event, Emitter<RegisterStates> emit) {
+  FutureOr<void> _onValidate(ValidatePhoneEvents event, Emitter<RegisterStates> emit)async {
     emit(InitialRegisterStates());
 
-    Future.delayed(Duration(seconds: 2))
+   await Future.delayed(const Duration(seconds: 1))
     .then((value) {
       checkValidateMobile(event.val).then((value) {
         emit(ValidatePhoneStates(res: value));

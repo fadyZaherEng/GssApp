@@ -27,9 +27,9 @@ class LogInBloc extends Bloc<LogInEvents,LogInStates>{
     return null;
   }
 
-  FutureOr<void> _onAppLogInEvent(AppLogInEvent event, Emitter<LogInStates> emit) {
+  FutureOr<void> _onAppLogInEvent(AppLogInEvent event, Emitter<LogInStates> emit) async{
     emit(LoadingLogINStates());
-    Future.delayed(Duration(seconds: 2))
+    await Future.delayed(const Duration(seconds: 1))
         .then((value) {
       emit(SuccessLogINStates());
     })
@@ -38,19 +38,13 @@ class LogInBloc extends Bloc<LogInEvents,LogInStates>{
     });
   }
 
-  FutureOr<void> _onValidatePhoneEventsSignIn(ValidatePhoneEventsSignIn event, Emitter<LogInStates> emit) {
+  FutureOr<void> _onValidatePhoneEventsSignIn(ValidatePhoneEventsSignIn event, Emitter<LogInStates> emit)async {
     emit(LoadingLogINStates());
-
-    Future.delayed(Duration(seconds: 2))
-        .then((value){
-      checkValidateMobile(event.val).then((value) {
+   await Future.delayed(const Duration(seconds: 1));
+     await checkValidateMobile(event.val).then((value) {
         emit(ValidatePhoneLoginStates(res: value));
       }).catchError((onError){
         emit(ErrorLogINStates());
       });
-    })
-        .catchError((onError){
-      emit(ErrorLogINStates());
-    });
   }
 }
