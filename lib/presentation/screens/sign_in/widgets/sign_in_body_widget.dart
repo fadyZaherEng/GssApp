@@ -10,13 +10,13 @@ import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInBodyWidget extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  Function(String?)? onChanged;
+  Function(String?)? onChangePhoneNumber;
   final TextEditingController passwordController ;
   final TextEditingController phoneController ;
   String? validationMessage;
   SignInBodyWidget(
       {required this.formKey,
-         this.onChanged,
+         this.onChangePhoneNumber,
         required this.validationMessage,
         required this.passwordController,
         required this.phoneController});
@@ -71,7 +71,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                 controller: widget.phoneController,
                 text: "Phone Number",
                 errorMSG: widget.validationMessage,
-               onChanged:widget.onChanged ,
+               onChanged:widget.onChangePhoneNumber ,
             ),
 
             const SizedBox(

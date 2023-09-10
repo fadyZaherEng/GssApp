@@ -15,22 +15,22 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  /// rename to validationMessage
-  String? _res;
+  String? validationMessage;
 
   final _formKey = GlobalKey<FormState>();
-///Make it privet
-  LogInBloc get bloc => BlocProvider.of<LogInBloc>(context);
+
+  LogInBloc get _bloc => BlocProvider.of<LogInBloc>(context);
 
   final TextEditingController _passwordController = TextEditingController();
 
   final TextEditingController _phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LogInBloc, LogInStates>(
       listener: (context, state) {
-        if(state is ValidatePhoneLoginStates){
-          _res=state.res;
+        if (state is ValidatePhoneLoginStates) {
+          validationMessage = state.res;
         }
       },
       builder: (context, state) {
@@ -38,17 +38,16 @@ class _SignInScreenState extends State<SignInScreen> {
           resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Stack(
-              children:
-              [
+              children: [
                 const SignInBackgroundWidget(),
-                SignInBodyWidget(validationMessage:_res,
-                formKey: _formKey,
-                /// rename onChange to onChangePhoneNumber
-                onChanged: (val) {
-                  bloc.add(ValidatePhoneEventsSignIn(val: val??""));
-                },
-                passwordController: _passwordController,
-                phoneController: _phoneController),
+                SignInBodyWidget(
+                    validationMessage: validationMessage,
+                    formKey: _formKey,
+                    onChangePhoneNumber: (val) {
+                      _bloc.add(ValidatePhoneEventsSignIn(val: val ?? ""));
+                    },
+                    passwordController: _passwordController,
+                    phoneController: _phoneController),
               ],
             ),
           ),
