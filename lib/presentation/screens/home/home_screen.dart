@@ -10,7 +10,8 @@ import 'package:gss/presentation/blocs/home/home_states.dart';
 import 'package:gss/presentation/screens/home/widgets/home_body_widget.dart';
 import 'package:gss/presentation/screens/home/widgets/home_bottom_nav_widget.dart';
 import 'package:gss/presentation/screens/home/widgets/home_floating_widget.dart';
-import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
+import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
+import 'package:gss/presentation/widgets/password_text_field_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -62,19 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
               width: MediaQuery
                   .sizeOf(context)
                   .width,
-              child: CustomTextFiledWidget(
-                context: context,
+              child: CustomTextFieldWidget(
                 controller: _searchController,
-                prefixIcon: const Icon(
-                  Icons.search_outlined,
-                  size: 40,
-                  color: Colors.grey,
-                ),
                 text: 'Search by building',
-                validate: (val) {
-                  return null;
-                },
-                type: TextInputType.text,
+                errorMSG: null,
               ),
             ),
             actions: [InkWell(

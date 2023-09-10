@@ -2,13 +2,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
+import 'package:gss/presentation/blocs/sign_in/sign_in_events.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
 import 'package:gss/presentation/screens/sign_in/widgets/sign_in_background_widget.dart';
 import 'package:gss/presentation/screens/sign_in/widgets/sign_in_body_widget.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
   String? _res;
+  final _formKey = GlobalKey<FormState>();
+
+  LogInBloc get bloc => BlocProvider.of<LogInBloc>(context);
+
+  final TextEditingController _passwordController = TextEditingController();
+
+  final TextEditingController _phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LogInBloc, LogInStates>(
@@ -24,7 +38,13 @@ class SignInScreen extends StatelessWidget {
             child: Stack(
               children: [
                 const SignInBackgroundWidget(),
-                SignInBodyWidget(res:_res),
+                SignInBodyWidget(validationMessage:_res,
+                formKey: _formKey,
+                onChanged: (val) {
+                  bloc.add(ValidatePhoneEventsSignIn(val: val));
+                },
+                passwordController: _passwordController,
+                phoneController: _phoneController),
               ],
             ),
           ),

@@ -6,7 +6,9 @@ import 'package:gss/presentation/blocs/sign_up/sign_up_events.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_states.dart';
 import 'package:gss/presentation/screens/home/home_screen.dart';
 import 'package:gss/presentation/screens/sign_in/sign_in_screen.dart';
-import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
+import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
+import 'package:gss/presentation/widgets/email_text_filed_widget.dart';
+import 'package:gss/presentation/widgets/password_text_field_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 
 class SignUpBodyWidget extends StatefulWidget {
@@ -20,7 +22,7 @@ class SignUpBodyWidget extends StatefulWidget {
 }
 
 class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   Icon _suffixIcon = const Icon(
     Icons.remove_red_eye_outlined,
@@ -30,13 +32,13 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
   bool _obscure = true;
   RegisterBloc get bloc=> BlocProvider.of<RegisterBloc>(context);
 
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
-  TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,23 +80,10 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
             const SizedBox(
               height: 35,
             ),
-            CustomTextFiledWidget(
-              context: context,
-              type: TextInputType.text,
+            CustomTextFieldWidget(
               controller: _nameController,
-              prefixIcon: const Icon(
-                Icons.person,
-                color: Colors.indigo,
-              ),
+              errorMSG: "Please Enter Your Username",
               text: "Full Name",
-              validate: (val) {
-                if (val
-                    .toString()
-                    .isEmpty) {
-                  return "Please Enter Your Username";
-                }
-                return null;
-              },
             ),
             const SizedBox(
               height: 15,
@@ -127,54 +116,21 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
               },
               keyboardType: TextInputType.phone,
               onChanged: (val) {
-
-                    bloc.add(ValidatePhoneEvents(val: val));
+                bloc.add(ValidatePhoneEvents(val: val));
               },
             ),
             const SizedBox(
               height: 15,
             ),
-            CustomTextFiledWidget(
-                context: context,
-                type: TextInputType.emailAddress,
+            EmailTextFiledWidget(
                 controller: _emailController,
-                prefixIcon: const Icon(
-                  Icons.email,
-                  color: Colors.indigo,
                 ),
-                text: "Email Address",
-                validate: (val) {
-                  if (!EmailValidator.validate(val)) {
-                    return "Please Enter Your Valid Email Address";
-                  }
-                  return null;
-                }),
             const SizedBox(
               height: 15,
             ),
-            CustomTextFiledWidget(
-              context: context,
-              type: TextInputType.visiblePassword,
+            PasswordTextFieldWidget(
               controller: _passwordController,
-              prefixIcon: const Icon(
-                Icons.lock,
-                color: Colors.indigo,
-              ),
-              text: "Password",
-              validate: (val) {
-                if (val
-                    .toString()
-                    .isEmpty) {
-                  return "Password is Very Short";
-                }
-                return null;
-              },
-              obscure: _obscure,
-              suffixIcon: IconButton(
-                  onPressed: () {
-                    changeVisibilityOfEye();
-                  },
-                  icon: _suffixIcon),
+              onChanged: (value) {},
             ),
             const SizedBox(
               height: 15,

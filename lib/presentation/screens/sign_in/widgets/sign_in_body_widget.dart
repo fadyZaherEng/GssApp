@@ -7,34 +7,41 @@ import 'package:gss/presentation/blocs/sign_in/sign_in_events.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
 import 'package:gss/presentation/screens/home/home_screen.dart';
 import 'package:gss/presentation/screens/sign_up/sign_up_screen.dart';
-import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
+import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
+import 'package:gss/presentation/widgets/password_text_field_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInBodyWidget extends StatefulWidget {
   /// change it to validationMessage
- String ? res;
- SignInBodyWidget({this.res});
+  final GlobalKey<FormState> formKey;
+  void Function(String value)? onChanged;
+  final TextEditingController passwordController ;
+  final TextEditingController phoneController ;
+  String? validationMessage;
+  SignInBodyWidget(
+      {required this.formKey,
+        required this.onChanged,
+        required this.validationMessage,
+        required this.passwordController,
+        required this.phoneController});
+
+
+
 
   @override
   State<SignInBodyWidget> createState() => _SignInBodyWidgetState();
 }
 
 class _SignInBodyWidgetState extends State<SignInBodyWidget> {
-  final _formKey = GlobalKey<FormState>();
 
-  LogInBloc get bloc => BlocProvider.of<LogInBloc>(context);
-
-  final TextEditingController _passwordController = TextEditingController();
-
-  final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
       child: Form(
-        key: _formKey,
+        key: widget.formKey,
         child: Column(
           children: [
             const SizedBox(
@@ -69,74 +76,37 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
             const SizedBox(
               height: 35,
             ),
-            /// create new widget and called it CustomTextFieldWidget and receive controller and on change function only  then call it where what you need
-
-            TextFormField(
-              controller: _phoneController,
-              decoration: InputDecoration(
-                hintStyle: const TextStyle(color: Colors.grey),
-                labelStyle: const TextStyle(
-                    color: Colors.grey, fontSize: 15),
-                label: const Text("Phone Number"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(
-                    color: Color.fromRGBO(226, 226, 226, 1),
-                  ),),
-                enabledBorder:  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Color.fromRGBO(226 ,226, 226,1),
-                    )
-                ),
-              ),
-              style: Theme.of(context).textTheme.bodyText2,
-              validator: (val) {
-                return widget.res;
-              },
-              keyboardType: TextInputType.phone,
-              onChanged: (val) {
-                bloc.add(ValidatePhoneEventsSignIn(val: val));
-              },
+            // create new widget and called it CustomTextFieldWidget and receive controller and on change function only  then call it where what you need
+            CustomTextFieldWidget(
+                controller: widget.phoneController,
+                text: "Phone Number",
+                errorMSG: widget.validationMessage,
+               onChanged:widget.onChanged ,
             ),
+
             const SizedBox(
               height: 35,
             ),
+
             /// Change it to PasswordTextFieldWidget and handle show and hide password inside this widget and receive controller and on change function only  then call it where what you need
-            CustomTextFiledWidget(
-              context: context,
-              type: TextInputType.visiblePassword,
-              controller: _passwordController,
-              prefixIcon: const Icon(
-                Icons.lock,
-                color: Colors.indigo,
-              ),
-              text: "Password",
-              validate: (val) {
-                if (val.toString().isEmpty) {
-                  return "Password is Very Short";
-                }
-                return null;
-              },
-              obscure: _obscure,
-              suffixIcon: IconButton(
-                  onPressed: () {
-                    changeVisibilityOfEye();
-                  },
-                  icon: _suffixIcon),
+            PasswordTextFieldWidget(
+              controller: widget.passwordController,
+              onChanged: (value) {},
             ),
             const SizedBox(
               height: 10,
             ),
             Align(
               alignment: AlignmentDirectional.topEnd,
-              child: TextButton(onPressed: (){
-
-              }, child:const Text("Forget Password?",style: TextStyle(
-                  color: Color.fromRGBO(3, 106, 130, 1),
-                  fontWeight: FontWeight.normal,
-                  fontSize: 13
-              ),)),
+              child: TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    "Forget Password?",
+                    style: TextStyle(
+                        color: Color.fromRGBO(3, 106, 130, 1),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 13),
+                  )),
             ),
             const SizedBox(
               height: 45,
@@ -144,17 +114,15 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius:
-                BorderRadiusDirectional.circular(10),
+                borderRadius: BorderRadiusDirectional.circular(10),
               ),
               clipBehavior: Clip.antiAlias,
               child: MaterialButton(
-
                 height: 50,
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
+                  if (widget.formKey.currentState!.validate()) {
                     //sign in
-                    navigateToWithoutReturn(context,const MyHomePage());
+                    navigateToWithoutReturn(context, const MyHomePage());
                   }
                 },
                 color: const Color.fromRGBO(3, 106, 130, 1),
@@ -176,13 +144,11 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                   const Text('Don\'t have an account?'),
                   TextButton(
                     onPressed: () {
-                      navigateToWithReturn(
-                          context,  SignUpScreen());
+                      navigateToWithReturn(context, SignUpScreen());
                     },
                     child: const Text(
                       "Create Account",
-                      style: TextStyle(
-                          color: Color.fromRGBO(3, 106, 130, 1)),
+                      style: TextStyle(color: Color.fromRGBO(3, 106, 130, 1)),
                     ),
                   ),
                 ],
@@ -192,26 +158,5 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
         ),
       ),
     );
-  }
-  /// sayed remove it and create two methods one for check _obscure and two for change icon
-  Icon _suffixIcon = const Icon(
-    Icons.remove_red_eye_outlined,
-    color: Colors.grey,
-  );
-  bool _obscure = true;
-  void changeVisibilityOfEye() {
-    _obscure = !_obscure;
-    if (_obscure) {
-      _suffixIcon = const Icon(
-        Icons.remove_red_eye_outlined,
-        color: Colors.grey,
-      );
-    } else {
-      _suffixIcon = const Icon(
-        Icons.visibility_off_outlined,
-        color: Colors.grey,
-      );
-    }
-    setState(() {});
   }
 }
