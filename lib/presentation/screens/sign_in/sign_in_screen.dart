@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
-import 'package:gss/presentation/screens/sign_in/widgets/sign_in_background.dart';
-import 'package:gss/presentation/screens/sign_in/widgets/sign_in_body.dart';
+import 'package:gss/presentation/screens/sign_in/widgets/sign_in_background_widget.dart';
+import 'package:gss/presentation/screens/sign_in/widgets/sign_in_body_widget.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -23,9 +23,9 @@ class SignInScreen extends StatelessWidget {
           body: SafeArea(
             child: Stack(
               children: [
-                const SignInBackground(),
+                const SignInBackgroundWidget(),
                 ///Don't check here , jst send a value what we need
-                SignInBody(res:_res),
+                SignInBodyWidget(res:_res),
               ],
             ),
           ),

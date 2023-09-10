@@ -9,17 +9,17 @@ import 'package:gss/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 
-class SignUpBody extends StatefulWidget {
+class SignUpBodyWidget extends StatefulWidget {
   String?res;
 
 
-  SignUpBody({this.res});
+  SignUpBodyWidget({this.res});
 
   @override
-  State<SignUpBody> createState() => _SignUpBodyState();
+  State<SignUpBodyWidget> createState() => _SignUpBodyWidgetState();
 }
 
-class _SignUpBodyState extends State<SignUpBody> {
+class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
   var _formKey = GlobalKey<FormState>();
 
   Icon _suffixIcon = const Icon(

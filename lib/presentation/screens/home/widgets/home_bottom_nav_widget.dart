@@ -6,13 +6,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gss/presentation/blocs/home/home_bloc.dart';
 import 'package:gss/presentation/blocs/home/home_events.dart';
 
-class HomeBottomNav extends StatelessWidget {
+class HomeBottomNavWidget extends StatelessWidget {
   final BuildContext context;
   final int idx;
   final Color _active = const Color.fromRGBO(3, 106, 130, 1);
   final Color _disActive = Colors.grey;
   AppBloc get bloc=> BlocProvider.of<AppBloc>(context);
-  HomeBottomNav({super.key, required this.context,required this.idx});
+  HomeBottomNavWidget({super.key, required this.context,required this.idx});
 
   @override
   Widget build(BuildContext context) {

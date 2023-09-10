@@ -10,143 +10,145 @@ class HomeListItem extends StatelessWidget {
   final oCcy = NumberFormat("#,##0", "en_US");
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * 0.35,
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(255, 255, 255, 1),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(
-            horizontal: 10.0, vertical: 10),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 152,
-              child: InkWell(
-                onTap: () {},
-                child: Stack(
-                  children: [
-                    stackFirstPart(context, towerModel),
-                    InkWell(
-                      onTap: () {},
-                      child: Align(
-                        alignment: AlignmentDirectional.bottomEnd,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: CircleAvatar(
-                            backgroundColor:
-                            const Color.fromRGBO(3, 106, 130, 1),
-                            child: InkWell(
-                                onTap: () {
-                                  //showToast(message: "ic_add_favourite", state: ToastState.SUCCESS);
-                                },
-                                child: SvgPicture.asset(
-                                    'assets/svg/ic_add_favourite.svg')),
+    return Center(
+      child: Container(
+        width: double.infinity,
+        height: MediaQuery.sizeOf(context).height * 0.4,
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(255, 255, 255, 1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: 10.0, vertical: 10),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 152,
+                child: InkWell(
+                  onTap: () {},
+                  child: Stack(
+                    children: [
+                      stackFirstPart(context, towerModel),
+                      InkWell(
+                        onTap: () {},
+                        child: Align(
+                          alignment: AlignmentDirectional.bottomEnd,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: CircleAvatar(
+                              backgroundColor:
+                              const Color.fromRGBO(3, 106, 130, 1),
+                              child: InkWell(
+                                  onTap: () {
+                                    //showToast(message: "ic_add_favourite", state: ToastState.SUCCESS);
+                                  },
+                                  child: SvgPicture.asset(
+                                      'assets/svg/ic_add_favourite.svg')),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Row(
-              children: [
-                //here money
-                Text(
-                  '${oCcy.format(towerModel.pounds).toString()} AED',
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-                const Text(
-                  ' / Month',
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 3,
-            ),
-            Row(
-              children: [
-                SvgPicture.asset('assets/svg/ic_location_card.svg'),
-                Text(
-                  ' ${towerModel.address.toString()}',
-                  style: const TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 3,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                getRowData("ic_bed", '${towerModel.beds} Beds'),
-                const SizedBox(
-                  width: 10,
-                ),
-                getRowData("ic_bath", '${towerModel.bath} Bath'),
-                const SizedBox(
-                  width: 10,
-                ),
-                getRowData("ic_measure", '${towerModel.sqft} Sqft'),
-                const SizedBox(
-                  width: 10,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Container(
-              height: 0.6,
-              width: double.infinity,
-              color: Colors.grey,
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "${towerModel.numOfDay} Days ago",
-                  style: const TextStyle(
-                      color: Color.fromRGBO(
-                        3,
-                        106,
-                        130,
-                        1,
+              Row(
+                children: [
+                  //here money
+                  Text(
+                    '${oCcy.format(towerModel.pounds).toString()} AED',
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  const Text(
+                    ' / Month',
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset('assets/svg/ic_location_card.svg'),
+                  Text(
+                    ' ${towerModel.address.toString()}',
+                    style: const TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  getRowData("ic_bed", '${towerModel.beds} Beds'),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  getRowData("ic_bath", '${towerModel.bath} Bath'),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  getRowData("ic_measure", '${towerModel.sqft} Sqft'),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Container(
+                height: 0.6,
+                width: double.infinity,
+                color: Colors.grey,
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${towerModel.numOfDay} Days ago",
+                    style: const TextStyle(
+                        color: Color.fromRGBO(
+                          3,
+                          106,
+                          130,
+                          1,
+                        ),
+                        fontSize: 12),
+                  ),
+                  Row(
+                    children: [
+                      getCircleAvatar('ic_phone'),
+                      const SizedBox(
+                        width: 10,
                       ),
-                      fontSize: 12),
-                ),
-                Row(
-                  children: [
-                    getCircleAvatar('ic_phone'),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    getCircleAvatar('ic_email'),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    getCircleAvatar('ic_whatsapp'),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                      getCircleAvatar('ic_email'),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      getCircleAvatar('ic_whatsapp'),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
