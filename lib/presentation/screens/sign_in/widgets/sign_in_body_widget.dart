@@ -11,13 +11,13 @@ import 'package:gss/utils/navigate_without_return.dart';
 class SignInBodyWidget extends StatefulWidget {
   /// change it to validationMessage
   final GlobalKey<FormState> formKey;
-  void Function(String value)? onChanged;
+  Function(String?)? onChanged;
   final TextEditingController passwordController ;
   final TextEditingController phoneController ;
   String? validationMessage;
   SignInBodyWidget(
       {required this.formKey,
-        required this.onChanged,
+         this.onChanged,
         required this.validationMessage,
         required this.passwordController,
         required this.phoneController});

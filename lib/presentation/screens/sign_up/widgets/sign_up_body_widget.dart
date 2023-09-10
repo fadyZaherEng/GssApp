@@ -10,7 +10,7 @@ import 'package:gss/utils/navigate_with_return.dart';
 class SignUpBodyWidget extends StatefulWidget {
   String? res;
   final GlobalKey<FormState> formKey;
-  void Function(String value)? onChangedPhone;
+  Function(String?)? onChanged;
   final TextEditingController passwordController;
 
   final TextEditingController emailController;
@@ -26,7 +26,7 @@ class SignUpBodyWidget extends StatefulWidget {
       required this.formKey,
       required this.emailController,
       required this.nameController,
-      required this.onChangedPhone});
+      required this.onChanged});
 
   @override
   State<SignUpBodyWidget> createState() => _SignUpBodyWidgetState();
@@ -85,7 +85,7 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
               controller: widget.phoneController,
               text: "Phone Number",
               errorMSG: widget.res,
-              onChanged: widget.onChangedPhone,
+              onChanged: widget.onChanged,
             ),
             const SizedBox(
               height: 15,

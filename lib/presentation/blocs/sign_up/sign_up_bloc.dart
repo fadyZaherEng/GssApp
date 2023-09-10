@@ -44,10 +44,9 @@ class RegisterBloc extends Bloc<RegisterEvents,RegisterStates>{
 
   FutureOr<void> _onValidate(ValidatePhoneEvents event, Emitter<RegisterStates> emit)async {
     emit(InitialRegisterStates());
-
    await Future.delayed(const Duration(seconds: 1))
-    .then((value) {
-      checkValidateMobile(event.val).then((value) {
+    .then((value)async {
+    await  checkValidateMobile(event.val).then((value) {
         emit(ValidatePhoneStates(res: value));
       }).catchError((onError){
         emit(ErrorRegisterStates());

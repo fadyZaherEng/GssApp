@@ -36,12 +36,13 @@ class _SignInScreenState extends State<SignInScreen> {
           resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Stack(
-              children: [
+              children:
+              [
                 const SignInBackgroundWidget(),
                 SignInBodyWidget(validationMessage:_res,
                 formKey: _formKey,
                 onChanged: (val) {
-                  bloc.add(ValidatePhoneEventsSignIn(val: val));
+                  bloc.add(ValidatePhoneEventsSignIn(val: val??""));
                 },
                 passwordController: _passwordController,
                 phoneController: _phoneController),

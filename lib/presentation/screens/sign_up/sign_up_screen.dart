@@ -45,8 +45,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 res:_res,
                 phoneController: _phoneController,
                 passwordController: _passwordController,
-                onChangedPhone:  (val) {
-                  bloc.add(ValidatePhoneEvents(val: val));
+                onChanged:  (val) {
+                  bloc.add(ValidatePhoneEvents(val: val??""));
                 }, emailController: _emailController,
                   formKey: _formKey,
                   nameController: _nameController,

@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 
 class PhoneTextFieldWidget extends StatelessWidget {
   TextEditingController controller;
-  void Function(String value)? onChanged;
+  //void Function(String value)? onChanged;
+  //FormFieldValidator validate;
+  Function(String?)? onChanged;
   String? errorMSG;
   String text;
   PhoneTextFieldWidget({super.key,
-    required this.controller, this.onChanged,required this.text,required this.errorMSG
+    required this.controller,
+    this.onChanged,
+    required this.text,
+    required this.errorMSG
   });
 
   @override
