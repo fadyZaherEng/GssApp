@@ -29,7 +29,7 @@ class _SignInBodyState extends State<SignInBody> {
     Icons.remove_red_eye_outlined,
     color: Colors.grey,
   );
-  LogInBloc get bloc=> BlocProvider.of<LogInBloc>(context);
+  LogInBloc get bloc => BlocProvider.of<LogInBloc>(context);
 
   bool _obscure = true;
 
