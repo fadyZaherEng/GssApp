@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,10 +8,11 @@ import 'package:gss/presentation/blocs/home/home_events.dart';
 
 class HomeBottomNav extends StatelessWidget {
   final BuildContext context;
-  final dynamic changeNavState;
-  Color active = const Color.fromRGBO(3, 106, 130, 1);
-  Color disActive = Colors.grey;
-  HomeBottomNav({required this.context,required this.changeNavState});
+  final int idx;
+  final Color _active = const Color.fromRGBO(3, 106, 130, 1);
+  final Color _disActive = Colors.grey;
+  AppBloc get bloc=> BlocProvider.of<AppBloc>(context);
+  HomeBottomNav({super.key, required this.context,required this.idx});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class HomeBottomNav extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: [
         BottomNavigationBarItem(
-            icon: (changeNavState.idx == 0)
+            icon: (idx == 0)
                 ? Container(
               margin:
               const EdgeInsetsDirectional.symmetric(horizontal: 8),
@@ -35,7 +38,7 @@ class HomeBottomNav extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       'assets/svg/ic_bar_search_fill.svg',
-                      color: changeNavState.idx == 0 ? active : disActive,
+                      color: idx == 0 ? _active : _disActive,
                     ),
                     const SizedBox(
                       width: 5,
@@ -43,9 +46,9 @@ class HomeBottomNav extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          color: changeNavState.idx == 0
-                              ? active
-                              : disActive),
+                          color: idx == 0
+                              ?_active
+                              : _disActive),
                     )
                   ],
                 ),
@@ -58,7 +61,7 @@ class HomeBottomNav extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     'assets/svg/ic_bar_search_fill.svg',
-                    color: changeNavState.idx == 0 ? active : disActive,
+                    color: idx == 0 ?_active : _disActive,
                   ),
                   const SizedBox(
                     width: 5,
@@ -67,14 +70,14 @@ class HomeBottomNav extends StatelessWidget {
                     "Search",
                     style: TextStyle(
                         color:
-                        changeNavState.idx == 0 ? active : disActive),
+                        idx == 0 ?_active : _disActive),
                   )
                 ],
               ),
             ),
             label: ""),
         BottomNavigationBarItem(
-            icon: (changeNavState.idx == 1)
+            icon: (idx == 1)
                 ? Container(
               margin:
               const EdgeInsetsDirectional.symmetric(horizontal: 8),
@@ -89,16 +92,16 @@ class HomeBottomNav extends StatelessWidget {
                   children: [
                     SvgPicture.asset('assets/svg/ic_bar_save.svg',
                         color:
-                        changeNavState.idx == 1 ? active : disActive),
+                        idx == 1 ?_active : _disActive),
                     const SizedBox(
                       width: 5,
                     ),
                     Text(
                       "Saved",
                       style: TextStyle(
-                          color: changeNavState.idx == 1
-                              ? active
-                              : disActive),
+                          color: idx == 1
+                              ?_active
+                              : _disActive),
                     )
                   ],
                 ),
@@ -111,7 +114,7 @@ class HomeBottomNav extends StatelessWidget {
                 children: [
                   SvgPicture.asset('assets/svg/ic_bar_save.svg',
                       color:
-                      changeNavState.idx == 1 ? active : disActive),
+                      idx == 1 ?_active : _disActive),
                   const SizedBox(
                     width: 5,
                   ),
@@ -119,14 +122,14 @@ class HomeBottomNav extends StatelessWidget {
                     "Saved",
                     style: TextStyle(
                         color:
-                        changeNavState.idx == 1 ? active : disActive),
+                        idx == 1 ?_active : _disActive),
                   )
                 ],
               ),
             ),
             label: ""),
         BottomNavigationBarItem(
-            icon: (changeNavState.idx == 2)
+            icon: (idx == 2)
                 ? Container(
               margin:
               const EdgeInsetsDirectional.symmetric(horizontal: 8),
@@ -141,16 +144,16 @@ class HomeBottomNav extends StatelessWidget {
                   children: [
                     SvgPicture.asset('assets/svg/ic_bar_more.svg',
                         color:
-                        changeNavState.idx == 2 ? active : disActive),
+                        idx == 2 ?_active : _disActive),
                     const SizedBox(
                       width: 5,
                     ),
                     Text(
                       "More",
                       style: TextStyle(
-                          color: changeNavState.idx == 2
-                              ? active
-                              : disActive),
+                          color: idx == 2
+                              ?_active
+                              : _disActive),
                     )
                   ],
                 ),
@@ -163,7 +166,7 @@ class HomeBottomNav extends StatelessWidget {
                 children: [
                   SvgPicture.asset('assets/svg/ic_bar_more.svg',
                       color:
-                      changeNavState.idx == 2 ? active : disActive),
+                      idx == 2 ?_active : _disActive),
                   const SizedBox(
                     width: 5,
                   ),
@@ -171,7 +174,7 @@ class HomeBottomNav extends StatelessWidget {
                     "More",
                     style: TextStyle(
                         color:
-                        changeNavState.idx == 2 ? active : disActive),
+                        idx == 2 ?_active : _disActive),
                   )
                 ],
               ),
@@ -180,10 +183,10 @@ class HomeBottomNav extends StatelessWidget {
       ],
       selectedIconTheme:
       const IconThemeData(color: Color.fromRGBO(3, 106, 130, 0.08)),
-      currentIndex: changeNavState.idx,
+      currentIndex: idx,
       onTap: (idx) {
-        //changeNavState.idxmNav(idx);
-        context.read<AppBloc>().add(GetChangeNavBottomEvents(idx: idx));
+        //idxmNav(idx);
+        bloc.add(GetChangeNavBottomEvents(idx: idx));
       },
     );
   }

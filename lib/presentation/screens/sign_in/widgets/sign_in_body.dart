@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
@@ -11,31 +13,32 @@ import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInBody extends StatefulWidget {
   var state;
-  SignInBody(this.state);
+  SignInBody(this.state, {super.key});
 
   @override
   State<SignInBody> createState() => _SignInBodyState();
 }
 
 class _SignInBodyState extends State<SignInBody> {
-  var formKey = GlobalKey<FormState>();
-  Icon suffixIcon = const Icon(
+  final _formKey = GlobalKey<FormState>();
+  Icon _suffixIcon = const Icon(
     Icons.remove_red_eye_outlined,
     color: Colors.grey,
   );
+  LogInBloc get bloc=> BlocProvider.of<LogInBloc>(context);
 
-  bool obscure = true;
+  bool _obscure = true;
 
-  var passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  var phoneController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
       child: Form(
-        key: formKey,
+        key: _formKey,
         child: Column(
           children: [
             const SizedBox(
@@ -71,7 +74,7 @@ class _SignInBodyState extends State<SignInBody> {
               height: 35,
             ),
             TextFormField(
-              controller: phoneController,
+              controller: _phoneController,
               decoration: InputDecoration(
                 hintStyle: const TextStyle(color: Colors.grey),
                 labelStyle: const TextStyle(
@@ -98,7 +101,7 @@ class _SignInBodyState extends State<SignInBody> {
               },
               keyboardType: TextInputType.phone,
               onChanged: (val) {
-                context.read<LogInBloc>().add(ValidatePhoneEventsSignIn(val: val));
+                bloc.add(ValidatePhoneEventsSignIn(val: val));
               },
             ),
             const SizedBox(
@@ -107,7 +110,7 @@ class _SignInBodyState extends State<SignInBody> {
             CustomTextFiledWidget(
               context: context,
               type: TextInputType.visiblePassword,
-              controller: passwordController,
+              controller: _passwordController,
               prefixIcon: const Icon(
                 Icons.lock,
                 color: Colors.indigo,
@@ -119,12 +122,12 @@ class _SignInBodyState extends State<SignInBody> {
                 }
                 return null;
               },
-              obscure: obscure,
+              obscure: _obscure,
               suffixIcon: IconButton(
                   onPressed: () {
                     changeVisibilityOfEye();
                   },
-                  icon: suffixIcon),
+                  icon: _suffixIcon),
             ),
             const SizedBox(
               height: 10,
@@ -153,7 +156,7 @@ class _SignInBodyState extends State<SignInBody> {
 
                 height: 50,
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate()) {
                     //sign in
                     navigateToWithoutReturn(context,const MyHomePage());
                   }
@@ -196,14 +199,14 @@ class _SignInBodyState extends State<SignInBody> {
   }
 
   void changeVisibilityOfEye() {
-    obscure = !obscure;
-    if (obscure) {
-      suffixIcon = const Icon(
+    _obscure = !_obscure;
+    if (_obscure) {
+      _suffixIcon = const Icon(
         Icons.remove_red_eye_outlined,
         color: Colors.grey,
       );
     } else {
-      suffixIcon = const Icon(
+      _suffixIcon = const Icon(
         Icons.visibility_off_outlined,
         color: Colors.grey,
       );

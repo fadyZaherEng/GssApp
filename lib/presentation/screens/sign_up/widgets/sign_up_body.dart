@@ -19,29 +19,30 @@ class SignUpBody extends StatefulWidget {
 }
 
 class _SignUpBodyState extends State<SignUpBody> {
-  var formKey = GlobalKey<FormState>();
+  var _formKey = GlobalKey<FormState>();
 
-  Icon suffixIcon = const Icon(
+  Icon _suffixIcon = const Icon(
     Icons.remove_red_eye_outlined,
     color: Colors.grey,
   );
 
-  bool obscure = true;
+  bool _obscure = true;
+  RegisterBloc get bloc=> BlocProvider.of<RegisterBloc>(context);
 
-  var passwordController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
-  var emailController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
 
-  var nameController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
 
-  var phoneController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
       child: Form(
-        key: formKey,
+        key: _formKey,
         child: Column(
           children: [
             const SizedBox(
@@ -79,7 +80,7 @@ class _SignUpBodyState extends State<SignUpBody> {
             CustomTextFiledWidget(
               context: context,
               type: TextInputType.text,
-              controller: nameController,
+              controller: _nameController,
               prefixIcon: const Icon(
                 Icons.person,
                 color: Colors.indigo,
@@ -98,7 +99,7 @@ class _SignUpBodyState extends State<SignUpBody> {
               height: 15,
             ),
             TextFormField(
-              controller: phoneController,
+              controller: _phoneController,
               decoration: InputDecoration(
                 hintStyle: const TextStyle(color: Colors.grey),
                 labelStyle: const TextStyle(
@@ -128,9 +129,8 @@ class _SignUpBodyState extends State<SignUpBody> {
               },
               keyboardType: TextInputType.phone,
               onChanged: (val) {
-                context
-                    .read<RegisterBloc>()
-                    .add(ValidatePhoneEvents(val: val));
+
+                    bloc.add(ValidatePhoneEvents(val: val));
               },
             ),
             const SizedBox(
@@ -139,7 +139,7 @@ class _SignUpBodyState extends State<SignUpBody> {
             CustomTextFiledWidget(
                 context: context,
                 type: TextInputType.emailAddress,
-                controller: emailController,
+                controller: _emailController,
                 prefixIcon: const Icon(
                   Icons.email,
                   color: Colors.indigo,
@@ -157,7 +157,7 @@ class _SignUpBodyState extends State<SignUpBody> {
             CustomTextFiledWidget(
               context: context,
               type: TextInputType.visiblePassword,
-              controller: passwordController,
+              controller: _passwordController,
               prefixIcon: const Icon(
                 Icons.lock,
                 color: Colors.indigo,
@@ -171,12 +171,12 @@ class _SignUpBodyState extends State<SignUpBody> {
                 }
                 return null;
               },
-              obscure: obscure,
+              obscure: _obscure,
               suffixIcon: IconButton(
                   onPressed: () {
                     changeVisibilityOfEye();
                   },
-                  icon: suffixIcon),
+                  icon: _suffixIcon),
             ),
             const SizedBox(
               height: 15,
@@ -218,7 +218,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                 //minWidth: double.infinity,
                 onPressed: () {
                   //register
-                  if (formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate()) {
                     //sign up
                     FocusScope.of(context).unfocus();
                     navigateToWithReturn(
@@ -262,14 +262,14 @@ class _SignUpBodyState extends State<SignUpBody> {
   }
 
   void changeVisibilityOfEye() {
-    obscure = !obscure;
-    if (obscure) {
-      suffixIcon = const Icon(
+    _obscure = !_obscure;
+    if (_obscure) {
+      _suffixIcon = const Icon(
         Icons.remove_red_eye_outlined,
         color: Colors.grey,
       );
     } else {
-      suffixIcon = const Icon(
+      _suffixIcon = const Icon(
         Icons.visibility_off_outlined,
         color: Colors.grey,
       );

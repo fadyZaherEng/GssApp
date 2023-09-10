@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_events.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
@@ -5,24 +7,8 @@ import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
 
 class LogInBloc extends Bloc<LogInEvents,LogInStates>{
   LogInBloc():super(InitialLogINStates()){
-    //login
-    on<AppLogInEvent>((event, emit) {
-      emit(LoadingLogINStates());
-      signIn().then((value) {
-        emit(SuccessLogINStates());
-      }).catchError((onError){
-        emit(ErrorLogINStates());
-      });
-    });
-    //phone
-    on<ValidatePhoneEventsSignIn>((event, emit) async{
-      emit(LoadingLogINStates());
-      checkValidateMobile(event.val).then((value) {
-        emit(ValidatePhoneLoginStates(res: value));
-      }).catchError((onError){
-        emit(ErrorLogINStates());
-      });
-    });
+    on<AppLogInEvent>(_onAppLogInEvent);
+   on<ValidatePhoneEventsSignIn>(_onValidatePhoneEventsSignIn);
   }
   Future<void> signIn()async{
     //here register methods
@@ -39,5 +25,32 @@ class LogInBloc extends Bloc<LogInEvents,LogInStates>{
       return 'Please enter valid mobile number';
     }
     return null;
+  }
+
+  FutureOr<void> _onAppLogInEvent(AppLogInEvent event, Emitter<LogInStates> emit) {
+    emit(LoadingLogINStates());
+    Future.delayed(Duration(seconds: 2))
+        .then((value) {
+      emit(SuccessLogINStates());
+    })
+        .catchError((onError){
+      emit(ErrorLogINStates());
+    });
+  }
+
+  FutureOr<void> _onValidatePhoneEventsSignIn(ValidatePhoneEventsSignIn event, Emitter<LogInStates> emit) {
+    emit(LoadingLogINStates());
+
+    Future.delayed(Duration(seconds: 2))
+        .then((value){
+      checkValidateMobile(event.val).then((value) {
+        emit(ValidatePhoneLoginStates(res: value));
+      }).catchError((onError){
+        emit(ErrorLogINStates());
+      });
+    })
+        .catchError((onError){
+      emit(ErrorLogINStates());
+    });
   }
 }

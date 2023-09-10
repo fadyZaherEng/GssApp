@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 class HomeListItem extends StatelessWidget {
   TowerModel towerModel;
   BuildContext context;
-  HomeListItem({required this.context,required this.towerModel});
+  HomeListItem({super.key, required this.context,required this.towerModel});
   final oCcy = NumberFormat("#,##0", "en_US");
   @override
   Widget build(BuildContext context) {
@@ -151,7 +151,7 @@ class HomeListItem extends StatelessWidget {
       ),
     );
   }
-  Widget getCircleAvatar(String path) {
+ Widget getCircleAvatar(String path) {
     return InkWell(
       onTap: () {
         // showToast(message: path, state: ToastState.SUCCESS);
@@ -166,8 +166,7 @@ class HomeListItem extends StatelessWidget {
       ),
     );
   }
-
-  getRowData(String name, String path) {
+ Widget getRowData(String name, String path) {
     return Row(
       children: [
         SizedBox(
@@ -185,7 +184,7 @@ class HomeListItem extends StatelessWidget {
       ],
     );
   }
-  stackFirstPart(context, TowerModel towerModel) {
+ Widget stackFirstPart(context, TowerModel towerModel) {
     return Container(
       width: 327,
       height: 135,

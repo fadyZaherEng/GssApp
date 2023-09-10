@@ -2,23 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gss/domain/models/tower.dart';
 import 'package:gss/presentation/blocs/home/home_states.dart';
 import 'package:gss/presentation/screens/home/widgets/home_list.dart';
 
 class HomeBody extends StatelessWidget {
-  List<dynamic> options = [
-    'assets/svg/ic_filter.svg',
-    'Buy',
-    'Property Type',
-    'Beds',
-    'Price'
-  ];
-  AppGetDataSuccessState appGetDataSuccessState;
 
-  HomeBody(this.appGetDataSuccessState);
+  List<TowerModel>towers;
+
+  HomeBody({required this.towers});
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> _options = [
+      'assets/svg/ic_filter.svg',
+      'Buy',
+      'Property Type',
+      'Beds',
+      'Price'
+    ];
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 10.0),
       child: Column(
@@ -44,24 +46,24 @@ class HomeBody extends StatelessWidget {
                       ),
                     );
                   }
-                  return getIconTheme(options[idx]);
+                  return _getIconTheme(_options[idx]);
                 },
                 separatorBuilder: (context, idx) {
                   return const SizedBox(
                     width: 15,
                   );
                 },
-                itemCount: options.length),
+                itemCount: _options.length),
           ),
           const SizedBox(
             height: 8,
           ),
-          HomeList(appGetDataSuccessState),
+          HomeList(towers:towers),
         ],
       ),
     );
   }
-  getIconTheme(String data) {
+  Widget _getIconTheme(String data) {
     return InkWell(
       onTap: () {},
       child: Container(

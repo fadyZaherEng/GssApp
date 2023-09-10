@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gss/domain/models/tower.dart';
 import 'package:gss/presentation/blocs/home/home_states.dart';
 import 'package:gss/presentation/screens/home/widgets/home_list_item.dart';
 
 class HomeList extends StatelessWidget {
-  AppGetDataSuccessState appGetDataSuccessState;
+  List<TowerModel>towers=[];
 
-  HomeList(this.appGetDataSuccessState);
+  HomeList({required this.towers});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +14,9 @@ class HomeList extends StatelessWidget {
       child: ListView.separated(
         itemBuilder: (context, idx) {
           return HomeListItem(
-              towerModel: appGetDataSuccessState.towers[idx], context: context);
+              towerModel: towers[idx], context: context);
         },
-        itemCount: appGetDataSuccessState.towers.length,
+        itemCount: towers.length,
         separatorBuilder: (context, idx) =>
         const SizedBox(
           height: 15,

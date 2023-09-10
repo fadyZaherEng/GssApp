@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_events.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_states.dart';
@@ -5,22 +7,8 @@ import 'package:gss/presentation/blocs/sign_up/sign_up_states.dart';
 
 class RegisterBloc extends Bloc<RegisterEvents,RegisterStates>{
   RegisterBloc():super(InitialRegisterStates()){
-    on<SignUpEvents>((event, emit) {
-      emit(LoadingRegisterStates());
-      signUp().then((value) {
-        emit(SuccessRegisterStates());
-      }).catchError((onError){
-        emit(ErrorRegisterStates());
-      });
-    });
-    on<ValidatePhoneEvents>((event, emit) async{
-      emit(InitialRegisterStates());
-      checkValidateMobile(event.val).then((value) {
-        emit(ValidatePhoneStates(res: value));
-      }).catchError((onError){
-        emit(ErrorRegisterStates());
-      });
-    });
+    on<SignUpEvents>(_onSignUpEvents);
+    on<ValidatePhoneEvents>(_onValidate);
   }
   Future<void> signUp()async{
     //here register methods
@@ -37,5 +25,36 @@ class RegisterBloc extends Bloc<RegisterEvents,RegisterStates>{
       return 'Please enter valid mobile number';
     }
     return null;
+  }
+
+  FutureOr<void> _onSignUpEvents(SignUpEvents event, Emitter<RegisterStates> emit) {
+    emit(LoadingRegisterStates());
+    Future.delayed(Duration(seconds: 2))
+    .then((value) {
+      signUp().then((value) {
+        emit(SuccessRegisterStates());
+      }).catchError((onError){
+        emit(ErrorRegisterStates());
+      });
+    })
+    .catchError((onError){
+      emit(ErrorRegisterStates());
+    });
+  }
+
+  FutureOr<void> _onValidate(ValidatePhoneEvents event, Emitter<RegisterStates> emit) {
+    emit(InitialRegisterStates());
+
+    Future.delayed(Duration(seconds: 2))
+    .then((value) {
+      checkValidateMobile(event.val).then((value) {
+        emit(ValidatePhoneStates(res: value));
+      }).catchError((onError){
+        emit(ErrorRegisterStates());
+      });
+    })
+    .catchError((onError){
+      emit(ErrorRegisterStates());
+    });
   }
 }
