@@ -23,16 +23,7 @@ class SignInBodyWidget extends StatefulWidget {
 class _SignInBodyWidgetState extends State<SignInBodyWidget> {
   final _formKey = GlobalKey<FormState>();
 
-
-  /// We don't need it's icon
-  /// do two methods one for change _obscure bool and one for change icon by check _obscure
-  Icon _suffixIcon = const Icon(
-    Icons.remove_red_eye_outlined,
-    color: Colors.grey,
-  );
   LogInBloc get bloc => BlocProvider.of<LogInBloc>(context);
-
-  bool _obscure = true;
 
   final TextEditingController _passwordController = TextEditingController();
 
@@ -202,7 +193,11 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
       ),
     );
   }
-
+  Icon _suffixIcon = const Icon(
+    Icons.remove_red_eye_outlined,
+    color: Colors.grey,
+  );
+  bool _obscure = true;
   void changeVisibilityOfEye() {
     _obscure = !_obscure;
     if (_obscure) {
