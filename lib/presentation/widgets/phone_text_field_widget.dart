@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFieldWidget extends StatelessWidget {
+class PhoneTextFieldWidget extends StatelessWidget {
   TextEditingController controller;
+  void Function(String value)? onChanged;
   String? errorMSG;
   String text;
-  CustomTextFieldWidget({super.key,
-   required this.controller,required this.text,required this.errorMSG
-});
+  PhoneTextFieldWidget({super.key,
+    required this.controller, this.onChanged,required this.text,required this.errorMSG
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,10 @@ class CustomTextFieldWidget extends StatelessWidget {
       ),
       style: Theme.of(context).textTheme.bodyMedium,
       validator: (val) {
-          if(val.toString().isEmpty){
-            return errorMSG;
-          }
-          return null;
+        return errorMSG;
       },
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.phone,
+      onChanged: onChanged,
     );
   }
 }

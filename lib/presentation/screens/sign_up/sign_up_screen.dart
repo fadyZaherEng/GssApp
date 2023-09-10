@@ -2,13 +2,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gss/presentation/blocs/sign_up/sign_up_events.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_states.dart';
 import 'package:gss/presentation/screens/sign_up/widgets/sign_up_background_widget.dart';
 import 'package:gss/presentation/screens/sign_up/widgets/sign_up_body_widget.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   String? _res;
+
+  final _formKey = GlobalKey<FormState>();
+
+  RegisterBloc get bloc=> BlocProvider.of<RegisterBloc>(context);
+
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc, RegisterStates>(
@@ -24,7 +41,16 @@ class SignUpScreen extends StatelessWidget {
             child: Stack(
               children: [
                 const SignUpBackgroundWidget(),
-                SignUpBodyWidget(res:_res),
+                SignUpBodyWidget(
+                res:_res,
+                phoneController: _phoneController,
+                passwordController: _passwordController,
+                onChangedPhone:  (val) {
+                  bloc.add(ValidatePhoneEvents(val: val));
+                }, emailController: _emailController,
+                  formKey: _formKey,
+                  nameController: _nameController,
+                ),
               ],
             ),
           ),

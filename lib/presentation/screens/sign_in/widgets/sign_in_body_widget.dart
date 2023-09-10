@@ -1,14 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
-import 'package:gss/presentation/blocs/sign_in/sign_in_events.dart';
-import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
 import 'package:gss/presentation/screens/home/home_screen.dart';
 import 'package:gss/presentation/screens/sign_up/sign_up_screen.dart';
-import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
 import 'package:gss/presentation/widgets/password_text_field_widget.dart';
+import 'package:gss/presentation/widgets/phone_text_field_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 import 'package:gss/utils/navigate_without_return.dart';
 
@@ -25,10 +21,6 @@ class SignInBodyWidget extends StatefulWidget {
         required this.validationMessage,
         required this.passwordController,
         required this.phoneController});
-
-
-
-
   @override
   State<SignInBodyWidget> createState() => _SignInBodyWidgetState();
 }
@@ -77,7 +69,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
               height: 35,
             ),
             // create new widget and called it CustomTextFieldWidget and receive controller and on change function only  then call it where what you need
-            CustomTextFieldWidget(
+            PhoneTextFieldWidget(
                 controller: widget.phoneController,
                 text: "Phone Number",
                 errorMSG: widget.validationMessage,
