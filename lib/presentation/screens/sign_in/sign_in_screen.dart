@@ -24,7 +24,6 @@ class SignInScreen extends StatelessWidget {
             child: Stack(
               children: [
                 const SignInBackgroundWidget(),
-                ///Don't check here , jst send a value what we need
                 SignInBodyWidget(res:_res),
               ],
             ),
