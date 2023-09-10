@@ -21,6 +21,10 @@ class SignInBody extends StatefulWidget {
 
 class _SignInBodyState extends State<SignInBody> {
   final _formKey = GlobalKey<FormState>();
+
+
+  /// We don't need it's icon
+  /// do two methods one for change _obscure bool and one for change icon by check _obscure
   Icon _suffixIcon = const Icon(
     Icons.remove_red_eye_outlined,
     color: Colors.grey,
