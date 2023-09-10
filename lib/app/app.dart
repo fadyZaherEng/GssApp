@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context,state){
           return  Sizer(builder: (ctx, orentation, deviceType) {
             return MaterialApp(
-              home: const SignInScreen(),
+              home:  SignInScreen(),
               debugShowCheckedModeBanner: false,
               theme: lightTheme(),
             );

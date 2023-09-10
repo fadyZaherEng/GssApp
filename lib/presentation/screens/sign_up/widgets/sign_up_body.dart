@@ -242,7 +242,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                   const Text('Already have an account?'),
                   TextButton(
                     onPressed: () {
-                      navigateToWithReturn(context, const SignInScreen());
+                      navigateToWithReturn(context,  SignInScreen());
                     },
                     child: const Text(
                       " Sign in",

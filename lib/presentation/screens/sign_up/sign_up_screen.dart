@@ -7,12 +7,16 @@ import 'package:gss/presentation/screens/sign_up/widgets/sign_up_background.dart
 import 'package:gss/presentation/screens/sign_up/widgets/sign_up_body.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
-
+  SignUpScreen({super.key});
+  String? _res;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc, RegisterStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state is ValidatePhoneStates){
+          _res=state.res;
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -20,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
             child: Stack(
               children: [
                 const SignUpBackground(),
-                SignUpBody(res:(state is ValidatePhoneStates)?state.res:null),
+                SignUpBody(res:_res),
               ],
             ),
           ),

@@ -7,12 +7,16 @@ import 'package:gss/presentation/screens/sign_in/widgets/sign_in_background.dart
 import 'package:gss/presentation/screens/sign_in/widgets/sign_in_body.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
-
+  SignInScreen({super.key});
+  String? _res;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LogInBloc, LogInStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state is ValidatePhoneLoginStates){
+          _res=state.res;
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -21,7 +25,7 @@ class SignInScreen extends StatelessWidget {
               children: [
                 const SignInBackground(),
                 ///Don't check here , jst send a value what we need
-                SignInBody(res:(state is ValidatePhoneLoginStates)?state.res:null),
+                SignInBody(res:_res),
               ],
             ),
           ),
