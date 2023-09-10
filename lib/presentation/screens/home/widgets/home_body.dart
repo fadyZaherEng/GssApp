@@ -56,7 +56,7 @@ class HomeBody extends StatelessWidget {
                 itemCount: _options.length),
           ),
           const SizedBox(
-            height: 8,
+            height: 12,
           ),
           HomeList(towers:towers),
         ],

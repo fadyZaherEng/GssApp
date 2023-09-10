@@ -10,9 +10,10 @@ import 'package:gss/presentation/widgets/custom_text_filed_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 
 class SignUpBody extends StatefulWidget {
- var state;
+  String?res;
 
- SignUpBody(this.state);
+
+  SignUpBody({this.res});
 
   @override
   State<SignUpBody> createState() => _SignUpBodyState();
@@ -122,10 +123,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                   .textTheme
                   .bodyText2,
               validator: (val) {
-                if (widget.state is ValidatePhoneStates) {
-                  return widget.state.res;
-                }
-                return null;
+                return widget.res;
               },
               keyboardType: TextInputType.phone,
               onChanged: (val) {

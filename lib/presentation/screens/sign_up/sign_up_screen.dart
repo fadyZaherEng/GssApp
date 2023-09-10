@@ -20,7 +20,7 @@ class SignUpScreen extends StatelessWidget {
             child: Stack(
               children: [
                 const SignUpBackground(),
-                SignUpBody(state),
+                SignUpBody(res:(state is ValidatePhoneStates)?state.res:null),
               ],
             ),
           ),

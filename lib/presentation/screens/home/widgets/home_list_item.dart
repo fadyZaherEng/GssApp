@@ -12,14 +12,14 @@ class HomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * 0.39,
+      height: MediaQuery.sizeOf(context).height * 0.35,
       decoration: BoxDecoration(
         color: const Color.fromRGBO(255, 255, 255, 1),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
         padding: const EdgeInsetsDirectional.symmetric(
-            horizontal: 10.0, vertical: 8),
+            horizontal: 10.0, vertical: 10),
         child: Column(
           children: [
             SizedBox(
@@ -186,7 +186,7 @@ class HomeListItem extends StatelessWidget {
   }
  Widget stackFirstPart(context, TowerModel towerModel) {
     return Container(
-      width: 327,
+      width: double.infinity,
       height: 135,
       decoration: BoxDecoration(
         color: Colors.grey,
