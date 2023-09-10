@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gss/presentation/blocs/home/home_states.dart';
+import 'package:gss/presentation/screens/home/widgets/home_list.dart';
 
 class HomeBody extends StatelessWidget {
   List<dynamic> options = [
@@ -11,7 +13,11 @@ class HomeBody extends StatelessWidget {
     'Beds',
     'Price'
   ];
-   @override
+  AppGetDataSuccessState appGetDataSuccessState;
+
+  HomeBody(this.appGetDataSuccessState);
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 10.0),
@@ -50,6 +56,7 @@ class HomeBody extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
+          HomeList(appGetDataSuccessState),
         ],
       ),
     );
