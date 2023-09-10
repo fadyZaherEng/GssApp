@@ -7,6 +7,7 @@ import 'package:gss/data/network/dio_factory.dart';
 import 'package:gss/data/network/network_info.dart';
 import 'package:gss/data/repository/repository_impl.dart';
 import 'package:gss/domain/repository/repository.dart';
+import 'package:gss/domain/usecase/home_usecase.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 final instance = GetIt.instance;
@@ -25,10 +26,9 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
   // repository
   instance.registerLazySingleton<Repository>(() => RepositoryImpl(instance(), instance(),instance()));
+  if (!GetIt.I.isRegistered<HomeUseCase>()) {
+    instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
+  }
 }
-// initHomeModule() {
-//   if (!GetIt.I.isRegistered<HomeUseCase>()) {
-//     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
-//   }
-// }
+
 

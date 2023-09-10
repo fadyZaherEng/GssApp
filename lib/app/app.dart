@@ -17,15 +17,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // why we need this method ??
-  initHomeUseCase() async {
-    //await initHomeModule();
-  }
 
   @override
   void initState() {
     super.initState();
-    initHomeUseCase();
   }
 
   @override

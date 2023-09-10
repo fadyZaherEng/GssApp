@@ -12,8 +12,10 @@ import 'package:gss/utils/navigate_with_return.dart';
 import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInBody extends StatefulWidget {
-  var state;
-  SignInBody(this.state, {super.key});
+ String?res;
+
+
+ SignInBody({this.res});
 
   @override
   State<SignInBody> createState() => _SignInBodyState();
@@ -94,10 +96,7 @@ class _SignInBodyState extends State<SignInBody> {
               ),
               style: Theme.of(context).textTheme.bodyText2,
               validator: (val) {
-                if (widget.state is ValidatePhoneLoginStates) {
-                  return widget.state.res;
-                }
-                return null;
+                return widget.res;
               },
               keyboardType: TextInputType.phone,
               onChanged: (val) {
