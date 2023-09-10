@@ -193,6 +193,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
       ),
     );
   }
+  /// sayed remove it and create two methods one for check _obscure and two for change icon
   Icon _suffixIcon = const Icon(
     Icons.remove_red_eye_outlined,
     color: Colors.grey,
