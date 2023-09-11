@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gss/domain/models/tower.dart';
-import 'package:gss/presentation/blocs/home/home_bloc.dart';
+import 'package:gss/presentation/blocs/home/app_bloc.dart';
 import 'package:gss/presentation/blocs/home/home_events.dart';
 import 'package:gss/presentation/blocs/home/home_states.dart';
 

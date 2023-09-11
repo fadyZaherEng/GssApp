@@ -3,19 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:gss/presentation/screens/home/home_screen.dart';
 import 'package:gss/presentation/screens/sign_up/sign_up_screen.dart';
+import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
 import 'package:gss/presentation/widgets/password_text_field_widget.dart';
-import 'package:gss/presentation/widgets/phone_text_field_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInBodyWidget extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  Function(String?)? onChangePhoneNumber;
+  void Function(String)? onChangePhoneNumber;
   final TextEditingController passwordController ;
   final TextEditingController phoneController ;
   String? validationMessage;
   SignInBodyWidget(
-      {required this.formKey,
+      {super.key, required this.formKey,
          this.onChangePhoneNumber,
         required this.validationMessage,
         required this.passwordController,
@@ -23,10 +23,7 @@ class SignInBodyWidget extends StatefulWidget {
   @override
   State<SignInBodyWidget> createState() => _SignInBodyWidgetState();
 }
-
 class _SignInBodyWidgetState extends State<SignInBodyWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -67,13 +64,12 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
             const SizedBox(
               height: 35,
             ),
-            PhoneTextFieldWidget(
+            CustomTextFieldWidget(
                 controller: widget.phoneController,
                 text: "Phone Number",
                 errorMSG: widget.validationMessage,
-               onChanged:widget.onChangePhoneNumber ,
+                onChanged:widget.onChangePhoneNumber ,
             ),
-
             const SizedBox(
               height: 35,
             ),

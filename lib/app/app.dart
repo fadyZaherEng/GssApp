@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/presentation/blocs/home/home_bloc.dart';
+import 'package:gss/presentation/blocs/home/app_bloc.dart';
 import 'package:gss/presentation/blocs/home/home_states.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
-import 'package:gss/presentation/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gss/presentation/blocs/sign_up/register_bloc.dart';
 import 'package:gss/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:gss/utils/light_theme.dart';
 
@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(create: (context)=>AppBloc()),
         BlocProvider(create: (context)=>RegisterBloc()),
-        BlocProvider(create: (context)=>LogInBloc()),
+        BlocProvider(create: (context)=>SignInBloc()),
       ],
       child: BlocConsumer<AppBloc,AppStates>(
         listener: (context,state){},

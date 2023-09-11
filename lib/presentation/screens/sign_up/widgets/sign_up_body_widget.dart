@@ -4,7 +4,6 @@ import 'package:gss/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
 import 'package:gss/presentation/widgets/email_text_filed_widget.dart';
 import 'package:gss/presentation/widgets/password_text_field_widget.dart';
-import 'package:gss/presentation/widgets/phone_text_field_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 
 class SignUpBodyWidget extends StatefulWidget {
@@ -81,7 +80,7 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
             const SizedBox(
               height: 15,
             ),
-            PhoneTextFieldWidget(
+            CustomTextFieldWidget(
               controller: widget.phoneController,
               text: "Phone Number",
               errorMSG: widget.res,

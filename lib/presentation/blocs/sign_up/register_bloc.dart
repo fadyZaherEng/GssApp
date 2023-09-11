@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_events.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_states.dart';
-
-
 class RegisterBloc extends Bloc<RegisterEvents,RegisterStates>{
   RegisterBloc():super(InitialRegisterStates()){
     on<SignUpEvents>(_onSignUpEvents);

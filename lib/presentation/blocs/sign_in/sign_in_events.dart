@@ -1,11 +1,8 @@
-abstract class LogInEvents{}
-///change to SignInEvent
-class AppLogInEvent extends LogInEvents{}
+abstract class SignInEvents{}
+class SignInSuccessEvent extends SignInEvents{}
 
-///change to SignInValidatePhoneNumberEvent
-class ValidatePhoneEventsSignIn extends LogInEvents{
-  /// change to validationMassage
-  String val;
+class SignInValidatePhoneNumberEvent extends SignInEvents{
+  String validatePhoneNumber;
+  SignInValidatePhoneNumberEvent({required this.validatePhoneNumber});
 
-  ValidatePhoneEventsSignIn({required this.val});
 }

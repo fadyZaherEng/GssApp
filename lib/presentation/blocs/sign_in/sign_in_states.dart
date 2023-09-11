@@ -1,20 +1,9 @@
-abstract class LogInStates {}
-
-///Change to SignInInitialState
-class InitialLogINStates extends LogInStates {}
-
-/// Change to SignInLoadingState
-class LoadingLogINStates extends LogInStates {}
-
-///Change to SignInSuccessState
-class SuccessLogINStates extends LogInStates {}
-
-///Change to SignInErrorState
-class ErrorLogINStates extends LogInStates {}
-
-///Change to SignInValidatePhoneNumberState
-class ValidatePhoneLoginStates extends LogInStates {
-  String? res;
-
-  ValidatePhoneLoginStates({required this.res});
+abstract class SignInStates {}
+class SignInInitialStates extends SignInStates {}
+class SignInLoadingStates extends SignInStates {}
+class SignInSuccessState extends SignInStates {}
+class SignInErrorState extends SignInStates {}
+class SignInValidatePhoneNumberState extends SignInStates {
+  String? validationMassage;
+  SignInValidatePhoneNumberState({required this.validationMassage});
 }

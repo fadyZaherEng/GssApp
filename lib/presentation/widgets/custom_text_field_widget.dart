@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 class CustomTextFieldWidget extends StatelessWidget {
   TextEditingController controller;
  // FormFieldValidator validate;
-  Function(String?)? onChanged;
+  void Function(String) ?onChanged;
+  void Function(String) ?onSubmitted;
+  String? Function(String?) ?onValidated;
   String? errorMSG;
   String text;
   CustomTextFieldWidget({super.key,
-   required this.controller,required this.text,required this.errorMSG,this.onChanged
+   required this.controller,
+    required this.text,
+    required this.errorMSG,
+    this.onChanged,
 });
 
   @override
@@ -33,13 +38,11 @@ class CustomTextFieldWidget extends StatelessWidget {
       ),
       style: Theme.of(context).textTheme.bodyMedium,
       validator: (val) {
-          if(val.toString().isEmpty){
-            return errorMSG;
-          }
-          return null;
+          return errorMSG;
       },
       keyboardType: TextInputType.text,
       onChanged: onChanged,
+      onFieldSubmitted: onSubmitted,
     );
   }
 }

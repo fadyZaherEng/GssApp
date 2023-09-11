@@ -8,29 +8,24 @@ import 'package:gss/presentation/screens/sign_in/widgets/sign_in_background_widg
 import 'package:gss/presentation/screens/sign_in/widgets/sign_in_body_widget.dart';
 
 class SignInScreen extends StatefulWidget {
-  SignInScreen({super.key});
-
+  const SignInScreen({super.key});
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
   String? validationMessage;
-
   final _formKey = GlobalKey<FormState>();
-
-  LogInBloc get _bloc => BlocProvider.of<LogInBloc>(context);
-
+  SignInBloc get _bloc => BlocProvider.of<SignInBloc>(context);
   final TextEditingController _passwordController = TextEditingController();
-
   final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LogInBloc, LogInStates>(
+    return BlocConsumer<SignInBloc,SignInStates>(
       listener: (context, state) {
-        if (state is ValidatePhoneLoginStates) {
-          validationMessage = state.res;
+        if (state is SignInValidatePhoneNumberState) {
+          validationMessage = state.validationMassage;
         }
       },
       builder: (context, state) {
@@ -44,7 +39,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     validationMessage: validationMessage,
                     formKey: _formKey,
                     onChangePhoneNumber: (val) {
-                      _bloc.add(ValidatePhoneEventsSignIn(val: val ?? ""));
+                      _bloc.add(SignInValidatePhoneNumberEvent(validatePhoneNumber: val ));
                     },
                     passwordController: _passwordController,
                     phoneController: _phoneController),
