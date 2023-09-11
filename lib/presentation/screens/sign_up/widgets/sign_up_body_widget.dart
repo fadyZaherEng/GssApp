@@ -145,7 +145,7 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
                   if (widget.formKey.currentState!.validate()) {
                     //sign up
                     FocusScope.of(context).unfocus();
-                    navigateToWithReturn(context, const MyHomePage());
+                    navigateToWithReturn(context: context,screen:  const MyHomePage(),validate: widget.formKey.currentState!.validate());
                   }
                 },
                 color: const Color.fromRGBO(3, 106, 130, 1),
@@ -167,7 +167,7 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
                   const Text('Already have an account?'),
                   TextButton(
                     onPressed: () {
-                      navigateToWithReturn(context, SignInScreen());
+                      navigateToWithReturn(context: context,screen:  SignInScreen(),validate: widget.formKey.currentState!.validate());
                     },
                     child: const Text(
                       " Sign in",
