@@ -27,7 +27,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignInBloc, SignInState>(
+    return BlocConsumer<SignInBloc, AbstractionSignInState>(
       listener: (context, state) {
         if (state is SignInValidatePhoneNumberState) {
           _validationMessage = state.validationMassage;
@@ -45,23 +45,37 @@ class _SignInScreenState extends State<SignInScreen> {
               },
               passwordController: _passwordController,
               phoneController: _phoneController,
-              onSubmittedPhoneNumber: (val) {},
+              onSubmittedPhoneNumber: (String value) {
+                _bloc.add(
+                    SignInSubmittedPhoneNumberEvent(signInPhoneNumber: value));
+              },
               validationMessage: _validationMessage,
-              onChangePassword: (String value) {},
-              onPressedClosed: () {},
-              onPressedForgetPassword: () {},
+              onChangePassword: (String value) {
+                _bloc.add(SignInChangePasswordEvent());
+              },
+              onPressedClosed: () {
+                _bloc.add(SignInPressedClosedEvent());
+              },
+              onPressedForgetPassword: () {
+                _bloc.add(SignInPressedForgetPasswordEvent(
+                    signInPhoneNumber: _phoneController.text));
+              },
               navigateToHomeScreen: () {
-                navigateToWithoutReturn(
-                  context: context,
-                  screen: const MyHomePage(),
-                  validate: _formKey.currentState!.validate(),
+                _bloc.add(
+                  SignInNavigateToHomeScreenEvent(
+                    context: context,
+                    screen: const MyHomePage(),
+                    validate: _formKey.currentState!.validate(),
+                  ),
                 );
               },
               navigateToSignUpScreen: () {
-                navigateToWithReturn(
-                  context: context,
-                  screen: SignUpScreen(),
-                  validate: _formKey.currentState!.validate(),
+                _bloc.add(
+                  SignInNavigateToSignUpScreenEvent(
+                    context: context,
+                    screen:  SignUpScreen(),
+                    validate: _formKey.currentState!.validate(),
+                  ),
                 );
               },
             ),

@@ -1,14 +1,36 @@
-abstract class SignInState {}
+import 'package:flutter/material.dart';
 
-class SignInInitialStates extends SignInState {}
+abstract class AbstractionSignInState {}
 
-class SignInLoadingStates extends SignInState {}
+class SignInSubmittedPhoneNumberStates extends AbstractionSignInState {}
 
-class SignInSuccessState extends SignInState {}
+class SignInPressedClosedStates extends AbstractionSignInState {}
 
-class SignInErrorState extends SignInState {}
+class SignInPressedForgetPasswordStates extends AbstractionSignInState {
+  String signInPassword;
 
-class SignInValidatePhoneNumberState extends SignInState {
+  SignInPressedForgetPasswordStates(this.signInPassword);
+}
+
+class SignInNavigateToHomeScreenStates extends AbstractionSignInState {}
+
+class SignInNavigateToSignUpScreenStates extends AbstractionSignInState {}
+
+class SignInChangePasswordStates extends AbstractionSignInState {
+  String massage;
+
+  SignInChangePasswordStates(this.massage);
+}
+
+class SignInInitialStates extends AbstractionSignInState {}
+
+class SignInLoadingStates extends AbstractionSignInState {}
+
+class SignInSuccessState extends AbstractionSignInState {}
+
+class SignInErrorState extends AbstractionSignInState {}
+
+class SignInValidatePhoneNumberState extends AbstractionSignInState {
   String? validationMassage;
 
   SignInValidatePhoneNumberState({required this.validationMassage});
