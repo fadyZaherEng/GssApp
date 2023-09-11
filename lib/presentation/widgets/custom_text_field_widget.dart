@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 
 class CustomTextFieldWidget extends StatelessWidget {
   TextEditingController controller;
- // FormFieldValidator validate;
-  void Function(String) ?onChanged;
-  void Function(String) ?onSubmitted;
-  String? Function(String?) ?onValidated;
+  void Function(String) onChanged;
+  void Function(String) onSubmitted;
   String? errorMSG;
   String text;
-  CustomTextFieldWidget({super.key,
-   required this.controller,
-    required this.text,
+  CustomTextFieldWidget({
+    required this.controller,
+    required this.onChanged,
+    required this.onSubmitted,
     required this.errorMSG,
-    this.onChanged,
-});
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +22,25 @@ class CustomTextFieldWidget extends StatelessWidget {
         hintStyle: const TextStyle(color: Colors.grey),
         labelStyle: const TextStyle(
             color: Colors.grey, fontSize: 15),
-        label:  Text(text),
+        label: Text(text),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: Color.fromRGBO(226, 226, 226, 1),
           ),),
-        enabledBorder:  OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
-              color: Color.fromRGBO(226 ,226, 226,1),
+              color: Color.fromRGBO(226, 226, 226, 1),
             )
         ),
       ),
-      style: Theme.of(context).textTheme.bodyMedium,
+      style: Theme
+          .of(context)
+          .textTheme
+          .bodyMedium,
       validator: (val) {
-          return errorMSG;
+        return errorMSG;
       },
       keyboardType: TextInputType.text,
       onChanged: onChanged,

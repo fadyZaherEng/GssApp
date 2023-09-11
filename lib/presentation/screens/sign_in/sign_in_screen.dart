@@ -9,24 +9,25 @@ import 'package:gss/presentation/screens/sign_in/widgets/sign_in_body_widget.dar
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
+
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  /// Make it privet
-  String? validationMessage;
+  String? _validationMessage;
   final _formKey = GlobalKey<FormState>();
+
   SignInBloc get _bloc => BlocProvider.of<SignInBloc>(context);
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignInBloc,SignInStates>(
+    return BlocConsumer<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state is SignInValidatePhoneNumberState) {
-          validationMessage = state.validationMassage;
+          _validationMessage = state.validationMassage;
         }
       },
       builder: (context, state) {
@@ -39,14 +40,18 @@ class _SignInScreenState extends State<SignInScreen> {
                 /// shold be one widget SignInBodyWidget and this contain also SignInBackgroundWidget and rest body
                 const SignInBackgroundWidget(),
                 SignInBodyWidget(
-                    validationMessage: validationMessage,
-                    formKey: _formKey,
-                    ///change to value not val
-                    onChangePhoneNumber: (val) {
-                      _bloc.add(SignInValidatePhoneNumberEvent(validatePhoneNumber: val ));
-                    },
-                    passwordController: _passwordController,
-                    phoneController: _phoneController),
+                  formKey: _formKey,
+
+                  ///change to value not val
+                  onChangePhoneNumber: (val) {
+                    _bloc.add(SignInValidatePhoneNumberEvent(
+                        validatePhoneNumber: val));
+                  },
+                  passwordController: _passwordController,
+                  phoneController: _phoneController,
+                  onSubmittedPhoneNumber: (val) {},
+                  validationMessage: _validationMessage,
+                ),
               ],
             ),
           ),
@@ -54,5 +59,6 @@ class _SignInScreenState extends State<SignInScreen> {
       },
     );
   }
+
   /// After finish this comments reformate code
 }

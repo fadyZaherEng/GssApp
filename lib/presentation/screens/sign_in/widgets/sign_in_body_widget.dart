@@ -10,19 +10,26 @@ import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInBodyWidget extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  void Function(String)? onChangePhoneNumber;
-  final TextEditingController passwordController ;
-  final TextEditingController phoneController ;
+  void Function(String value) onChangePhoneNumber;
+  void Function(String value) onSubmittedPhoneNumber;
+  final TextEditingController passwordController;
+  final TextEditingController phoneController;
   String? validationMessage;
-  SignInBodyWidget(
-      {super.key, required this.formKey,
-         this.onChangePhoneNumber,
-        required this.validationMessage,
-        required this.passwordController,
-        required this.phoneController});
+
+  SignInBodyWidget({
+    super.key,
+    required this.formKey,
+    required this.onChangePhoneNumber,
+    required this.validationMessage,
+    required this.passwordController,
+    required this.phoneController,
+    required this.onSubmittedPhoneNumber,
+  });
+
   @override
   State<SignInBodyWidget> createState() => _SignInBodyWidgetState();
 }
+
 class _SignInBodyWidgetState extends State<SignInBodyWidget> {
   @override
   Widget build(BuildContext context) {
@@ -66,15 +73,15 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
               height: 35,
             ),
             CustomTextFieldWidget(
-                controller: widget.phoneController,
-                text: "Phone Number",
-                errorMSG: widget.validationMessage,
-                onChanged:widget.onChangePhoneNumber ,
+              controller: widget.phoneController,
+              text: "Phone Number",
+              errorMSG: widget.validationMessage,
+              onChanged: widget.onChangePhoneNumber,
+              onSubmitted: widget.onSubmittedPhoneNumber,
             ),
             const SizedBox(
               height: 35,
             ),
-
             PasswordTextFieldWidget(
               controller: widget.passwordController,
               /// Here also  send the action in constractor to use it from outside

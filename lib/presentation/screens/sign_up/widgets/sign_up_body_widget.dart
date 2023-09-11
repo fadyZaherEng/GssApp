@@ -7,9 +7,9 @@ import 'package:gss/presentation/widgets/password_text_field_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 
 class SignUpBodyWidget extends StatefulWidget {
-  String? res;
+  String? validationMassage;
   final GlobalKey<FormState> formKey;
-  Function(String?)? onChanged;
+  void Function(String) onChangedPhoneNumber;
   final TextEditingController passwordController;
 
   final TextEditingController emailController;
@@ -18,15 +18,16 @@ class SignUpBodyWidget extends StatefulWidget {
 
   final TextEditingController phoneController;
 
-  SignUpBodyWidget(
-      {this.res,
+  SignUpBodyWidget({
+      super.key,
+      required this.validationMassage,
       required this.phoneController,
       required this.passwordController,
       required this.formKey,
       required this.emailController,
       required this.nameController,
-      required this.onChanged});
-
+      required this.onChangedPhoneNumber,
+      });
   @override
   State<SignUpBodyWidget> createState() => _SignUpBodyWidgetState();
 }
@@ -76,6 +77,8 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
               controller: widget.nameController,
               errorMSG: "Please Enter Your Username",
               text: "Full Name",
+              onSubmitted:(val){} ,
+              onChanged: (val){},
             ),
             const SizedBox(
               height: 15,
@@ -83,8 +86,9 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
             CustomTextFieldWidget(
               controller: widget.phoneController,
               text: "Phone Number",
-              errorMSG: widget.res,
-              onChanged: widget.onChanged,
+              errorMSG: widget.validationMassage,
+              onChanged: widget.onChangedPhoneNumber,
+              onSubmitted: (val){},
             ),
             const SizedBox(
               height: 15,

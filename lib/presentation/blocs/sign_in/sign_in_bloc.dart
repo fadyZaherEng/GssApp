@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_events.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_states.dart';
 
-class SignInBloc extends Bloc<SignInEvents,SignInStates>{
-   SignInBloc():super(SignInInitialStates()){
+class SignInBloc extends Bloc<SignInEvent, SignInState> {
+  SignInBloc() : super(SignInInitialStates()) {
     on<SignInSuccessEvent>(_onSignInSuccessEvent);
-   on<SignInValidatePhoneNumberEvent>(_onSignInValidatePhoneNumberEvent);
+    on<SignInValidatePhoneNumberEvent>(_onSignInValidatePhoneNumberEvent);
   }
 
-  Future<String?> checkValidateMobile(value)async{
+  Future<String?> checkValidateMobile(value) async {
     return validateMobile(value);
   }
   String? validateMobile(String value) {
@@ -23,26 +23,23 @@ class SignInBloc extends Bloc<SignInEvents,SignInStates>{
     }
     return null;
   }
-
-
-  FutureOr<void> _onSignInSuccessEvent(SignInEvents event, Emitter<SignInStates> emit) async{
+  FutureOr<void> _onSignInSuccessEvent(
+      SignInEvent event, Emitter<SignInState> emit) async {
     emit(SignInLoadingStates());
-    await Future.delayed(const Duration(seconds: 1))
-        .then((value) {
+    await Future.delayed(const Duration(seconds: 1)).then((value) {
       emit(SignInSuccessState());
-    }).catchError((onError){
+    }).catchError((onError) {
       emit(SignInErrorState());
     });
   }
-
-  FutureOr<void> _onSignInValidatePhoneNumberEvent(SignInValidatePhoneNumberEvent event,
-      Emitter<SignInStates> emit)async {
+  FutureOr<void> _onSignInValidatePhoneNumberEvent(
+      SignInValidatePhoneNumberEvent event, Emitter<SignInState> emit) async {
     emit(SignInLoadingStates());
-   await Future.delayed(const Duration(seconds: 1));
-     await checkValidateMobile(event.validatePhoneNumber).then((value) {
-        emit(SignInValidatePhoneNumberState(validationMassage: value));
-      }).catchError((onError){
-        emit(SignInErrorState());
-      });
+    await Future.delayed(const Duration(seconds: 1));
+    await checkValidateMobile(event.validatePhoneNumber).then((value) {
+      emit(SignInValidatePhoneNumberState(validationMassage: value));
+    }).catchError((onError) {
+      emit(SignInErrorState());
+    });
   }
 }

@@ -1,10 +1,15 @@
-/// SignInState not states  here and file name
-abstract class SignInStates {}
-class SignInInitialStates extends SignInStates {}
-class SignInLoadingStates extends SignInStates {}
-class SignInSuccessState extends SignInStates {}
-class SignInErrorState extends SignInStates {}
-class SignInValidatePhoneNumberState extends SignInStates {
+abstract class SignInState {}
+
+class SignInInitialStates extends SignInState {}
+
+class SignInLoadingStates extends SignInState {}
+
+class SignInSuccessState extends SignInState {}
+
+class SignInErrorState extends SignInState {}
+
+class SignInValidatePhoneNumberState extends SignInState {
   String? validationMassage;
+
   SignInValidatePhoneNumberState({required this.validationMassage});
 }
