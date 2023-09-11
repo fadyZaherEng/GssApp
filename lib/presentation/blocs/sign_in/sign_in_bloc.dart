@@ -46,7 +46,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       SignInValidatePhoneNumberEvent event,
       Emitter<AbstractionSignInState> emit) async {
     emit(SignInLoadingStates());
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 200));
     await checkValidateMobile(event.validatePhoneNumber).then((value) {
       emit(SignInValidatePhoneNumberState(validationMassage: value));
     }).catchError((onError) {

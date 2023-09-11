@@ -7,8 +7,6 @@ import 'package:gss/presentation/blocs/sign_in/sign_in_state.dart';
 import 'package:gss/presentation/screens/home/home_screen.dart';
 import 'package:gss/presentation/screens/sign_in/widgets/sign_in_body_widget.dart';
 import 'package:gss/presentation/screens/sign_up/sign_up_screen.dart';
-import 'package:gss/utils/navigate_with_return.dart';
-import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -24,7 +22,11 @@ class _SignInScreenState extends State<SignInScreen> {
   SignInBloc get _bloc => BlocProvider.of<SignInBloc>(context);
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-
+  @override
+  void initState() {
+    super.initState();
+    _bloc.add(SignInValidatePhoneNumberEvent(validatePhoneNumber: " "));
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInBloc, AbstractionSignInState>(
@@ -40,14 +42,12 @@ class _SignInScreenState extends State<SignInScreen> {
             child: SignInBodyWidget(
               formKey: _formKey,
               onChangePhoneNumber: (value) {
-                _bloc.add(
-                    SignInValidatePhoneNumberEvent(validatePhoneNumber: value));
+                _bloc.add(SignInValidatePhoneNumberEvent(validatePhoneNumber: value));
               },
               passwordController: _passwordController,
               phoneController: _phoneController,
               onSubmittedPhoneNumber: (String value) {
-                _bloc.add(
-                    SignInSubmittedPhoneNumberEvent(signInPhoneNumber: value));
+                _bloc.add(SignInSubmittedPhoneNumberEvent(signInPhoneNumber: value));
               },
               validationMessage: _validationMessage,
               onChangePassword: (String value) {
