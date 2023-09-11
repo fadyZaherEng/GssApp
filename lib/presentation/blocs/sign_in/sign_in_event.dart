@@ -38,7 +38,7 @@ class SignInNavigateToSignUpScreenEvent extends AbstractSignInEvent {
   SignInNavigateToSignUpScreenEvent({
     required this.context,
     required this.screen,
-    required this.validate,
+    this.validate=true,
   });
 }
 

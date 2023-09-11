@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class PasswordTextFieldWidget extends StatefulWidget {
   final TextEditingController controller;
-  void Function(String value)? onChanged;
+  void Function(String value) onChanged;
+  String? errorMSG;
   PasswordTextFieldWidget({
     super.key,
     required this.controller,
-    this.onChanged
+    required this.onChanged,
+    required this.errorMSG,
   });
 
   @override
@@ -18,7 +20,6 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
   bool _obscure = true;
 @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     changeEye();
   }
@@ -27,6 +28,7 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
+        errorText: widget.errorMSG,
         hintStyle: const TextStyle(color: Colors.grey),
         labelStyle: const TextStyle(color: Colors.grey, fontSize: 15),
         suffixIcon: IconButton(
@@ -50,12 +52,10 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
       ),
       style: Theme.of(context).textTheme.bodyText2,
       validator: (val) {
-        if (val.toString().length<7) {
-          return "Password is Very Short";
-        }
-        return null;
+        return widget.errorMSG;
       },
       obscureText: _obscure,
+      onChanged: widget.onChanged,
       keyboardType: TextInputType.visiblePassword,
     );
   }

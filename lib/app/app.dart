@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/presentation/blocs/home/app_bloc.dart';
 import 'package:gss/presentation/blocs/home/home_states.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
-import 'package:gss/presentation/blocs/sign_up/register_bloc.dart';
+import 'package:gss/presentation/blocs/sign_up/sign_up_bloc.dart';
 import 'package:gss/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:gss/utils/light_theme.dart';
 
@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context)=>AppBloc()),
-        BlocProvider(create: (context)=>RegisterBloc()),
+        BlocProvider(create: (context)=>SignUpBloc()),
         BlocProvider(create: (context)=>SignInBloc()),
       ],
       child: BlocConsumer<AppBloc,AppStates>(
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context,state){
           return  Sizer(builder: (ctx, orentation, deviceType) {
             return MaterialApp(
-              home:  SignInScreen(),
+              home:  const SignInScreen(),
               debugShowCheckedModeBanner: false,
               theme: lightTheme(),
             );

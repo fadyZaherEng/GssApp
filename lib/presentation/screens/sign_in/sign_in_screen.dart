@@ -74,7 +74,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   SignInNavigateToSignUpScreenEvent(
                     context: context,
                     screen:  SignUpScreen(),
-                    validate: _formKey.currentState!.validate(),
                   ),
                 );
               },

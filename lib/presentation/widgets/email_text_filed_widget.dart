@@ -3,24 +3,28 @@ import 'package:flutter/material.dart';
 
 class EmailTextFiledWidget extends StatelessWidget {
   TextEditingController controller;
-
-
-  EmailTextFiledWidget(
-      {required this.controller,
- });
-
+  void Function(String value) onChangedEmail;
+  String? errorMSG;
+  EmailTextFiledWidget({
+    required this.controller,
+    required this.onChangedEmail,
+    required this.errorMSG,
+  });
   @override
   Widget build(BuildContext context) {
+    print(errorMSG);
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
+        errorText: errorMSG,
         hintStyle: const TextStyle(color: Colors.grey),
         labelStyle: const TextStyle(color: Colors.grey, fontSize: 15),
-        label: Text("Email Address"),
+        label: const Text("Email Address"),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: Color.fromRGBO(226, 226, 226, 1),
+
           ),
         ),
         enabledBorder: OutlineInputBorder(
@@ -29,17 +33,15 @@ class EmailTextFiledWidget extends StatelessWidget {
               color: Color.fromRGBO(226, 226, 226, 1),
             )),
       ),
-      style: Theme.of(context).textTheme.bodyText2,
+      style: Theme
+          .of(context)
+          .textTheme
+          .bodyMedium,
       validator: (val) {
-        if (val != null) {
-          if (!EmailValidator.validate(val)) {
-            return "Please Enter Your Valid Email Address";
-          }
-        }
-        return null;
+        return errorMSG;
       },
       keyboardType: TextInputType.emailAddress,
-
+      onChanged:onChangedEmail,
     );
   }
 }
