@@ -14,6 +14,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  /// Make it privet
   String? validationMessage;
   final _formKey = GlobalKey<FormState>();
   SignInBloc get _bloc => BlocProvider.of<SignInBloc>(context);
@@ -34,10 +35,13 @@ class _SignInScreenState extends State<SignInScreen> {
           body: SafeArea(
             child: Stack(
               children: [
+                /// You have body here why you set two widgets
+                /// shold be one widget SignInBodyWidget and this contain also SignInBackgroundWidget and rest body
                 const SignInBackgroundWidget(),
                 SignInBodyWidget(
                     validationMessage: validationMessage,
                     formKey: _formKey,
+                    ///change to value not val
                     onChangePhoneNumber: (val) {
                       _bloc.add(SignInValidatePhoneNumberEvent(validatePhoneNumber: val ));
                     },
@@ -50,4 +54,5 @@ class _SignInScreenState extends State<SignInScreen> {
       },
     );
   }
+  /// After finish this comments reformate code
 }

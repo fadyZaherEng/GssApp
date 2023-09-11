@@ -1,8 +1,11 @@
-abstract class SignInEvents{}
-class SignInSuccessEvent extends SignInEvents{}
+/// AbstractSignInEvent not events  here and file name
 
-class SignInValidatePhoneNumberEvent extends SignInEvents{
+abstract class SignInEvents {}
+/// rename to SignInEvent
+class SignInSuccessEvent extends SignInEvents {}
+
+class SignInValidatePhoneNumberEvent extends SignInEvents {
   String validatePhoneNumber;
-  SignInValidatePhoneNumberEvent({required this.validatePhoneNumber});
 
+  SignInValidatePhoneNumberEvent({required this.validatePhoneNumber});
 }

@@ -51,6 +51,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                   ),
                 ),
                 const Spacer(),
+                /// Send the action in constractor to use it from outside
                 IconButton(
                   onPressed: () {},
                   icon: Icon(
@@ -76,6 +77,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
 
             PasswordTextFieldWidget(
               controller: widget.passwordController,
+              /// Here also  send the action in constractor to use it from outside
               onChanged: (value) {},
             ),
             const SizedBox(
@@ -84,6 +86,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
             Align(
               alignment: AlignmentDirectional.topEnd,
               child: TextButton(
+                /// As well as  send the action in constractor to use it from outside
                   onPressed: () {},
                   child: const Text(
                     "Forget Password?",
@@ -105,6 +108,8 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
               child: MaterialButton(
                 height: 50,
                 onPressed: () {
+                ///  Send the action in constractor to use it from outside
+                  ///  and outside use event and state to navigation
                   if (widget.formKey.currentState!.validate()) {
                     //sign in
                     navigateToWithoutReturn(context, const MyHomePage());
@@ -128,6 +133,8 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                 children: [
                   const Text('Don\'t have an account?'),
                   TextButton(
+                    ///  Send the action in constractor to use it from outside
+                    ///  and outside use event and state to navigation
                     onPressed: () {
                       navigateToWithReturn(context, SignUpScreen());
                     },
@@ -144,4 +151,6 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
       ),
     );
   }
+
+  /// After finsh this comments reformate code
 }
