@@ -15,7 +15,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  String? _res;
+  String? _validationMassage;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -31,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocConsumer<RegisterBloc, RegisterStates>(
       listener: (context, state) {
         if(state is ValidatePhoneStates){
-          _res=state.res;
+          _validationMassage=state.validationMassage;
         }
       },
       builder: (context, state) {
@@ -42,10 +42,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 const SignUpBackgroundWidget(),
                 SignUpBodyWidget(
-                res:_res,
+                validationMassage:_validationMassage,
                 phoneController: _phoneController,
                 passwordController: _passwordController,
-                onChanged:  (val) {
+                onChangedPhoneNumber:  (val) {
                   bloc.add(ValidatePhoneEvents(val: val??""));
                 }, emailController: _emailController,
                   formKey: _formKey,

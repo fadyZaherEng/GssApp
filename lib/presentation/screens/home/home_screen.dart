@@ -64,6 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   .sizeOf(context)
                   .width,
               child: CustomTextFieldWidget(
+                onSubmitted:(val){} ,
+                onChanged: (val){},
                 controller: _searchController,
                 text: 'Search by building',
                 errorMSG: null,

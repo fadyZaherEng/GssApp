@@ -7,7 +7,7 @@ class ErrorRegisterStates extends RegisterStates{}
 
 
 class ValidatePhoneStates extends RegisterStates{
-  String? res;
+  String? validationMassage;
 
-  ValidatePhoneStates({required this.res});
+  ValidatePhoneStates({required this.validationMassage});
 }

@@ -45,7 +45,7 @@ class RegisterBloc extends Bloc<RegisterEvents,RegisterStates>{
    await Future.delayed(const Duration(seconds: 1))
     .then((value)async {
     await  checkValidateMobile(event.val).then((value) {
-        emit(ValidatePhoneStates(res: value));
+        emit(ValidatePhoneStates(validationMassage: value));
       }).catchError((onError){
         emit(ErrorRegisterStates());
       });
