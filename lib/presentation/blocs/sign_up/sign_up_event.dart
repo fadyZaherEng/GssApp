@@ -7,7 +7,6 @@ class SignUpUpInitialEvents extends AbstractionSignUpEvent {}
 class SignUpEvents extends AbstractionSignUpEvent {
   BuildContext context;
   Widget screen;
-  bool validate;
   String email;
   String password;
   String phone;
@@ -16,7 +15,6 @@ class SignUpEvents extends AbstractionSignUpEvent {
   SignUpEvents({
     required this.context,
     required this.screen,
-    required this.validate,
     required this.phone,
     required this.name,
     required this.password,

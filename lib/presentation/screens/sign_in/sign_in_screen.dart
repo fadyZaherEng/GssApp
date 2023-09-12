@@ -23,11 +23,7 @@ class _SignInScreenState extends State<SignInScreen> {
   SignInBloc get _bloc => BlocProvider.of<SignInBloc>(context);
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-    _bloc.add(SignInValidatePhoneNumberEvent(validatePhoneNumber: " "));
-  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInBloc, AbstractionSignInState>(
@@ -74,7 +70,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   SignInNavigateToHomeScreenEvent(
                     context: context,
                     screen: const MyHomePage(),
-                    validate: _formKey.currentState!.validate(),
                     phone: _phoneController.text,
                     password: _passwordController.text
                   ),

@@ -113,13 +113,18 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       }else{
         signInValidationModel.validationMassagePassword=null;
       }
-      navigateToWithoutReturn(
-        context:event.context,
-        screen: event.screen,
-        validate: event.validate,
-      );
-      emit(SignInNavigateToHomeScreenState(signInValidationModel: signInValidationModel));
-    }).catchError((onError) {
+      if(signInValidationModel.validationMassagePhoneNumber==null&&
+          signInValidationModel.validationMassagePassword==null){
+        navigateToWithoutReturn(
+          context:event.context,
+          screen: event.screen,
+        );
+        emit(SignInNavigateToHomeScreenState(signInValidationModel: signInValidationModel));
+      }else {
+        emit(SignInNavigateToHomeScreenState(
+            signInValidationModel: signInValidationModel));
+      }
+      }).catchError((onError) {
       emit(SignInErrorState());
     });
   }
@@ -131,7 +136,6 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       navigateToWithReturn(
         context:event.context,
         screen: event.screen,
-        validate: event.validate,
       );
       emit(SignInNavigateToSignUpScreenState());
     }).catchError((onError) {

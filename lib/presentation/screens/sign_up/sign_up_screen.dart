@@ -92,7 +92,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SignUpEvents(
                     context: context,
                     screen: const MyHomePage(),
-                    validate:_formKey.currentState!.validate(),
                     name: _nameController.text,
                     email: _emailController.text,
                     password: _passwordController.text,
