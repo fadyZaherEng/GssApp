@@ -7,6 +7,8 @@ import 'package:gss/presentation/blocs/sign_up/sign_up_state.dart';
 import 'package:gss/presentation/screens/home/home_screen.dart';
 import 'package:gss/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:gss/presentation/screens/sign_up/widgets/sign_up_body_widget.dart';
+import 'package:gss/utils/navigate_with_return.dart';
+import 'package:gss/utils/navigate_without_return.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -17,12 +19,15 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+
   SignUpBloc get _bloc => BlocProvider.of<SignUpBloc>(context);
+
   //massage
   String? _validationMassageFullName;
   String? _validationMassagePhoneNumber;
   String? _validationMassageEmail;
   String? _validationMassagePassword;
+
   //controller
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -45,11 +50,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (state is SignUpChangedPasswordState) {
           _validationMassagePassword = state.validateMassage;
         }
-        if(state is SignUpNavigateToHomeScreenState){
-          _validationMassagePassword=state.validationModel.validationMassagePassword;
-          _validationMassageEmail=state.validationModel.validationMassageEmail;
-          _validationMassageFullName=state.validationModel.validationMassageFullName;
-          _validationMassagePhoneNumber=state.validationModel.validationMassagePhoneNumber;
+        if (state is SignUpNavigateToHomeScreenState) {
+          _validationMassagePassword =
+              state.validationModel.validationMassagePassword;
+          _validationMassageEmail =
+              state.validationModel.validationMassageEmail;
+          _validationMassageFullName =
+              state.validationModel.validationMassageFullName;
+          _validationMassagePhoneNumber =
+              state.validationModel.validationMassagePhoneNumber;
+          if (_validationMassagePhoneNumber == null &&
+              _validationMassageFullName == null &&
+              _validationMassageEmail == null &&
+              _validationMassagePassword == null) {
+            navigateToWithoutReturn(
+              context: context,
+              screen: const MyHomePage(),
+            );
+          }
+        }
+        if(state is SignUpNavigateToSignInScreenState){
+          navigateToWithReturn(
+            context: context,
+            screen: const SignInScreen(),
+          );
         }
       },
       builder: (context, state) {
@@ -90,8 +114,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               signUpOnPressed: () {
                 _bloc.add(
                   SignUpEvents(
-                    context: context,
-                    screen: const MyHomePage(),
                     name: _nameController.text,
                     email: _emailController.text,
                     password: _passwordController.text,

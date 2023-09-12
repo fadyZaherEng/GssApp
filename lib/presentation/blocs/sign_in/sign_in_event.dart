@@ -19,13 +19,8 @@ class SignInPressedForgetPasswordEvent extends AbstractSignInEvent {
 }
 
 class SignInNavigateToHomeScreenEvent extends AbstractSignInEvent {
-  BuildContext context;
-  Widget screen;
   String phone,password;
-
   SignInNavigateToHomeScreenEvent({
-    required this.context,
-    required this.screen,
     required this.phone,
     required this.password,
   });

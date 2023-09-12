@@ -7,6 +7,8 @@ import 'package:gss/presentation/blocs/sign_in/sign_in_state.dart';
 import 'package:gss/presentation/screens/home/home_screen.dart';
 import 'package:gss/presentation/screens/sign_in/widgets/sign_in_body_widget.dart';
 import 'package:gss/presentation/screens/sign_up/sign_up_screen.dart';
+import 'package:gss/utils/navigate_with_return.dart';
+import 'package:gss/utils/navigate_without_return.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -34,9 +36,24 @@ class _SignInScreenState extends State<SignInScreen> {
         if(state is SignInChangePasswordStates){
           _validationMessagePassword=state.validationMassage;
         }
-        if(state is SignInNavigateToHomeScreenState){
-          _validationMessagePassword=state.signInValidationModel.validationMassagePassword;
-          _validationMessagePhone=state.signInValidationModel.validationMassagePhoneNumber;
+        if(state is SignInNavigateToHomeScreenState) {
+          _validationMessagePassword =
+              state.signInValidationModel.validationMassagePassword;
+          _validationMessagePhone =
+              state.signInValidationModel.validationMassagePhoneNumber;
+          if (_validationMessagePhone == null &&
+              _validationMessagePassword == null) {
+            navigateToWithoutReturn(
+              context: context,
+              screen: const MyHomePage(),
+            );
+          }
+        }
+        if(state is SignInNavigateToSignUpScreenState){
+          navigateToWithReturn(
+            context:context,
+            screen: const SignUpScreen(),
+          );
         }
       },
       builder: (context, state) {
@@ -68,8 +85,6 @@ class _SignInScreenState extends State<SignInScreen> {
               navigateToHomeScreen: () {
                 _bloc.add(
                   SignInNavigateToHomeScreenEvent(
-                    context: context,
-                    screen: const MyHomePage(),
                     phone: _phoneController.text,
                     password: _passwordController.text
                   ),

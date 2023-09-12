@@ -65,19 +65,7 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
           (event.name.isEmpty || event.name.length < 3)
               ? "Please Enter Valid Your Full Name"
               : null;
-      if(validationModel.validationMassagePhoneNumber==null&&
-      validationModel.validationMassagePassword==null&&
-      validationModel.validationMassageEmail==null&&
-      validationModel.validationMassageFullName==null) {
-        //here register methods
-        navigateToWithoutReturn(
-          context: event.context,
-          screen: event.screen,
-        );
         emit(SignUpNavigateToHomeScreenState(validationModel));
-      }else{
-        emit(SignUpNavigateToHomeScreenState(validationModel));
-      }
     }).catchError((onError) {
       emit(SignUpErrorState());
     });
@@ -120,10 +108,6 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       SignUpNavigateToSignInScreenEvent event,
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      navigateToWithReturn(
-        context: event.context,
-        screen: event.screen,
-      );
       emit(SignUpNavigateToSignInScreenState());
     }).catchError((onError) {
       emit(SignUpErrorState());
@@ -216,10 +200,6 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       SignUpAlreadyHaveAccountEvent event,
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      navigateToWithReturn(
-          context: event.context,
-          screen: event.screen,
-          );
       emit(SignUpNavigateToSignInScreenState());
     }).catchError((onError) {
       emit(SignUpErrorState());

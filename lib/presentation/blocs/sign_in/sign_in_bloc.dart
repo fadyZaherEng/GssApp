@@ -113,17 +113,9 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       }else{
         signInValidationModel.validationMassagePassword=null;
       }
-      if(signInValidationModel.validationMassagePhoneNumber==null&&
-          signInValidationModel.validationMassagePassword==null){
-        navigateToWithoutReturn(
-          context:event.context,
-          screen: event.screen,
-        );
-        emit(SignInNavigateToHomeScreenState(signInValidationModel: signInValidationModel));
-      }else {
         emit(SignInNavigateToHomeScreenState(
             signInValidationModel: signInValidationModel));
-      }
+
       }).catchError((onError) {
       emit(SignInErrorState());
     });
@@ -133,10 +125,6 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       SignInNavigateToSignUpScreenEvent event,
       Emitter<AbstractionSignInState> emit)async {
     await Future.delayed(const Duration(milliseconds: 200)).then((value) {
-      navigateToWithReturn(
-        context:event.context,
-        screen: event.screen,
-      );
       emit(SignInNavigateToSignUpScreenState());
     }).catchError((onError) {
       emit(SignInErrorState());

@@ -5,16 +5,12 @@ abstract class AbstractionSignUpEvent {}
 class SignUpUpInitialEvents extends AbstractionSignUpEvent {}
 
 class SignUpEvents extends AbstractionSignUpEvent {
-  BuildContext context;
-  Widget screen;
   String email;
   String password;
   String phone;
   String name;
 
   SignUpEvents({
-    required this.context,
-    required this.screen,
     required this.phone,
     required this.name,
     required this.password,
