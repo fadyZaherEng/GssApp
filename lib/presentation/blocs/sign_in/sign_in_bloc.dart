@@ -34,7 +34,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
 
   FutureOr<void> _onSignInSuccessEvent(
       SignInEvent event, Emitter<AbstractionSignInState> emit) async {
-    emit(SignInLoadingStates());
+    emit(SignInLoadingState());
     await Future.delayed(const Duration(seconds: 1)).then((value) {
       emit(SignInSuccessState());
     }).catchError((onError) {
@@ -45,7 +45,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
   FutureOr<void> _onSignInValidatePhoneNumberEvent(
       SignInValidatePhoneNumberEvent event,
       Emitter<AbstractionSignInState> emit) async {
-    emit(SignInLoadingStates());
+    emit(SignInLoadingState());
     await Future.delayed(const Duration(milliseconds: 200));
     await checkValidateMobile(event.validatePhoneNumber).then((value) {
       emit(SignInValidatePhoneNumberState(validationMassage: value));
@@ -58,7 +58,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       SignInSubmittedPhoneNumberEvent event,
       Emitter<AbstractionSignInState> emit)async {
     await Future.delayed(const Duration(seconds: 1)).then((value) {
-      emit(SignInSubmittedPhoneNumberStates());
+      emit(SignInSubmittedPhoneNumberState());
     }).catchError((onError) {
       emit(SignInErrorState());
     });
@@ -68,7 +68,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       SignInPressedForgetPasswordEvent event,
       Emitter<AbstractionSignInState> emit) async{
     await Future.delayed(const Duration(seconds: 1)).then((value) {
-      emit(SignInPressedForgetPasswordStates("25555"));
+      emit(SignInPressedForgetPasswordState("25555"));
     }).catchError((onError) {
       emit(SignInErrorState());
     });
@@ -77,7 +77,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
   FutureOr<void> _onSignInPressedClosedEvent(
       SignInPressedClosedEvent event, Emitter<AbstractionSignInState> emit) async{
     await Future.delayed(const Duration(seconds: 1)).then((value) {
-      emit(SignInPressedClosedStates());
+      emit(SignInPressedClosedState());
     }).catchError((onError) {
       emit(SignInErrorState());
     });
@@ -101,7 +101,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
         screen: event.screen,
         validate: event.validate,
       );
-      emit(SignInNavigateToHomeScreenStates());
+      emit(SignInNavigateToHomeScreenState());
     }).catchError((onError) {
       emit(SignInErrorState());
     });
@@ -116,7 +116,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
         screen: event.screen,
         validate: event.validate,
       );
-      emit(SignInNavigateToSignUpScreenStates());
+      emit(SignInNavigateToSignUpScreenState());
     }).catchError((onError) {
       emit(SignInErrorState());
     });

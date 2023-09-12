@@ -3,54 +3,54 @@ import 'package:gss/presentation/blocs/sign_up/sign_up_event.dart';
 
 abstract class AbstractionSignUpState {}
 
-class SignUpInitialStates extends AbstractionSignUpState {}
+class SignUpInitialState extends AbstractionSignUpState {}
 
-class SignUpLoadingStates extends AbstractionSignUpState {}
+class SignUpLoadingState extends AbstractionSignUpState {}
 
-class SignUpSuccessStates extends AbstractionSignUpState {}
+class SignUpSuccessState extends AbstractionSignUpState {}
 
-class SignUpErrorStates extends AbstractionSignUpState {}
+class SignUpErrorState extends AbstractionSignUpState {}
 
-class SignUpPressedClosedStates extends AbstractionSignUpState {}
+class SignUpPressedClosedState extends AbstractionSignUpState {}
 
-class SignUpNavigateToHomeScreenStates extends AbstractionSignUpState {
+class SignUpNavigateToHomeScreenState extends AbstractionSignUpState {
   ValidationModel validationModel;
 
-  SignUpNavigateToHomeScreenStates(this.validationModel);
+  SignUpNavigateToHomeScreenState(this.validationModel);
 }
 
-class SignUpNavigateToSignInScreenStates extends AbstractionSignUpState {}
+class SignUpNavigateToSignInScreenState extends AbstractionSignUpState {}
 
 
-class SignUpValidateFullNameStates extends AbstractionSignUpState {
+class SignUpValidateFullNameState extends AbstractionSignUpState {
   String? validationMassage;
 
-  SignUpValidateFullNameStates({required this.validationMassage});
+  SignUpValidateFullNameState({required this.validationMassage});
 }
-class SignUpSubmittedFullNameStates extends AbstractionSignUpState {
+class SignUpSubmittedFullNameState extends AbstractionSignUpState {
   String? signUpFullName;
 
-  SignUpSubmittedFullNameStates({this.signUpFullName});
+  SignUpSubmittedFullNameState({this.signUpFullName});
 }
-class SignUpChangedFullNameStates extends AbstractionSignUpState {
+class SignUpChangedFullNameState extends AbstractionSignUpState {
   String? signUpFullName;
 
-  SignUpChangedFullNameStates({this.signUpFullName});
+  SignUpChangedFullNameState({this.signUpFullName});
 }
 
-class SignUpSubmittedPhoneNumberStates extends AbstractionSignUpState {}
-class SignUpValidatePhoneNumberStates extends AbstractionSignUpState {
+class SignUpSubmittedPhoneNumberState extends AbstractionSignUpState {}
+class SignUpValidatePhoneNumberState extends AbstractionSignUpState {
   String? validationMassage;
 
-  SignUpValidatePhoneNumberStates({required this.validationMassage});
+  SignUpValidatePhoneNumberState({required this.validationMassage});
 }
-class SignUpChangedEmailStates extends AbstractionSignUpState {
+class SignUpChangedEmailState extends AbstractionSignUpState {
   String? validateMassage;
 
-  SignUpChangedEmailStates({this.validateMassage});
+  SignUpChangedEmailState({this.validateMassage});
 }
-class SignUpChangedPasswordStates extends AbstractionSignUpState {
+class SignUpChangedPasswordState extends AbstractionSignUpState {
   String? validateMassage;
 
-  SignUpChangedPasswordStates({this.validateMassage});
+  SignUpChangedPasswordState({this.validateMassage});
 }

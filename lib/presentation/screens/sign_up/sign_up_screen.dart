@@ -9,7 +9,7 @@ import 'package:gss/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:gss/presentation/screens/sign_up/widgets/sign_up_body_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen({super.key});
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -33,19 +33,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, AbstractionSignUpState>(
       listener: (context, state) {
-        if (state is SignUpValidatePhoneNumberStates) {
+        if (state is SignUpValidatePhoneNumberState) {
           _validationMassagePhoneNumber = state.validationMassage;
         }
-        if (state is SignUpValidateFullNameStates) {
+        if (state is SignUpValidateFullNameState) {
           _validationMassageFullName = state.validationMassage;
         }
-        if (state is SignUpChangedEmailStates) {
+        if (state is SignUpChangedEmailState) {
           _validationMassageEmail = state.validateMassage;
         }
-        if (state is SignUpChangedPasswordStates) {
+        if (state is SignUpChangedPasswordState) {
           _validationMassagePassword = state.validateMassage;
         }
-        if(state is SignUpNavigateToHomeScreenStates){
+        if(state is SignUpNavigateToHomeScreenState){
           _validationMassagePassword=state.validationModel.validationMassagePassword;
           _validationMassageEmail=state.validationModel.validationMassageEmail;
           _validationMassageFullName=state.validationModel.validationMassageFullName;

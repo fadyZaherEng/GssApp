@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 abstract class AbstractionSignInState {}
 
-class SignInSubmittedPhoneNumberStates extends AbstractionSignInState {}
+class SignInSubmittedPhoneNumberState extends AbstractionSignInState {}
 
-class SignInPressedClosedStates extends AbstractionSignInState {}
+class SignInPressedClosedState extends AbstractionSignInState {}
 
-class SignInPressedForgetPasswordStates extends AbstractionSignInState {
+class SignInPressedForgetPasswordState extends AbstractionSignInState {
   String signInPassword;
 
-  SignInPressedForgetPasswordStates(this.signInPassword);
+  SignInPressedForgetPasswordState(this.signInPassword);
 }
 
-class SignInNavigateToHomeScreenStates extends AbstractionSignInState {}
+class SignInNavigateToHomeScreenState extends AbstractionSignInState {}
 
-class SignInNavigateToSignUpScreenStates extends AbstractionSignInState {}
+class SignInNavigateToSignUpScreenState extends AbstractionSignInState {}
 
 class SignInChangePasswordStates extends AbstractionSignInState {
   String massage;
@@ -24,7 +24,7 @@ class SignInChangePasswordStates extends AbstractionSignInState {
 
 class SignInInitialStates extends AbstractionSignInState {}
 
-class SignInLoadingStates extends AbstractionSignInState {}
+class SignInLoadingState extends AbstractionSignInState {}
 
 class SignInSuccessState extends AbstractionSignInState {}
 

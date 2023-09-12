@@ -10,7 +10,7 @@ import 'package:gss/utils/navigate_with_return.dart';
 import 'package:gss/utils/navigate_without_return.dart';
 
 class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
-  SignUpBloc() : super(SignUpInitialStates()) {
+  SignUpBloc() : super(SignUpInitialState()) {
     //sign up
     on<SignUpEvents>(_onSignUpEvents);
     //already have account
@@ -48,39 +48,44 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
 
   FutureOr<void> _onSignUpEvents(
       SignUpEvents event, Emitter<AbstractionSignUpState> emit) async {
-    emit(SignUpLoadingStates());
+    emit(SignUpLoadingState());
     await Future.delayed(const Duration(milliseconds: 100)).then((value) async {
-      ValidationModel validationModel =  ValidationModel();
-      validationModel.validationMassagePhoneNumber =await checkValidateMobile(event.phone);
-      validationModel.validationMassagePassword = (event.password.length < 7)
-              ? "Password is Very Short" : null;
-      validationModel.validationMassageEmail = (!EmailValidator.validate(event.email))
-              ? "Please Enter Your Valid Email Address" : null;
-      validationModel.validationMassageFullName = (event.name.isEmpty || event.name.length < 3)
-              ? "Please Enter Valid Your Full Name" : null;
+      ValidationModel validationModel = ValidationModel();
+      validationModel.validationMassagePhoneNumber =
+          await checkValidateMobile(event.phone);
+      validationModel.validationMassagePassword =
+          (event.password.length < 7) ? "Password is Very Short" : null;
+      validationModel.validationMassageEmail =
+          (!EmailValidator.validate(event.email))
+              ? "Please Enter Your Valid Email Address"
+              : null;
+      validationModel.validationMassageFullName =
+          (event.name.isEmpty || event.name.length < 3)
+              ? "Please Enter Valid Your Full Name"
+              : null;
       //here register methods
-       navigateToWithoutReturn(
-         context: event.context,
-         screen: event.screen,
-         validate: event.validate,
-       );
-       emit(SignUpNavigateToHomeScreenStates(validationModel));
+      navigateToWithoutReturn(
+        context: event.context,
+        screen: event.screen,
+        validate: event.validate,
+      );
+      emit(SignUpNavigateToHomeScreenState(validationModel));
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
   Future<void> _onValidate(SignUpValidatePhoneEvents event,
       Emitter<AbstractionSignUpState> emit) async {
-    emit(SignUpInitialStates());
+    emit(SignUpInitialState());
     await Future.delayed(const Duration(seconds: 1)).then((value) async {
       await checkValidateMobile(event.signUpPhoneNumber).then((value) {
-        emit(SignUpValidatePhoneNumberStates(validationMassage: value));
+        emit(SignUpValidatePhoneNumberState(validationMassage: value));
       }).catchError((onError) {
-        emit(SignUpErrorStates());
+        emit(SignUpErrorState());
       });
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
@@ -88,18 +93,18 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       SignUpSubmittedPhoneNumberEvents event,
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      emit(SignUpSubmittedPhoneNumberStates());
+      emit(SignUpSubmittedPhoneNumberState());
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
   FutureOr<void> _onSignUpPressedClosedEvent(SignUpPressedClosedEvent event,
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      emit(SignUpPressedClosedStates());
+      emit(SignUpPressedClosedState());
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
@@ -108,13 +113,13 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 500)).then((value) {
       navigateToWithReturn(
-          context: event.context,
-          screen: event.screen,
-          validate: event.validate,
+        context: event.context,
+        screen: event.screen,
+        validate: event.validate,
       );
-      emit(SignUpNavigateToSignInScreenStates());
+      emit(SignUpNavigateToSignInScreenState());
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
@@ -123,14 +128,15 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 200)).then((value) {
       String? validationMassage;
-      if (event.signUpFullName.toString().isEmpty ||event.signUpFullName.toString().length < 3) {
+      if (event.signUpFullName.toString().isEmpty ||
+          event.signUpFullName.toString().length < 3) {
         validationMassage = "Please Enter Valid Your Full Name";
       } else {
         validationMassage = null;
       }
-      emit(SignUpValidateFullNameStates(validationMassage: validationMassage));
+      emit(SignUpValidateFullNameState(validationMassage: validationMassage));
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
@@ -139,14 +145,15 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 200)).then((value) {
       String? validationMassage;
-      if (event.signUpFullName.toString().isEmpty || event.signUpFullName.toString().length < 3) {
+      if (event.signUpFullName.toString().isEmpty ||
+          event.signUpFullName.toString().length < 3) {
         validationMassage = "Please Enter Valid Your Full Name";
       } else {
         validationMassage = null;
       }
-      emit(SignUpValidateFullNameStates(validationMassage: validationMassage));
+      emit(SignUpValidateFullNameState(validationMassage: validationMassage));
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
@@ -155,14 +162,15 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 200)).then((value) {
       String? validationMassage;
-      if (event.signUpFullName.toString().isEmpty || event.signUpFullName.toString().length < 3) {
+      if (event.signUpFullName.toString().isEmpty ||
+          event.signUpFullName.toString().length < 3) {
         validationMassage = "Please Enter Valid Your Full Name";
       } else {
         validationMassage = null;
       }
-      emit(SignUpValidateFullNameStates(validationMassage: validationMassage));
+      emit(SignUpValidateFullNameState(validationMassage: validationMassage));
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
@@ -175,9 +183,9 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       } else {
         validateMassage = null;
       }
-      emit(SignUpChangedEmailStates(validateMassage: validateMassage));
+      emit(SignUpChangedEmailState(validateMassage: validateMassage));
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
@@ -186,14 +194,14 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       Emitter<AbstractionSignUpState> emit) async {
     await Future.delayed(const Duration(milliseconds: 500)).then((value) {
       String? validationPassword;
-      if (event.signUpPassword.toString().length<7) {
-        validationPassword= "Password is Very Short";
-      }else{
-        validationPassword=null;
+      if (event.signUpPassword.toString().length < 7) {
+        validationPassword = "Password is Very Short";
+      } else {
+        validationPassword = null;
       }
-      emit(SignUpChangedPasswordStates(validateMassage: validationPassword));
+      emit(SignUpChangedPasswordState(validateMassage: validationPassword));
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 
@@ -205,9 +213,9 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
           context: event.context,
           screen: event.screen,
           validate: event.validate);
-      emit(SignUpNavigateToSignInScreenStates());
+      emit(SignUpNavigateToSignInScreenState());
     }).catchError((onError) {
-      emit(SignUpErrorStates());
+      emit(SignUpErrorState());
     });
   }
 }
