@@ -6,20 +6,19 @@ class HomeListWidget extends StatelessWidget {
   List<TowerModel> towers = [];
   void Function() homeItemListClick;
   void Function() homeLogoListClick;
-  void Function() homeFavoritesClick;
   void Function() homeOpenWhatsAppClick;
   void Function() homeCallClick;
   void Function() homeEmailClick;
-
+  bool favClicked=false;
   HomeListWidget({
     super.key,
     required this.towers,
     required this.homeItemListClick,
     required this.homeLogoListClick,
-    required this.homeFavoritesClick,
     required this.homeCallClick,
     required this.homeEmailClick,
     required this.homeOpenWhatsAppClick,
+    favClicked=false,
   });
 
   @override
@@ -29,10 +28,10 @@ class HomeListWidget extends StatelessWidget {
         itemBuilder: (context, idx) {
           return HomeListItemWidget(
             towerModel: towers[idx],
+            index: idx,
             context: context,
             homeItemListClick: homeItemListClick,
             homeCallClick: homeCallClick,
-            homeFavoritesClick: homeFavoritesClick,
             homeEmailClick: homeEmailClick,
             homeLogoListClick: homeLogoListClick,
             homeOpenWhatsAppClick: homeOpenWhatsAppClick,

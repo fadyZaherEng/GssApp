@@ -6,26 +6,34 @@ import 'package:gss/domain/models/tower.dart';
 import 'package:gss/presentation/blocs/home/home_bloc.dart';
 import 'package:gss/presentation/blocs/home/home_event.dart';
 import 'package:gss/presentation/blocs/home/home_state.dart';
+import 'package:gss/presentation/screens/home/saved/saved_screen.dart';
 import 'package:gss/presentation/screens/home/widgets/home_body_widget.dart';
 import 'package:gss/presentation/screens/home/widgets/home_bottom_nav_widget.dart';
 import 'package:gss/presentation/screens/home/widgets/home_floating_widget.dart';
 import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
+import 'package:gss/utils/navigate_with_return.dart';
+import 'package:hive/hive.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
+
   HomeBloc get _bloc => BlocProvider.of<HomeBloc>(context);
   List<TowerModel> _towers = [];
   int _homeChangeNavIndex = 0;
+  Box? boxTowers;
+
   @override
   void initState() {
     super.initState();
     _bloc.add((HomeGetDataFromApiEvent()));
+    _bloc.initFavoritiesValueOFList();
   }
 
   @override
@@ -38,6 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is HomeChangeNavState) {
           _homeChangeNavIndex = state.homeChangeNavIdx;
         }
+        if(state is HomeGetTowerClickState){
+          boxTowers=state.savedTowers;
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -45,47 +56,50 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: _homeAppBar(),
           body: HomeBodyWidget(
             towers: _towers,
-            homeItemListClick: (){
+            homeItemListClick: () {
               _bloc.add(HomeItemListClickEvent());
             },
-            homeCallClick: (){
+            homeCallClick: () {
               _bloc.add(HomeCallClickEvent(homePhone: ""));
             },
-            homeFavoritesClick: (){
-              _bloc.add(HomeFavoritesClickEvent());
-            },
-            homeEmailClick: (){
+            homeEmailClick: () {
               _bloc.add(HomeEmailClickEvent(homeEmail: ""));
             },
-            homeLogoListClick: (){
+            homeLogoListClick: () {
               _bloc.add(HomeLogoListClickEvent());
             },
-            homeOpenWhatsAppClick: (){
+            homeOpenWhatsAppClick: () {
               _bloc.add(HomeOpenWhatsAppClickEvent(homeWhatsAppNumber: ""));
             },
           ),
           bottomNavigationBar: HomeBottomNavWidget(
             homeChangeNavIdx: _homeChangeNavIndex,
-            homeBottomNavChange: (index){
+            homeBottomNavChange: (index) {
               _bloc.add(HomeChangeNavBottomEvent(homeChangNavIdx: index));
+              if (index == 1) {
+                navigateToWithReturn(
+                  context: context,
+                  screen: SavedScreen(savedTowers:boxTowers!),
+                );
+            }
             },
           ),
           floatingActionButton: HomeFloatingWidget(
-            homeFloatingMapClick:(){
+            homeFloatingMapClick: () {
               _bloc.add(HomeFloatingSortClickEvent());
-            } ,
-            homeFloatingSortClick:(){
+            },
+            homeFloatingSortClick: () {
               _bloc.add(HomeFloatingMapClickEvent());
-            } ,
+            },
           ),
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
+          FloatingActionButtonLocation.centerFloat,
         );
       },
     );
   }
 
- PreferredSizeWidget _homeAppBar() {
+  PreferredSizeWidget _homeAppBar() {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -99,7 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         margin: const EdgeInsetsDirectional.symmetric(horizontal: 10),
         height: 55,
-        width: MediaQuery.sizeOf(context).width,
+        width: MediaQuery
+            .sizeOf(context)
+            .width,
         child: CustomTextFieldWidget(
           onSubmitted: (val) {},
           onChanged: (val) {
@@ -138,5 +154,5 @@ class _HomeScreenState extends State<HomeScreen> {
         )
       ],
     );
- }
+  }
 }

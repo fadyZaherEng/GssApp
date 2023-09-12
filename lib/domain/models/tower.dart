@@ -1,7 +1,21 @@
-class TowerModel {
-  String title, address;
+import 'package:hive_flutter/adapters.dart';
+part 'tower.g.dart';
+@HiveType(typeId: 1)
+class TowerModel extends HiveObject{
+  @HiveField(0)
+  String title;
+  @HiveField(1)
+  String address;
+  @HiveField(2)
   double pounds;
-  int beds, bath, sqft, numOfDay;
+  @HiveField(3)
+  int beds;
+  @HiveField(4)
+  int bath;
+  @HiveField(5)
+  int sqft;
+  @HiveField(6)
+  int numOfDay;
 
   TowerModel(
       {required this.title,
@@ -11,28 +25,4 @@ class TowerModel {
       required this.bath,
       required this.sqft,
       required this.numOfDay});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'address': address,
-      'pounds': pounds,
-      'beds': beds,
-      'bath': bath,
-      'sqft': sqft,
-      'numOfDay': numOfDay,
-    };
-  }
-
-  factory TowerModel.fromMap(Map<String, dynamic> map) {
-    return TowerModel(
-      title: map['title'] ,
-      address: map['address'] ,
-      pounds: map['pounds'] ,
-      beds: map['beds'] ,
-      bath: map['bath'] ,
-      sqft: map['sqft'] ,
-      numOfDay: map['numOfDay'] ,
-    );
-  }
 }

@@ -9,16 +9,13 @@ class HomeBodyWidget extends StatelessWidget {
   List<TowerModel> towers;
   void Function() homeItemListClick;
   void Function() homeLogoListClick;
-  void Function() homeFavoritesClick;
   void Function() homeOpenWhatsAppClick;
   void Function() homeCallClick;
   void Function() homeEmailClick;
-
   HomeBodyWidget({
     required this.towers,
     required this.homeItemListClick,
     required this.homeLogoListClick,
-    required this.homeFavoritesClick,
     required this.homeCallClick,
     required this.homeEmailClick,
     required this.homeOpenWhatsAppClick,
@@ -75,9 +72,9 @@ class HomeBodyWidget extends StatelessWidget {
             homeOpenWhatsAppClick: homeOpenWhatsAppClick,
             homeLogoListClick: homeLogoListClick,
             homeEmailClick: homeEmailClick,
-            homeFavoritesClick: homeFavoritesClick,
             homeCallClick: homeCallClick,
             homeItemListClick: homeItemListClick,
+
           ),
         ],
       ),

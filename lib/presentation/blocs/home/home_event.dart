@@ -1,3 +1,5 @@
+import 'package:gss/domain/models/tower.dart';
+
 abstract class AbstractionHomeEvent{}
 class HomeChangeNavBottomEvent extends AbstractionHomeEvent{
   int homeChangNavIdx;
@@ -8,7 +10,11 @@ class HomeGetDataFromApiEvent extends AbstractionHomeEvent{}
 
 class HomeItemListClickEvent extends AbstractionHomeEvent{}
 class HomeLogoListClickEvent extends AbstractionHomeEvent{}
-class HomeFavoritesClickEvent extends AbstractionHomeEvent{}
+class HomeFavoritesClickEvent extends AbstractionHomeEvent{
+  TowerModel towerModel;
+  int index;
+  HomeFavoritesClickEvent({required this.towerModel,required this.index});
+}
 class HomeOpenWhatsAppClickEvent extends AbstractionHomeEvent{
   String homeWhatsAppNumber;
 
@@ -33,3 +39,14 @@ class HomeSavedClickedEvent extends AbstractionHomeEvent{}
 
 class HomeFloatingMapClickEvent extends AbstractionHomeEvent{}
 class HomeFloatingSortClickEvent extends AbstractionHomeEvent{}
+class HomeAddTowerClickEvent extends AbstractionHomeEvent{
+  TowerModel towerModel;
+
+  HomeAddTowerClickEvent({required this.towerModel});
+}
+class HomeGetTowerClickEvent extends AbstractionHomeEvent{}
+class HomeDeleteTowerClickEvent extends AbstractionHomeEvent{
+  int homeTowerIndex;
+
+  HomeDeleteTowerClickEvent({required this.homeTowerIndex});
+}

@@ -28,6 +28,9 @@ dependencies:
   retrofit:
   #dio show response
   pretty_dio_logger:
+  hive:
+  hive_flutter:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +38,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   retrofit_generator:
   build_runner:
+  hive_generator:
+
 flutter:
   uses-material-design: true
   assets:

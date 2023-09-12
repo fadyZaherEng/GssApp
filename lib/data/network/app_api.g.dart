@@ -13,7 +13,7 @@ class _AppServiceClient implements AppServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://api.nytimes.com/';
+    baseUrl ??= 'base';
   }
 
   final Dio _dio;
@@ -26,16 +26,15 @@ class _AppServiceClient implements AppServiceClient {
     final queryParameters = <String, dynamic>{r'api-key': apiKey};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<
-        TestModelResponse>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<TestModelResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'svc/mostpopular/v2/viewed/7.json',
+              'rest',
               queryParameters: queryParameters,
               data: _data,
             )

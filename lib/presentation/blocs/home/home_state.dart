@@ -1,40 +1,80 @@
+import 'package:flutter/material.dart';
 import 'package:gss/domain/models/tower.dart';
 
-abstract class AbstractionHomeState{}
+abstract class AbstractionHomeState {}
 
-class HomeInitialState extends AbstractionHomeState{}
-class HomeLoadingState extends AbstractionHomeState{}
-class HomeGetDataSuccessState extends AbstractionHomeState{
-  List<TowerModel>towers;
+class HomeInitialState extends AbstractionHomeState {}
+
+class HomeLoadingState extends AbstractionHomeState {}
+
+class HomeGetDataSuccessState extends AbstractionHomeState {
+  List<TowerModel> towers;
+
   HomeGetDataSuccessState({required this.towers});
 }
-class HomeGetDataErrorsState extends AbstractionHomeState{
+
+class HomeGetDataErrorsState extends AbstractionHomeState {
   String error;
 
   HomeGetDataErrorsState({required this.error});
 }
-class HomeChangeNavState extends AbstractionHomeState{
+
+class HomeChangeNavState extends AbstractionHomeState {
   int homeChangeNavIdx;
 
   HomeChangeNavState({required this.homeChangeNavIdx});
 }
-class HomeItemListClickState extends AbstractionHomeState{}
-class HomeLogoListClickState extends AbstractionHomeState{}
-class HomeFavoritesClickState extends AbstractionHomeState{}
-class HomeOpenWhatsAppClickState extends AbstractionHomeState{
+
+class HomeItemListClickState extends AbstractionHomeState {}
+
+class HomeLogoListClickState extends AbstractionHomeState {}
+
+class HomeFavoritesClickState extends AbstractionHomeState {}
+
+class HomeOpenWhatsAppClickState extends AbstractionHomeState {
   String homeWhatsAppNumber;
 
   HomeOpenWhatsAppClickState({required this.homeWhatsAppNumber});
 }
-class HomeCallClickState extends AbstractionHomeState{
-}
-class HomeEmailClickState extends AbstractionHomeState{
-}
-class HomeSearchChangeState extends AbstractionHomeState{
+
+class HomeCallClickState extends AbstractionHomeState {}
+
+class HomeEmailClickState extends AbstractionHomeState {}
+
+class HomeSearchChangeState extends AbstractionHomeState {
   dynamic homeResult;
 
   HomeSearchChangeState({required this.homeResult});
 }
-class HomeSavedClickedState extends AbstractionHomeState{}
-class HomeFloatingMapClickState extends AbstractionHomeState{}
-class HomeFloatingSortClickState extends AbstractionHomeState{}
+
+class HomeSavedClickedState extends AbstractionHomeState {}
+
+class HomeFloatingMapClickState extends AbstractionHomeState {}
+
+class HomeFloatingSortClickState extends AbstractionHomeState {}
+
+class HomeAddTowerClickState extends AbstractionHomeState {
+  String homeAddTowerMassage;
+
+  HomeAddTowerClickState({required this.homeAddTowerMassage});
+}
+
+class HomeGetTowerClickState extends AbstractionHomeState {
+  dynamic savedTowers;
+  int index;
+
+  HomeGetTowerClickState({
+    required this.savedTowers,
+    required this.index,
+  });
+}
+
+class HomeDeleteTowerClickState extends AbstractionHomeState {
+  String homeDeleteMassage;
+
+  HomeDeleteTowerClickState({required this.homeDeleteMassage});
+}
+class HomeChangeFavColorState extends AbstractionHomeState {
+  int index;
+  HomeChangeFavColorState({required this.index});
+}

@@ -1,9 +1,15 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gss/app/constants.dart';
 import 'package:gss/domain/models/tower.dart';
 import 'package:gss/presentation/blocs/home/home_event.dart';
 import 'package:gss/presentation/blocs/home/home_state.dart';
+import 'package:gss/utils/show_toast.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
   HomeBloc() : super(HomeInitialState()) {
@@ -19,6 +25,7 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
     on<HomeSavedClickedEvent>(_onHomeSavedClickedEvent);
     on<HomeFloatingMapClickEvent>(_onHomeFloatingMapClickEvent);
     on<HomeFloatingSortClickEvent>(_onHomeFloatingSortClickEvent);
+    on<HomeGetTowerClickEvent>(_onHomeGetTowerClickEvent);
   }
 
   int currentIdx = 0;
@@ -65,15 +72,6 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
     });
   }
 
-  FutureOr<void> _onHomeFavoritesClickEvent(
-      HomeFavoritesClickEvent event, Emitter<AbstractionHomeState> emit) async {
-    await Future.delayed(const Duration(milliseconds: 100)).then((value) {
-      emit(HomeFavoritesClickState());
-    }).catchError((onError) {
-      emit(HomeGetDataErrorsState(error: onError.toString()));
-    });
-  }
-
   FutureOr<void> _onHomeOpenWhatsAppClickEvent(HomeOpenWhatsAppClickEvent event,
       Emitter<AbstractionHomeState> emit) async {
     await Future.delayed(const Duration(milliseconds: 100)).then((value) {
@@ -111,7 +109,7 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
   }
 
   FutureOr<void> _onHomeSavedClickedEvent(
-      HomeSavedClickedEvent event, Emitter<AbstractionHomeState> emit) async{
+      HomeSavedClickedEvent event, Emitter<AbstractionHomeState> emit) async {
     await Future.delayed(const Duration(milliseconds: 100)).then((value) {
       emit(HomeSavedClickedState());
     }).catchError((onError) {
@@ -119,9 +117,8 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
     });
   }
 
-
-  FutureOr<void> _onHomeFloatingMapClickEvent(
-      HomeFloatingMapClickEvent event, Emitter<AbstractionHomeState> emit) async{
+  FutureOr<void> _onHomeFloatingMapClickEvent(HomeFloatingMapClickEvent event,
+      Emitter<AbstractionHomeState> emit) async {
     await Future.delayed(const Duration(milliseconds: 100)).then((value) {
       emit(HomeFloatingMapClickState());
     }).catchError((onError) {
@@ -129,8 +126,8 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
     });
   }
 
-  FutureOr<void> _onHomeFloatingSortClickEvent(
-      HomeFloatingSortClickEvent event, Emitter<AbstractionHomeState> emit)async {
+  FutureOr<void> _onHomeFloatingSortClickEvent(HomeFloatingSortClickEvent event,
+      Emitter<AbstractionHomeState> emit) async {
     await Future.delayed(const Duration(milliseconds: 100)).then((value) {
       emit(HomeFloatingSortClickState());
     }).catchError((onError) {
@@ -300,4 +297,59 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
         sqft: 900,
         numOfDay: 11),
   ];
+  Box savedTowers = Hive.box<TowerModel>("towers");
+
+  FutureOr<void> _onHomeGetTowerClickEvent(
+      HomeGetTowerClickEvent event, Emitter<AbstractionHomeState> emit) async {
+      await Future.delayed(const Duration(milliseconds: 50)).then((value) async {
+      savedTowers =Hive.box<TowerModel>("towers");
+      emit(HomeCallClickState());
+    }).catchError((onError) {
+      showToast(message: onError.toString(), state: ToastState.SUCCESS);
+      emit(HomeCallClickState());
+    });
+  }
+
+
+  FutureOr<void> _onHomeFavoritesClickEvent(
+      HomeFavoritesClickEvent event, Emitter<AbstractionHomeState> emit) async {
+    emit(HomeChangeFavColorState(index: event.index));
+
+    await Future.delayed(const Duration(seconds: 1)).then((value) async {
+      //print(favorities[event.index]);
+      bool favorite=favorities[event.index]!;
+      if(favorite) {
+        favorities[event.index] = false;
+        favorite=!favorite;
+      }else{
+        favorities[event.index]=true;
+        favorite=!favorite;
+      }
+      //print(favorities[event.index]);
+      if (favorities[event.index]!) {
+        await savedTowers.add(event.towerModel);
+        //print(savedTowers.length);
+        //print("fav");
+        //showToast(message: "Favorite Success", state: ToastState.SUCCESS);
+        emit(HomeGetTowerClickState(savedTowers: savedTowers,index: event.index));
+      } else if(!favorities[event.index]!){
+        event.towerModel.delete();
+        //print('dis');
+        await savedTowers.delete(event.towerModel);
+        //print(savedTowers.containsKey(event.towerModel));
+        //print(savedTowers.length);
+        //showToast(message: "disFavorite Success", state: ToastState.SUCCESS);
+        emit(HomeGetTowerClickState(savedTowers: savedTowers,index: event.index));
+      }
+    }).catchError((onError) {
+      showToast(message: onError.toString(), state: ToastState.SUCCESS);
+      emit(HomeGetDataErrorsState(error: onError.toString()));
+    });
+  }
+  void initFavoritiesValueOFList(){
+    for(int i=0;i<towers.length;i++){
+      favorities[i]=false;
+    }
+    print(favorities);
+  }
 }
