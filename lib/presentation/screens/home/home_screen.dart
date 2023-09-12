@@ -11,13 +11,13 @@ import 'package:gss/presentation/screens/home/widgets/home_bottom_nav_widget.dar
 import 'package:gss/presentation/screens/home/widgets/home_floating_widget.dart';
 import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   HomeBloc get _bloc => BlocProvider.of<HomeBloc>(context);
   List<TowerModel> _towers = [];

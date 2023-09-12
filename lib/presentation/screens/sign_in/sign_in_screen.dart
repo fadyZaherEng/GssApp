@@ -45,7 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
               _validationMessagePassword == null) {
             navigateToWithoutReturn(
               context: context,
-              screen: const MyHomePage(),
+              screen: const HomeScreen(),
             );
           }
         }

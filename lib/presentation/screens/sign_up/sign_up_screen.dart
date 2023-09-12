@@ -65,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               _validationMassagePassword == null) {
             navigateToWithoutReturn(
               context: context,
-              screen: const MyHomePage(),
+              screen: const HomeScreen(),
             );
           }
         }
