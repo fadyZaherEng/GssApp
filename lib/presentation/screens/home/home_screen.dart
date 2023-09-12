@@ -19,13 +19,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _searchController = TextEditingController();
-  HomeBloc get bloc => BlocProvider.of<HomeBloc>(context);
+  HomeBloc get _bloc => BlocProvider.of<HomeBloc>(context);
   List<TowerModel> _towers = [];
   int _homeChangeNavIndex = 0;
   @override
   void initState() {
     super.initState();
-    bloc.add((HomeGetDataFromApiEvent()));
+    _bloc.add((HomeGetDataFromApiEvent()));
   }
 
   @override
@@ -46,36 +46,36 @@ class _MyHomePageState extends State<MyHomePage> {
           body: HomeBodyWidget(
             towers: _towers,
             homeItemListClick: (){
-              bloc.add(HomeItemListClickEvent());
+              _bloc.add(HomeItemListClickEvent());
             },
             homeCallClick: (){
-              bloc.add(HomeCallClickEvent(homePhone: ""));
+              _bloc.add(HomeCallClickEvent(homePhone: ""));
             },
             homeFavoritesClick: (){
-              bloc.add(HomeFavoritesClickEvent());
+              _bloc.add(HomeFavoritesClickEvent());
             },
             homeEmailClick: (){
-              bloc.add(HomeEmailClickEvent(homeEmail: ""));
+              _bloc.add(HomeEmailClickEvent(homeEmail: ""));
             },
             homeLogoListClick: (){
-              bloc.add(HomeLogoListClickEvent());
+              _bloc.add(HomeLogoListClickEvent());
             },
             homeOpenWhatsAppClick: (){
-              bloc.add(HomeOpenWhatsAppClickEvent(homeWhatsAppNumber: ""));
+              _bloc.add(HomeOpenWhatsAppClickEvent(homeWhatsAppNumber: ""));
             },
           ),
           bottomNavigationBar: HomeBottomNavWidget(
             homeChangeNavIdx: _homeChangeNavIndex,
             homeBottomNavChange: (index){
-              bloc.add(HomeChangeNavBottomEvent(homeChangNavIdx: index));
+              _bloc.add(HomeChangeNavBottomEvent(homeChangNavIdx: index));
             },
           ),
           floatingActionButton: HomeFloatingWidget(
             homeFloatingMapClick:(){
-              bloc.add(HomeFloatingSortClickEvent());
+              _bloc.add(HomeFloatingSortClickEvent());
             } ,
             homeFloatingSortClick:(){
-              bloc.add(HomeFloatingMapClickEvent());
+              _bloc.add(HomeFloatingMapClickEvent());
             } ,
           ),
           floatingActionButtonLocation:
@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onSubmitted: (val) {},
           onChanged: (val) {
             //add event
-            bloc.add(HomeSearchChangeEvent(homeSearchKey: val));
+            _bloc.add(HomeSearchChangeEvent(homeSearchKey: val));
           },
           controller: _searchController,
           text: 'Search by building',
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
         InkWell(
           onTap: () {
             //add event
-            bloc.add(HomeSavedClickedEvent());
+            _bloc.add(HomeSavedClickedEvent());
           },
           child: Row(
             children: [
