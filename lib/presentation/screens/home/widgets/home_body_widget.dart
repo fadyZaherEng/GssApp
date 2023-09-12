@@ -3,18 +3,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gss/domain/models/tower.dart';
-import 'package:gss/presentation/blocs/home/home_states.dart';
 import 'package:gss/presentation/screens/home/widgets/home_list_widget.dart';
 
 class HomeBodyWidget extends StatelessWidget {
+  List<TowerModel> towers;
+  void Function() homeItemListClick;
+  void Function() homeLogoListClick;
+  void Function() homeFavoritesClick;
+  void Function() homeOpenWhatsAppClick;
+  void Function() homeCallClick;
+  void Function() homeEmailClick;
 
-  List<TowerModel>towers;
-
-  HomeBodyWidget({required this.towers});
+  HomeBodyWidget({
+    required this.towers,
+    required this.homeItemListClick,
+    required this.homeLogoListClick,
+    required this.homeFavoritesClick,
+    required this.homeCallClick,
+    required this.homeEmailClick,
+    required this.homeOpenWhatsAppClick,
+  });
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> _options = [
+    List<dynamic> options = [
       'assets/svg/ic_filter.svg',
       'Buy',
       'Property Type',
@@ -42,27 +54,36 @@ class HomeBodyWidget extends StatelessWidget {
                         ),
                         child: Center(
                             child:
-                            SvgPicture.asset('assets/svg/ic_filter.svg')),
+                                SvgPicture.asset('assets/svg/ic_filter.svg')),
                       ),
                     );
                   }
-                  return _getIconTheme(_options[idx]);
+                  return _getIconTheme(options[idx]);
                 },
                 separatorBuilder: (context, idx) {
                   return const SizedBox(
                     width: 15,
                   );
                 },
-                itemCount: _options.length),
+                itemCount: options.length),
           ),
           const SizedBox(
             height: 12,
           ),
-          HomeListWidget(towers:towers),
+          HomeListWidget(
+            towers: towers,
+            homeOpenWhatsAppClick: homeOpenWhatsAppClick,
+            homeLogoListClick: homeLogoListClick,
+            homeEmailClick: homeEmailClick,
+            homeFavoritesClick: homeFavoritesClick,
+            homeCallClick: homeCallClick,
+            homeItemListClick: homeItemListClick,
+          ),
         ],
       ),
     );
   }
+
   Widget _getIconTheme(String data) {
     return InkWell(
       onTap: () {},

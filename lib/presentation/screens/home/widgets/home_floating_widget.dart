@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeFloatingWidget extends StatelessWidget {
-   final BuildContext context;
-   HomeFloatingWidget({required this.context,super.key});
+  void Function() homeFloatingMapClick;
+  void Function() homeFloatingSortClick;
+   HomeFloatingWidget({
+    super.key,
+    required this.homeFloatingMapClick,
+    required this.homeFloatingSortClick,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class HomeFloatingWidget extends StatelessWidget {
           label: Row(
             children: [
               InkWell(
-                onTap: () {},
+                onTap: homeFloatingMapClick,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
@@ -45,7 +50,7 @@ class HomeFloatingWidget extends StatelessWidget {
                 color: Colors.grey,
               ),
               InkWell(
-                onTap: () {},
+                onTap: homeFloatingSortClick,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
