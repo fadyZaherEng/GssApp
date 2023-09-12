@@ -1,9 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/app/constants.dart';
-import 'package:gss/domain/models/validation_model.dart';
+import 'package:gss/domain/models/sign_up_validation_model.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_event.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_state.dart';
 import 'package:gss/utils/navigate_with_return.dart';
@@ -50,7 +52,7 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       SignUpEvents event, Emitter<AbstractionSignUpState> emit) async {
     emit(SignUpLoadingState());
     await Future.delayed(const Duration(milliseconds: 100)).then((value) async {
-      ValidationModel validationModel = ValidationModel();
+      SignUpValidationModel validationModel = SignUpValidationModel();
       validationModel.validationMassagePhoneNumber =
           await checkValidateMobile(event.phone);
       validationModel.validationMassagePassword =

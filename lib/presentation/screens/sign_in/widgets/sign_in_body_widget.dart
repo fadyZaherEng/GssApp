@@ -16,7 +16,8 @@ class SignInBodyWidget extends StatefulWidget {
   void Function() onPressedForgetPassword;
   final TextEditingController passwordController;
   final TextEditingController phoneController;
-  String? validationMessage;
+  String? validationMessagePhone;
+  String? validationMessagePassword;
 
   SignInBodyWidget({
     super.key,
@@ -27,7 +28,8 @@ class SignInBodyWidget extends StatefulWidget {
     required this.onChangePassword,
     required this.onPressedClosed,
     required this.onChangePhoneNumber,
-    required this.validationMessage,
+    required this.validationMessagePassword,
+    required this.validationMessagePhone,
     required this.passwordController,
     required this.phoneController,
     required this.onSubmittedPhoneNumber,
@@ -84,7 +86,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                 CustomTextFieldWidget(
                   controller: widget.phoneController,
                   text: "Phone Number",
-                  errorMSG: widget.validationMessage,
+                  errorMSG: widget.validationMessagePhone,
                   onChanged: widget.onChangePhoneNumber,
                   onSubmitted: widget.onSubmittedPhoneNumber,
                 ),
@@ -94,6 +96,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                 PasswordTextFieldWidget(
                   controller: widget.passwordController,
                   onChanged: widget.onChangePassword,
+                  errorMSG: widget.validationMessagePassword,
                 ),
                 const SizedBox(
                   height: 10,

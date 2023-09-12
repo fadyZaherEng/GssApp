@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gss/domain/models/sign_in_validation_model.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_event.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_state.dart';
 import 'package:gss/utils/navigate_with_return.dart';
@@ -86,7 +89,13 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
   FutureOr<void> _onSignInChangePasswordEvent(
       SignInChangePasswordEvent event, Emitter<AbstractionSignInState> emit) async{
     await Future.delayed(const Duration(seconds: 1)).then((value) {
-      emit(SignInChangePasswordStates("Ok"));
+      String? validationMassage;
+      if(event.signInPassword.toString().length<7){
+            validationMassage="Password is very Short";
+          }else{
+        validationMassage=null;
+      }
+      emit(SignInChangePasswordStates(validationMassage: validationMassage));
     }).catchError((onError) {
       emit(SignInErrorState());
     });
@@ -95,13 +104,21 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
   FutureOr<void> _onSignInNavigateToHomeScreenEvent(
       SignInNavigateToHomeScreenEvent event,
       Emitter<AbstractionSignInState> emit)async {
-    await Future.delayed(const Duration(milliseconds: 200)).then((value) {
+    await Future.delayed(const Duration(milliseconds: 200)).then((value)async {
+      SignInValidationModel signInValidationModel=SignInValidationModel();
+      signInValidationModel.validationMassagePhoneNumber=await checkValidateMobile(event.phone);
+      String? validationMassage;
+      if(event.password.toString().length<7){
+        signInValidationModel.validationMassagePassword="Password is very Short";
+      }else{
+        signInValidationModel.validationMassagePassword=null;
+      }
       navigateToWithoutReturn(
         context:event.context,
         screen: event.screen,
         validate: event.validate,
       );
-      emit(SignInNavigateToHomeScreenState());
+      emit(SignInNavigateToHomeScreenState(signInValidationModel: signInValidationModel));
     }).catchError((onError) {
       emit(SignInErrorState());
     });

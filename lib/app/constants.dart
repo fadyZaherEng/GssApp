@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:gss/domain/models/validation_model.dart';
+import 'package:gss/domain/models/sign_up_validation_model.dart';
 
 class Constants {
   static const String  BASE_URL="base";

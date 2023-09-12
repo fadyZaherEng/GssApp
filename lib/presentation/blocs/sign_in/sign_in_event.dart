@@ -22,11 +22,14 @@ class SignInNavigateToHomeScreenEvent extends AbstractSignInEvent {
   BuildContext context;
   Widget screen;
   bool validate;
+  String phone,password;
 
   SignInNavigateToHomeScreenEvent({
     required this.context,
     required this.screen,
     required this.validate,
+    required this.phone,
+    required this.password,
   });
 }
 
@@ -42,7 +45,11 @@ class SignInNavigateToSignUpScreenEvent extends AbstractSignInEvent {
   });
 }
 
-class SignInChangePasswordEvent extends AbstractSignInEvent {}
+class SignInChangePasswordEvent extends AbstractSignInEvent {
+  String?signInPassword;
+
+  SignInChangePasswordEvent({required this.signInPassword});
+}
 
 class SignInValidatePhoneNumberEvent extends AbstractSignInEvent {
   String validatePhoneNumber;

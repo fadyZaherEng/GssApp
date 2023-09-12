@@ -1,4 +1,4 @@
-class ValidationModel {
+class SignUpValidationModel {
   String? validationMassageFullName;
   String? validationMassagePhoneNumber;
   String? validationMassageEmail;

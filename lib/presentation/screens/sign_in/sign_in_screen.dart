@@ -16,7 +16,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  String? _validationMessage;
+  String? _validationMessagePhone;
+  String? _validationMessagePassword;
   final _formKey = GlobalKey<FormState>();
 
   SignInBloc get _bloc => BlocProvider.of<SignInBloc>(context);
@@ -32,7 +33,14 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocConsumer<SignInBloc, AbstractionSignInState>(
       listener: (context, state) {
         if (state is SignInValidatePhoneNumberState) {
-          _validationMessage = state.validationMassage;
+          _validationMessagePhone = state.validationMassage;
+        }
+        if(state is SignInChangePasswordStates){
+          _validationMessagePassword=state.validationMassage;
+        }
+        if(state is SignInNavigateToHomeScreenState){
+          _validationMessagePassword=state.signInValidationModel.validationMassagePassword;
+          _validationMessagePhone=state.signInValidationModel.validationMassagePhoneNumber;
         }
       },
       builder: (context, state) {
@@ -49,9 +57,10 @@ class _SignInScreenState extends State<SignInScreen> {
               onSubmittedPhoneNumber: (String value) {
                 _bloc.add(SignInSubmittedPhoneNumberEvent(signInPhoneNumber: value));
               },
-              validationMessage: _validationMessage,
+              validationMessagePassword: _validationMessagePassword,
+              validationMessagePhone: _validationMessagePhone,
               onChangePassword: (String value) {
-                _bloc.add(SignInChangePasswordEvent());
+                _bloc.add(SignInChangePasswordEvent(signInPassword: value));
               },
               onPressedClosed: () {
                 _bloc.add(SignInPressedClosedEvent());
@@ -66,6 +75,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     context: context,
                     screen: const MyHomePage(),
                     validate: _formKey.currentState!.validate(),
+                    phone: _phoneController.text,
+                    password: _passwordController.text
                   ),
                 );
               },
@@ -73,7 +84,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 _bloc.add(
                   SignInNavigateToSignUpScreenEvent(
                     context: context,
-                    screen:  SignUpScreen(),
+                    screen:  const SignUpScreen(),
                   ),
                 );
               },
