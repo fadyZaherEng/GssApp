@@ -9,4 +9,3 @@ class Constants {
   static const String token = "TOKEN";
   static const String SECTION_PATH='rest';
 }
-HashMap<int,bool>favorities= HashMap();

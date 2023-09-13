@@ -6,10 +6,10 @@ import 'package:gss/domain/models/tower.dart';
 import 'package:gss/presentation/blocs/home/home_bloc.dart';
 import 'package:gss/presentation/blocs/home/home_event.dart';
 import 'package:gss/presentation/blocs/home/home_state.dart';
-import 'package:gss/presentation/screens/home/saved/saved_screen.dart';
 import 'package:gss/presentation/screens/home/widgets/home_body_widget.dart';
 import 'package:gss/presentation/screens/home/widgets/home_bottom_nav_widget.dart';
 import 'package:gss/presentation/screens/home/widgets/home_floating_widget.dart';
+import 'package:gss/presentation/screens/saved/saved_screen.dart';
 import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
 import 'package:gss/utils/navigate_with_return.dart';
 import 'package:hive/hive.dart';
@@ -33,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _bloc.add((HomeGetDataFromApiEvent()));
-    _bloc.initFavoritiesValueOFList();
     _bloc.add(HomeGetTowerClickEvent());
   }
 

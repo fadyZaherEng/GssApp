@@ -11,7 +11,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   hexcolor:
   fluttertoast:
-  shared_preferences:
   flutter_bloc:
   flutter_svg:
   conditional_builder_null_safety:
@@ -31,6 +30,9 @@ dependencies:
   hive:
   hive_flutter:
   path_provider:
+  #firebase
+  firebase_core:
+  firebase_messaging:
 
 dev_dependencies:
   flutter_test:

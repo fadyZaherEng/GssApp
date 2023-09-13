@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gss/domain/models/tower.dart';
-import 'package:gss/presentation/screens/home/widgets/home_list_item_widget.dart';
+import 'package:gss/presentation/widgets/list_item_widget.dart';
 
 class HomeListWidget extends StatelessWidget {
   List<TowerModel> towers = [];
@@ -26,7 +26,7 @@ class HomeListWidget extends StatelessWidget {
     return Expanded(
       child: ListView.separated(
         itemBuilder: (context, idx) {
-          return HomeListItemWidget(
+          return ListItemWidget(
             towerModel: towers[idx],
             index: idx,
             context: context,

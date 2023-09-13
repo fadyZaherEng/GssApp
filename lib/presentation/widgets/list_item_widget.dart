@@ -7,7 +7,7 @@ import 'package:gss/presentation/blocs/home/home_event.dart';
 import 'package:gss/presentation/blocs/home/home_state.dart';
 import 'package:intl/intl.dart';
 
-class HomeListItemWidget extends StatelessWidget {
+class ListItemWidget extends StatelessWidget {
   TowerModel towerModel;
   int index;
   BuildContext context;
@@ -17,7 +17,7 @@ class HomeListItemWidget extends StatelessWidget {
   void Function() homeCallClick;
   void Function() homeEmailClick;
 
-  HomeListItemWidget({
+  ListItemWidget({
     super.key,
     required this.index,
     required this.context,
@@ -70,13 +70,14 @@ class HomeListItemWidget extends StatelessWidget {
                                     padding: const EdgeInsets.only(right: 10),
                                     child: CircleAvatar(
                                       backgroundColor:
-                                          state is HomeChangeFavColorState
-                                              ?state.index!=null&&index!=null&&state.index == index
-                                                  ? Colors.deepPurple
-                                                  : const Color.fromRGBO(
-                                                      3, 106, 130, 1)
-                                              : const Color.fromRGBO(
-                                                  3, 106, 130, 1),
+                                      state is HomeChangeFavColorState
+                                          ? state.index != null &&
+                                          index != null && state.index == index
+                                          ? Colors.teal
+                                          : const Color.fromRGBO(
+                                          3, 106, 130, 1)
+                                          : const Color.fromRGBO(
+                                          3, 106, 130, 1),
                                       child: InkWell(
                                           onTap: () {
                                             _bloc.add(HomeFavoritesClickEvent(

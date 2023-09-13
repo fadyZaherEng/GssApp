@@ -1,10 +1,8 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, invalid_use_of_visible_for_testing_member
 
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/app/constants.dart';
 import 'package:gss/domain/models/tower.dart';
 import 'package:gss/presentation/blocs/home/home_event.dart';
 import 'package:gss/presentation/blocs/home/home_state.dart';
@@ -297,8 +295,8 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
         sqft: 900,
         numOfDay: 11),
   ];
+  //saved item
   Box savedTowers = Hive.box<TowerModel>("towers");
-  Box favoritiesOption = Hive.box<bool>("favorite");
 
   FutureOr<void> _onHomeGetTowerClickEvent(
       HomeGetTowerClickEvent event, Emitter<AbstractionHomeState> emit) async {
@@ -314,61 +312,18 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
   FutureOr<void> _onHomeFavoritesClickEvent(
       HomeFavoritesClickEvent event, Emitter<AbstractionHomeState> emit) async {
     emit(HomeChangeFavColorState(index: event.index));
-
     await Future.delayed(const Duration(seconds: 1)).then((value) async {
-      print(favorities[event.index]);
-      bool favorite = favorities[event.index]!;
-      if (favorite) {
-        favorities[event.index] = false;
-        favorite = !favorite;
-        changeFavorities(event.index, false);
-      } else {
-        favorities[event.index] = true;
-        favorite = !favorite;
-        changeFavorities(event.index, true);
-      }
-      print(favorities[event.index]);
-      if (favorities[event.index]!) {
-        await savedTowers.add(event.towerModel);
-        print(savedTowers.length);
-        print("fav");
-        showToast(message: "Favorite Success", state: ToastState.SUCCESS);
-        emit(HomeGetTowerClickState(
-            savedTowers: savedTowers, index: event.index));
-      } else if (!favorities[event.index]!) {
+      if(event.towerModel.isInBox){
         event.towerModel.delete();
-        print('dis');
         await savedTowers.delete(event.towerModel);
-        print(savedTowers.containsKey(event.towerModel));
-        print(savedTowers.length);
-        showToast(message: "disFavorite Success", state: ToastState.SUCCESS);
-        emit(HomeGetTowerClickState(
-            savedTowers: savedTowers, index: event.index));
+        emit(HomeGetTowerClickState(savedTowers: savedTowers, index: event.index));
+      }else{
+        await savedTowers.add(event.towerModel);
+        emit(HomeGetTowerClickState(savedTowers: savedTowers, index: event.index));
       }
     }).catchError((onError) {
-      showToast(message: onError.toString(), state: ToastState.SUCCESS);
       print(onError.toString());
       emit(HomeGetDataErrorsState(error: onError.toString()));
     });
-  }
-
-  void initFavoritiesValueOFList() {
-   if(favoritiesOption.length==0){
-     for (int i = 0; i < towers.length; i++) {
-       favorities[i] = false;
-       favoritiesOption.add(favorities[i]);
-     }
-   }else if(favoritiesOption.length!=0){
-     for (int i = 0; i < towers.length; i++) {
-       favorities[i] = favoritiesOption.getAt(i);
-     }
-   }
-   ///////////
-    print(favorities);
-    emit(HomeSavedClickedState());
-  }
-  void changeFavorities(int index,bool value){
-    favoritiesOption.putAt(index, value);
-    emit(HomeSavedClickedState());
   }
 }
