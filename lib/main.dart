@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:gss/utils/show_toast.dart';
-import 'firebase_options.dart';
+import 'utils/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:gss/app/app.dart';
 import 'package:gss/domain/models/tower.dart';
