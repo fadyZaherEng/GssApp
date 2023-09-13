@@ -29,9 +29,6 @@ void main()async {
   if(!Hive.isBoxOpen('towers')) {
     await Hive.openBox<TowerModel>('towers');
   }
-  // if(!Hive.isBoxOpen('favorite')) {
-  //   Box favorities=  await Hive.openBox<bool>('favorite');
-  // }
   var token =await FirebaseMessaging.instance.getToken();
   print("token:$token");
   FirebaseMessaging.onMessage.listen((event) {
