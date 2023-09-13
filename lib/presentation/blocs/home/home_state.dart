@@ -38,6 +38,10 @@ class HomeOpenWhatsAppClickState extends AbstractionHomeState {
 }
 
 class HomeCallClickState extends AbstractionHomeState {}
+class HomeGetFavState extends AbstractionHomeState {
+  dynamic savedTower;
+  HomeGetFavState({required this.savedTower});
+}
 
 class HomeEmailClickState extends AbstractionHomeState {}
 

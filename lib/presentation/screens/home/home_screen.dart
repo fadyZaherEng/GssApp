@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _bloc.add((HomeGetDataFromApiEvent()));
     _bloc.initFavoritiesValueOFList();
+    _bloc.add(HomeGetTowerClickEvent());
   }
 
   @override
@@ -48,6 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         if(state is HomeGetTowerClickState){
           boxTowers=state.savedTowers;
+        }
+        if(state is HomeGetFavState){
+          boxTowers=state.savedTower;
         }
       },
       builder: (context, state) {
