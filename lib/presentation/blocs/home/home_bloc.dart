@@ -363,6 +363,7 @@ class HomeBloc extends Bloc<AbstractionHomeEvent, AbstractionHomeState> {
        favorities[i] = favoritiesOption.getAt(i);
      }
    }
+   ///////////
     print(favorities);
     emit(HomeSavedClickedState());
   }
