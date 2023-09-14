@@ -147,6 +147,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       SharedHelper.save(value: 'arabic', key: 'lang');
       event.context.setLocale(const Locale('ar', 'SA'));
     }
+
     Phoenix.rebirth(event.context);
     emit(SignInChangeLangState());
   })
