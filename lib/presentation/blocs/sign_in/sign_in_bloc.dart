@@ -1,12 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:gss/data/network/cashe_helper.dart';
 import 'package:gss/domain/models/sign_in_validation_model.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_event.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_state.dart';
-import 'package:gss/utils/navigate_with_return.dart';
-import 'package:gss/utils/navigate_without_return.dart';
+
 
 class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
   SignInBloc() : super(SignInInitialStates()) {
@@ -18,6 +20,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
     on<SignInChangePasswordEvent>(_onSignInChangePasswordEvent);
     on<SignInNavigateToHomeScreenEvent>(_onSignInNavigateToHomeScreenEvent);
     on<SignInNavigateToSignUpScreenEvent>(_onSignInNavigateToSignUpScreenEvent);
+    on<SignInChangeLangEvent>(_onSignInChangeLangEvent);
   }
 
   Future<String?> checkValidateMobile(value) async {
@@ -59,7 +62,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
 
   FutureOr<void> _onSignInSubmittedPhoneNumberEvent(
       SignInSubmittedPhoneNumberEvent event,
-      Emitter<AbstractionSignInState> emit)async {
+      Emitter<AbstractionSignInState> emit) async {
     await Future.delayed(const Duration(seconds: 1)).then((value) {
       emit(SignInSubmittedPhoneNumberState());
     }).catchError((onError) {
@@ -69,7 +72,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
 
   FutureOr<void> _onSignInPressedForgetPasswordEvent(
       SignInPressedForgetPasswordEvent event,
-      Emitter<AbstractionSignInState> emit) async{
+      Emitter<AbstractionSignInState> emit) async {
     await Future.delayed(const Duration(seconds: 1)).then((value) {
       emit(SignInPressedForgetPasswordState("25555"));
     }).catchError((onError) {
@@ -77,8 +80,8 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
     });
   }
 
-  FutureOr<void> _onSignInPressedClosedEvent(
-      SignInPressedClosedEvent event, Emitter<AbstractionSignInState> emit) async{
+  FutureOr<void> _onSignInPressedClosedEvent(SignInPressedClosedEvent event,
+      Emitter<AbstractionSignInState> emit) async {
     await Future.delayed(const Duration(seconds: 1)).then((value) {
       emit(SignInPressedClosedState());
     }).catchError((onError) {
@@ -86,14 +89,14 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
     });
   }
 
-  FutureOr<void> _onSignInChangePasswordEvent(
-      SignInChangePasswordEvent event, Emitter<AbstractionSignInState> emit) async{
+  FutureOr<void> _onSignInChangePasswordEvent(SignInChangePasswordEvent event,
+      Emitter<AbstractionSignInState> emit) async {
     await Future.delayed(const Duration(seconds: 1)).then((value) {
       String? validationMassage;
-      if(event.signInPassword.toString().length<7){
-            validationMassage="Password is very Short";
-          }else{
-        validationMassage=null;
+      if (event.signInPassword.toString().length < 7) {
+        validationMassage = "Password is very Short";
+      } else {
+        validationMassage = null;
       }
       emit(SignInChangePasswordStates(validationMassage: validationMassage));
     }).catchError((onError) {
@@ -103,31 +106,52 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
 
   FutureOr<void> _onSignInNavigateToHomeScreenEvent(
       SignInNavigateToHomeScreenEvent event,
-      Emitter<AbstractionSignInState> emit)async {
-    await Future.delayed(const Duration(milliseconds: 200)).then((value)async {
-      SignInValidationModel signInValidationModel=SignInValidationModel();
-      signInValidationModel.validationMassagePhoneNumber=await checkValidateMobile(event.phone);
+      Emitter<AbstractionSignInState> emit) async {
+    await Future.delayed(const Duration(milliseconds: 200)).then((value) async {
+      SignInValidationModel signInValidationModel = SignInValidationModel();
+      signInValidationModel.validationMassagePhoneNumber =
+          await checkValidateMobile(event.phone);
       String? validationMassage;
-      if(event.password.toString().length<7){
-        signInValidationModel.validationMassagePassword="Password is very Short";
-      }else{
-        signInValidationModel.validationMassagePassword=null;
+      if (event.password.toString().length < 7) {
+        signInValidationModel.validationMassagePassword =
+            "Password is very Short";
+      } else {
+        signInValidationModel.validationMassagePassword = null;
       }
-        emit(SignInNavigateToHomeScreenState(
-            signInValidationModel: signInValidationModel));
-
-      }).catchError((onError) {
+      emit(SignInNavigateToHomeScreenState(
+          signInValidationModel: signInValidationModel));
+    }).catchError((onError) {
       emit(SignInErrorState());
     });
   }
 
   FutureOr<void> _onSignInNavigateToSignUpScreenEvent(
       SignInNavigateToSignUpScreenEvent event,
-      Emitter<AbstractionSignInState> emit)async {
+      Emitter<AbstractionSignInState> emit) async {
     await Future.delayed(const Duration(milliseconds: 200)).then((value) {
       emit(SignInNavigateToSignUpScreenState());
     }).catchError((onError) {
       emit(SignInErrorState());
     });
+  }
+
+
+  FutureOr<void> _onSignInChangeLangEvent(
+      SignInChangeLangEvent event, Emitter<AbstractionSignInState> emit) {
+  Future.delayed(const Duration(milliseconds: 100))
+  .then((value) {
+    if (SharedHelper.get(key: 'lang') == 'arabic') {
+      SharedHelper.save(value: 'english', key: 'lang');
+      event.context.setLocale(const Locale('en', 'US'));
+    } else {
+      SharedHelper.save(value: 'arabic', key: 'lang');
+      event.context.setLocale(const Locale('ar', 'SA'));
+    }
+    Phoenix.rebirth(event.context);
+    emit(SignInChangeLangState());
+  })
+  .catchError((onError){
+    emit(SignInErrorState());
+  });
   }
 }

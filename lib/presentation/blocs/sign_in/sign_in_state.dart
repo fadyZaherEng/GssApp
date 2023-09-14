@@ -6,7 +6,7 @@ abstract class AbstractionSignInState {}
 class SignInSubmittedPhoneNumberState extends AbstractionSignInState {}
 
 class SignInPressedClosedState extends AbstractionSignInState {}
-
+class SignInChangeLangState extends AbstractionSignInState {}
 class SignInPressedForgetPasswordState extends AbstractionSignInState {
   String signInPassword;
 

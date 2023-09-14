@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:gss/presentation/blocs/home/home_bloc.dart';
 import 'package:gss/presentation/blocs/home/home_state.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
@@ -25,13 +27,18 @@ class _MyAppState extends State<MyApp> {
       child: BlocConsumer<HomeBloc,AbstractionHomeState>(
         listener: (context,state){},
         builder: (context,state){
-          return  Sizer(builder: (ctx, orentation, deviceType) {
-            return MaterialApp(
-              home:  const SignInScreen(),
-              debugShowCheckedModeBanner: false,
-              theme: lightTheme(),
-            );
-          });
+          return  Phoenix(
+            child: Sizer(builder: (ctx, orentation, deviceType) {
+              return MaterialApp(
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                home:  const SignInScreen(),
+                debugShowCheckedModeBanner: false,
+                theme: lightTheme(),
+              );
+            }),
+          );
         },
       ),
     );

@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:gss/data/network/cashe_helper.dart';
 import 'package:gss/domain/models/local_notification.dart';
 import 'package:gss/utils/show_toast.dart';
 import 'utils/firebase_options.dart';
@@ -13,14 +15,14 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 Future<void> firebaseMassageBackground(RemoteMessage message) async {
-  // print('onMassageFirebaseMassageBackground ${message.data.toString()}');
-  // showToast(message: 'onMassageFirebaseMassageBackground', state: ToastState.SUCCESS);
   LocalNotificationService.display(message);
 }
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
  // await initAppModule();
   await LocalNotificationService.initialize();
+  await EasyLocalization.ensureInitialized();
+  await SharedHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -33,13 +35,21 @@ void main()async {
   var token =await FirebaseMessaging.instance.getToken();
    print("token:$token \n");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
-    // print('onMessageOpenedApp ${event.data.toString()}');
-    // showToast(message: 'onMessageOpenedApp', state: ToastState.SUCCESS);
     LocalNotificationService.display(message);
   });
   FirebaseMessaging.onBackgroundMessage(firebaseMassageBackground);
   FirebaseMessaging.onMessage.listen((message) {
     LocalNotificationService.display(message);
   });
-  runApp(const MyApp());
+  if (SharedHelper.get(key: 'lang') == null) {
+    SharedHelper.save(value: 'arabic', key: 'lang');
+  }
+  runApp(
+    EasyLocalization(
+        supportedLocales:const  [Locale('en', 'US'), Locale('ar', 'SA')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('ar', 'SA'),
+        child:const MyApp(),
+    ),
+  );
 }

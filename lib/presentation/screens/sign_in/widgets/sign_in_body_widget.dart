@@ -1,15 +1,16 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:gss/presentation/screens/sign_in/widgets/sign_in_background_widget.dart';
 import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
 import 'package:gss/presentation/widgets/password_text_field_widget.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class SignInBodyWidget extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   void Function(String value) onChangePhoneNumber;
   void Function(String value) onSubmittedPhoneNumber;
   void Function() onPressedClosed;
+  void Function() onPressedChangeLanguage;
   void Function() navigateToHomeScreen;
   void Function() navigateToSignUpScreen;
   void Function(String value) onChangePassword;
@@ -33,6 +34,7 @@ class SignInBodyWidget extends StatefulWidget {
     required this.passwordController,
     required this.phoneController,
     required this.onSubmittedPhoneNumber,
+    required this.onPressedChangeLanguage,
   });
 
   @override
@@ -56,13 +58,13 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                 ),
                 Row(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
+                     Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: Align(
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
-                          "Sign In",
-                          style: TextStyle(
+                          "Sign In".tr(),
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 24,
                               color: Colors.black),
@@ -74,6 +76,15 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                       onPressed: widget.onPressedClosed,
                       icon: Icon(
                         Icons.close_sharp,
+                        size: 22,
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                    ),
+                    const SizedBox(width: 10,),
+                    IconButton(
+                      onPressed: widget.onPressedChangeLanguage,
+                      icon: Icon(
+                        Icons.language,
                         size: 22,
                         color: Colors.black.withOpacity(0.7),
                       ),

@@ -49,3 +49,8 @@ class SignInValidatePhoneNumberEvent extends AbstractSignInEvent {
 
   SignInValidatePhoneNumberEvent({required this.validatePhoneNumber});
 }
+class SignInChangeLangEvent extends AbstractSignInEvent {
+  BuildContext context;
+
+  SignInChangeLangEvent({required this.context});
+}

@@ -98,6 +98,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 );
               },
+              onPressedChangeLanguage: (){
+                _bloc.add(SignInChangeLangEvent(context: context));
+              },
             ),
           ),
         );
