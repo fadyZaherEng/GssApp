@@ -3,7 +3,6 @@ import 'package:gss/domain/models/login_models/login_request/LogInRequestModel.d
 import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
 
 abstract class RemoteDataSource {
-  // Future<TestModelResponse> getHomeData();
   Future<LoginResponseModel> getLogInData(LogInRequestModel logInRequestModel);
 }
 
