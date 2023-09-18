@@ -1,16 +1,12 @@
+// ignore_for_file: prefer_collection_literals
 
-import 'package:gss/domain/models/sign_in_models/sign_in_response/Data.dart';
-
-class LoginResponseModel {
-  Data loginData;
+class SignInHeaderResponse{
   int responseCode;
   String responseMessage;
   String responseMessageAr;
   String responseMessageEn;
   String responseRemark;
-
-  LoginResponseModel({
-    required this.loginData,
+  SignInHeaderResponse({
     required this.responseCode,
     required this.responseMessage,
     required this.responseMessageAr,
@@ -18,9 +14,8 @@ class LoginResponseModel {
     required this.responseRemark,
   });
 
-  factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    return LoginResponseModel(
-      loginData:json['data']!=null ?Data.fromJson(json['data']):Data.fromJson({}),
+  factory SignInHeaderResponse.fromJson(Map<String, dynamic> json) {
+    return SignInHeaderResponse(
       responseCode: json['responseCode'],
       responseMessage: json['responseMessage'],
       responseMessageAr: json['responseMessageAr'],
@@ -36,7 +31,6 @@ class LoginResponseModel {
     data['responseMessageAr'] = responseMessageAr;
     data['responseMessageEn'] = responseMessageEn;
     data['responseRemark'] = responseRemark;
-    data['data'] = loginData.toJson();
     return data;
   }
 }

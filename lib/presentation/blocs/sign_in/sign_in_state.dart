@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gss/domain/models/sign_in_models/sign_in_response/LoginResponseModel.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_response/sign_in_response_model.dart';
 import 'package:gss/domain/models/sign_in_models/sign_in_validation_model.dart';
 
 abstract class AbstractionSignInState {}
@@ -35,7 +35,7 @@ class SignInInitialStates extends AbstractionSignInState {}
 class SignInLoadingState extends AbstractionSignInState {}
 
 class SignInSuccessState extends AbstractionSignInState {
-  LoginResponseModel loginResponseModel;
+  SignInResponseModel loginResponseModel;
 
   SignInSuccessState({required this.loginResponseModel});
 }

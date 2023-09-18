@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:gss/data/network/cashe_helper.dart';
-import 'package:gss/domain/models/sign_in_models/sign_in_request/LogInRequestModel.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_request/sign_in_request_model.dart';
 import 'package:gss/domain/models/sign_in_models/sign_in_validation_model.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_event.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_state.dart';
@@ -49,7 +49,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       }
      if(signInValidationModel.validationMassagePassword==null&&
          signInValidationModel.validationMassagePhoneNumber==null){
-       LogInRequestModel logInRequestModel=LogInRequestModel.fromJson(
+       SignInRequestModel logInRequestModel=SignInRequestModel.fromJson(
            {
              "ip": "",
              "deviceSerial": "e4JZvB7TTPaTtSYYV80xZK:APA91bGn0KTFF8qA8YeGFxCKCjjTXYH_0XAJ2k7O6KifzbZ1dk-FMx1wcEbvbJ60R_XZu4ag1dWmeC-4E0lNlp98I1cVIxqtfQbAW1qAYbwExqp4x_T_M18dY0Xwh2q34XgMOG9atoS9",

@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:gss/app/di.dart';
 import 'package:gss/data/network/cashe_helper.dart';
 import 'package:gss/domain/models/home_models/local_notification.dart';
-import 'package:gss/domain/models/home_models/tower.dart';
+import 'package:gss/domain/models/home_models/home_tower.dart';
 import 'utils/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:gss/app/app.dart';

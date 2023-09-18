@@ -1,5 +1,5 @@
 import 'package:hive_flutter/adapters.dart';
-part 'tower.g.dart';
+part 'home_tower.g.dart';
 @HiveType(typeId: 1)
 class TowerModel extends HiveObject{
   @HiveField(0)

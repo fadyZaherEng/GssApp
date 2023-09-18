@@ -1,13 +1,13 @@
-class Data {
+class SignInRequestData {
   String? mobile;
   String? password;
 
-  Data({
+  SignInRequestData({
      required this.mobile,
     required  this.password,
   });
 
-  Data.fromJson(dynamic json) {
+  SignInRequestData.fromJson(dynamic json) {
     mobile = json['mobile'];
     password = json['password'];
   }

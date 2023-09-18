@@ -1,14 +1,14 @@
-class Nationality {
+class SignInNationality {
     int? id;
     String? name;
 
-    Nationality({
+    SignInNationality({
         required this.id,
         required this.name,
     });
 
-    factory Nationality.fromJson(Map<String, dynamic> json) {
-        return Nationality(
+    factory SignInNationality.fromJson(Map<String, dynamic> json) {
+        return SignInNationality(
             id: json['id'], 
             name: json['name'], 
         );

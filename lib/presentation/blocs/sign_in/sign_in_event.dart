@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gss/domain/usecase/login_usecase.dart';
+import 'package:gss/domain/usecase/sign_in_usecase.dart';
 
 abstract class AbstractSignInEvent {}
 
 class SignInEvent extends AbstractSignInEvent {
-  LogInUseCase logInUseCase;
+  SignInUseCase logInUseCase;
   String logInPhone, logInPassword;
 
   SignInEvent({

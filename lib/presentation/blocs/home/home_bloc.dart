@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/domain/models/home_models/tower.dart';
+import 'package:gss/domain/models/home_models/home_tower.dart';
 import 'package:gss/presentation/blocs/home/home_event.dart';
 import 'package:gss/presentation/blocs/home/home_state.dart';
 import 'package:gss/utils/show_toast.dart';

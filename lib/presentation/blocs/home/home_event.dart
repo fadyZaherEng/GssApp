@@ -1,4 +1,4 @@
-import 'package:gss/domain/models/home_models/tower.dart';
+import 'package:gss/domain/models/home_models/home_tower.dart';
 
 abstract class AbstractionHomeEvent{}
 class HomeChangeNavBottomEvent extends AbstractionHomeEvent{

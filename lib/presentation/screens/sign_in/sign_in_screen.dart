@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/app/di.dart';
-import 'package:gss/domain/models/sign_in_models/sign_in_response/LoginResponseModel.dart';
-import 'package:gss/domain/usecase/login_usecase.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_response/sign_in_response_model.dart';
+import 'package:gss/domain/usecase/sign_in_usecase.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_event.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_state.dart';
@@ -25,7 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
   String? _validationMessagePhone;
   String? _validationMessagePassword;
   final _formKey = GlobalKey<FormState>();
-  LoginResponseModel? loginResponseModel;
+  SignInResponseModel? loginResponseModel;
   SignInBloc get _bloc => BlocProvider.of<SignInBloc>(context);
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -42,14 +42,14 @@ class _SignInScreenState extends State<SignInScreen> {
         }
         if (state is SignInSuccessState) {
           loginResponseModel = state.loginResponseModel;
-          if(state.loginResponseModel.responseCode==1){
+          if(state.loginResponseModel.headerResponse.responseCode==1){
             navigateToWithoutReturn(
               context: context,
               screen: const HomeScreen(),
             );
-            showToast(message: state.loginResponseModel.responseMessage.toString(), state: ToastState.SUCCESS);
+            showToast(message: state.loginResponseModel.headerResponse.responseMessage.toString(), state: ToastState.SUCCESS);
           }else{
-            showToast(message: state.loginResponseModel.responseMessage.toString(), state: ToastState.ERROR);
+            showToast(message: state.loginResponseModel.headerResponse.responseMessage.toString(), state: ToastState.ERROR);
           }
         }
         if (state is SignInNavigateToHomeScreenState) {
@@ -96,7 +96,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   SignInEvent(
                       logInPhone: _phoneController.text,
                       logInPassword: _passwordController.text,
-                      logInUseCase:instance<LogInUseCase>()
+                      logInUseCase:instance<SignInUseCase>()
                   ),
                 );
               },

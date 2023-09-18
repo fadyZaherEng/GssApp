@@ -1,11 +1,11 @@
-class Gender {
+class SignInGender {
     int? id;
     String? name;
 
-    Gender({required this.id,required this.name});
+    SignInGender({required this.id,required this.name});
 
-    factory Gender.fromJson(Map<String, dynamic> json) {
-        return Gender(
+    factory SignInGender.fromJson(Map<String, dynamic> json) {
+        return SignInGender(
             id: json['id'], 
             name: json['name'], 
         );

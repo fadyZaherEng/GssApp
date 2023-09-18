@@ -1,6 +1,4 @@
-import 'package:gss/domain/models/sign_up_validation_model.dart';
-import 'package:gss/presentation/blocs/sign_up/sign_up_event.dart';
-
+import 'package:gss/domain/models/sign_up_models/sign_up_validation_model.dart';
 abstract class AbstractionSignUpState {}
 
 class SignUpInitialState extends AbstractionSignUpState {}

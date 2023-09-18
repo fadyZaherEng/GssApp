@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gss/domain/models/home_models/tower.dart';
+import 'package:gss/domain/models/home_models/home_tower.dart';
 
 abstract class AbstractionHomeState {}
 

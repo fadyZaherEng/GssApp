@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tower.dart';
+part of 'home_tower.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

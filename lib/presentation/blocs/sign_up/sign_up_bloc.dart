@@ -1,15 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gss/app/constants.dart';
-import 'package:gss/domain/models/sign_up_validation_model.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_event.dart';
 import 'package:gss/presentation/blocs/sign_up/sign_up_state.dart';
-import 'package:gss/utils/navigate_with_return.dart';
-import 'package:gss/utils/navigate_without_return.dart';
+import 'package:gss/domain/models/sign_up_models/sign_up_validation_model.dart';
 
 class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
   SignUpBloc() : super(SignUpInitialState()) {
@@ -65,7 +60,7 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
           (event.name.isEmpty || event.name.length < 3)
               ? "Please Enter Valid Your Full Name"
               : null;
-        emit(SignUpNavigateToHomeScreenState(validationModel));
+      emit(SignUpNavigateToHomeScreenState(validationModel));
     }).catchError((onError) {
       emit(SignUpErrorState());
     });

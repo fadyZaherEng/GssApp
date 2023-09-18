@@ -8,8 +8,8 @@ part of 'login_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _LogInServiceClient implements LogInServiceClient {
-  _LogInServiceClient(
+class _SignInServiceClient implements SignInServiceClient {
+  _SignInServiceClient(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,18 +21,18 @@ class _LogInServiceClient implements LogInServiceClient {
   String? baseUrl;
 
   @override
-  Future<LoginResponseModel> login(LogInRequestModel logInRequestModel) async {
+  Future<SignInResponseModel> login(
+      SignInRequestModel logInRequestModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = logInRequestModel;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<LoginResponseModel>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SignInResponseModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
-    )
-            .compose(
+    ).compose(
               _dio.options,
               'Login',
               queryParameters: queryParameters,
@@ -43,7 +43,7 @@ class _LogInServiceClient implements LogInServiceClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = LoginResponseModel.fromJson(_result.data!);
+    final value = SignInResponseModel.fromJson(_result.data!);
     return value;
   }
 

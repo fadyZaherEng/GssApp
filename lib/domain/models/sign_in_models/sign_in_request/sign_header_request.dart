@@ -1,7 +1,4 @@
-
-import 'package:gss/domain/models/sign_in_models/sign_in_request/Data.dart';
-
-class LogInRequestModel {
+class SignInHeaderRequest {
   String? ip;
   String? deviceSerial;
   String? notificationToken;
@@ -15,26 +12,22 @@ class LogInRequestModel {
   int? userId;
   int? subscriberId;
   bool? isWeb;
-  Data? data;
-
-  LogInRequestModel({
-     required this.ip,
-     required this.deviceSerial,
-     required this.notificationToken,
-     required this.osversion,
-     required this.appLanguage,
-     required this.appversion,
-     required this.currencyId,
-     required this.measureUnitId,
-     required this.countryId,
-     required this.deviceType,
-     required this.userId,
-     required this.subscriberId,
-     required this.isWeb,
-     required this.data,
-  });
-
-  LogInRequestModel.fromJson(dynamic json) {
+  SignInHeaderRequest({
+    required this.ip,
+    required this.deviceSerial,
+    required this.notificationToken,
+    required this.osversion,
+    required this.appLanguage,
+    required this.appversion,
+    required this.currencyId,
+    required this.measureUnitId,
+    required this.countryId,
+    required this.deviceType,
+    required this.userId,
+    required this.subscriberId,
+    required this.isWeb,
+});
+  SignInHeaderRequest.fromJson(dynamic json) {
     ip = json['ip'];
     deviceSerial = json['deviceSerial'];
     notificationToken = json['notificationToken'];
@@ -48,7 +41,6 @@ class LogInRequestModel {
     userId = json['userId'];
     subscriberId = json['SubscriberId'];
     isWeb = json['isWeb'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -65,10 +57,6 @@ class LogInRequestModel {
     map['userId'] = userId;
     map['SubscriberId'] = subscriberId;
     map['isWeb'] = isWeb;
-    if (data != null) {
-      map['data'] = data!.toJson();
-    }
     return map;
   }
-
 }
