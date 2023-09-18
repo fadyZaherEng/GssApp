@@ -8,17 +8,15 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-
-#  flutter_localization:
   hexcolor:
   fluttertoast:
   flutter_bloc:
   flutter_svg:
   conditional_builder_null_safety:
-  intl: any
   email_validator:
   flutter_localizations:
     sdk: flutter
+  intl: any
   sizer:
   #di
   get_it:
@@ -39,7 +37,6 @@ dependencies:
   flutter_local_notifications:
   flutter_phoenix:
   shared_preferences:
-  easy_localization:
 
 
 dev_dependencies:
@@ -49,7 +46,6 @@ dev_dependencies:
   retrofit_generator:
   build_runner:
   hive_generator:
-  restart_app:
 
 flutter:
   uses-material-design: true

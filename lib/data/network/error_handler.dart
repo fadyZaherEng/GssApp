@@ -3,11 +3,10 @@
 import 'package:dio/dio.dart';
 import 'package:gss/data/network/failure.dart';
 import 'package:gss/app/extension.dart';
-import 'package:gss/resources/strings_manager.dart';
+import 'package:gss/domain/models/resources/strings_manager.dart';
 
 class ErrorHandler  {
   late Failure failure;
-
   ErrorHandler.handle(dynamic error) {
     if (error is DioException||error is DioError) {
       // dio error so its an error from response of the API or from dio itself

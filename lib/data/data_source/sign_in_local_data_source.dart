@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, prefer_collection_literals
 import 'package:gss/data/data_source/sign_in_local_data_source.dart';
 import 'package:gss/data/network/error_handler.dart';
 import 'package:gss/domain/models/sign_in_models/sign_in_cathed_item.dart';
