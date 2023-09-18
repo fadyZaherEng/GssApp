@@ -13,7 +13,7 @@ class _AppServiceClient implements AppServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'base';
+    baseUrl ??= 'https://rims.ileadcloud.com:444/api/';
   }
 
   final Dio _dio;
@@ -21,20 +21,21 @@ class _AppServiceClient implements AppServiceClient {
   String? baseUrl;
 
   @override
-  Future<TestModelResponse> getHomeData(String apiKey) async {
+  Future<LoginResponseModel> login(LogInRequestModel logInRequestModel) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'api-key': apiKey};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(logInRequestModel.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TestModelResponse>(Options(
-      method: 'GET',
+        .fetch<Map<String, dynamic>>(_setStreamType<LoginResponseModel>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'rest',
+              'Login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -43,7 +44,7 @@ class _AppServiceClient implements AppServiceClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = TestModelResponse.fromJson(_result.data!);
+    final value = LoginResponseModel.fromJson(_result.data!);
     return value;
   }
 

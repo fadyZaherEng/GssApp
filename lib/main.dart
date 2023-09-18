@@ -1,11 +1,10 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:gss/app/di.dart';
 import 'package:gss/data/network/cashe_helper.dart';
 import 'package:gss/domain/models/local_notification.dart';
-import 'package:gss/utils/show_toast.dart';
 import 'utils/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:gss/app/app.dart';
@@ -17,23 +16,23 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 Future<void> firebaseMassageBackground(RemoteMessage message) async {
   LocalNotificationService.display(message);
 }
-void main()async {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- // await initAppModule();
+  await initAppModule();
   await LocalNotificationService.initialize();
-  await EasyLocalization.ensureInitialized();
   await SharedHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final Directory dir =await path_provider.getApplicationDocumentsDirectory();
+  final Directory dir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(dir.path);
   Hive.registerAdapter(TowerModelAdapter());
-  if(!Hive.isBoxOpen('towers')) {
+  if (!Hive.isBoxOpen('towers')) {
     await Hive.openBox<TowerModel>('towers');
   }
-  var token =await FirebaseMessaging.instance.getToken();
-   print("token:$token \n");
+  var token = await FirebaseMessaging.instance.getToken();
+  print("token:$token \n");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
     LocalNotificationService.display(message);
   });
@@ -44,12 +43,5 @@ void main()async {
   if (SharedHelper.get(key: 'lang') == null) {
     SharedHelper.save(value: 'arabic', key: 'lang');
   }
-  runApp(
-    EasyLocalization(
-        supportedLocales:const  [Locale('en', 'US'), Locale('ar', 'SA')],
-        path: 'assets/translations',
-        fallbackLocale: const Locale('ar', 'SA'),
-        child:const MyApp(),
-    ),
-  );
+  runApp(const MyApp(),);
 }

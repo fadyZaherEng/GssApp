@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
 import 'package:gss/domain/models/sign_in_validation_model.dart';
 
 abstract class AbstractionSignInState {}
@@ -6,7 +7,10 @@ abstract class AbstractionSignInState {}
 class SignInSubmittedPhoneNumberState extends AbstractionSignInState {}
 
 class SignInPressedClosedState extends AbstractionSignInState {}
-class SignInChangeLangState extends AbstractionSignInState {}
+class SignInChangeLangState extends AbstractionSignInState {
+  Locale locale;
+  SignInChangeLangState(this.locale);
+}
 class SignInPressedForgetPasswordState extends AbstractionSignInState {
   String signInPassword;
 
@@ -30,7 +34,11 @@ class SignInInitialStates extends AbstractionSignInState {}
 
 class SignInLoadingState extends AbstractionSignInState {}
 
-class SignInSuccessState extends AbstractionSignInState {}
+class SignInSuccessState extends AbstractionSignInState {
+  LoginResponseModel loginResponseModel;
+
+  SignInSuccessState({required this.loginResponseModel});
+}
 
 class SignInErrorState extends AbstractionSignInState {}
 

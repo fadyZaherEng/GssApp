@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:gss/presentation/screens/sign_in/widgets/sign_in_background_widget.dart';
 import 'package:gss/presentation/widgets/custom_text_field_widget.dart';
 import 'package:gss/presentation/widgets/password_text_field_widget.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SignInBodyWidget extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   void Function(String value) onChangePhoneNumber;
@@ -58,12 +58,12 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                 ),
                 Row(
                   children: [
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Align(
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
-                          "Sign In".tr(),
+                          AppLocalizations.of(context)!.signIn,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 24,
@@ -80,7 +80,9 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                         color: Colors.black.withOpacity(0.7),
                       ),
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     IconButton(
                       onPressed: widget.onPressedChangeLanguage,
                       icon: Icon(
@@ -96,7 +98,7 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
                 ),
                 CustomTextFieldWidget(
                   controller: widget.phoneController,
-                  text: "Phone Number",
+                  text: AppLocalizations.of(context)!.phone,
                   errorMSG: widget.validationMessagePhone,
                   onChanged: widget.onChangePhoneNumber,
                   onSubmitted: widget.onSubmittedPhoneNumber,

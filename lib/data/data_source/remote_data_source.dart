@@ -1,18 +1,17 @@
-import 'package:dio/dio.dart';
 import 'package:gss/data/network/app_api.dart';
-import 'package:gss/domain/models/test_model.dart';
+import 'package:gss/domain/models/login_models/login_request/LogInRequestModel.dart';
+import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
 
 abstract class RemoteDataSource {
-  Future<TestModelResponse> getHomeData();
+  // Future<TestModelResponse> getHomeData();
+  Future<LoginResponseModel> getLogInData(LogInRequestModel logInRequestModel);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final AppServiceClient _appServiceClient;
-
   RemoteDataSourceImpl(this._appServiceClient);
   @override
-  Future<TestModelResponse> getHomeData() async {
-    return await _appServiceClient.getHomeData('0B5thyIkVSbbRJIPL9DEkOI1AIyC3wls');
+  Future<LoginResponseModel> getLogInData(LogInRequestModel logInRequestModel) async {
+    return await _appServiceClient.login(logInRequestModel);
   }
-
 }

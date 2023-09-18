@@ -1,14 +1,14 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:gss/data/network/error_handler.dart';
-import 'package:gss/domain/models/test_model.dart';
+import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
 
 const CACHE_HOME_KEY = "CACHE_HOME_KEY";
 const CACHE_HOME_INTERVAL = 60 * 1000; // 1 minute cache in millis
 
 abstract class LocalDataSource {
-  Future<TestModelResponse> getHomeData();
-  Future<void> saveHomeToCache(TestModelResponse homeResponse);
+  Future<LoginResponseModel> getLogInData();
+  Future<void> saveLogInToCache(LoginResponseModel loginResponseModel);
   void clearCache();
   void removeFromCache(String key);
 }
@@ -17,7 +17,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   // run time cache
   Map<String, CachedItem> cacheMap = Map();
   @override
-  Future<TestModelResponse> getHomeData() async {
+  Future<LoginResponseModel> getLogInData() async {
     CachedItem? cachedItem = cacheMap[CACHE_HOME_KEY];
     if (cachedItem != null && cachedItem.isValid(CACHE_HOME_INTERVAL)) {
       // return the response from cache
@@ -27,8 +27,8 @@ class LocalDataSourceImpl implements LocalDataSource {
     }
   }
   @override
-  Future<void> saveHomeToCache(TestModelResponse homeResponse) async {
-    cacheMap[CACHE_HOME_KEY] = CachedItem(homeResponse);
+  Future<void> saveLogInToCache(LoginResponseModel loginResponseModel) async {
+    cacheMap[CACHE_HOME_KEY] = CachedItem(loginResponseModel);
   }
   @override
   void clearCache() {

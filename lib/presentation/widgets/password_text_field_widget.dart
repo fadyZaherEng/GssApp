@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: deprecated_member_use
 
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class PasswordTextFieldWidget extends StatefulWidget {
   final TextEditingController controller;
   void Function(String value) onChanged;
@@ -38,7 +40,7 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
           },
           icon: _suffixIcon!
         ),
-        label: const Text("Password"),
+        label:  Text(AppLocalizations.of(context)!.password),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(

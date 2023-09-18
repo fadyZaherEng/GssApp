@@ -7,15 +7,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.2
+
+#  flutter_localization:
   hexcolor:
   fluttertoast:
   flutter_bloc:
   flutter_svg:
   conditional_builder_null_safety:
-  intl:
+  intl: any
   email_validator:
+  flutter_localizations:
+    sdk: flutter
   sizer:
   #di
   get_it:
@@ -38,6 +41,7 @@ dependencies:
   shared_preferences:
   easy_localization:
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -45,10 +49,15 @@ dev_dependencies:
   retrofit_generator:
   build_runner:
   hive_generator:
+  restart_app:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
      - assets/svg/
      - assets/png/
-     - assets/translations/
+#flutter_intl:
+#  enabled: true # Required. Must be set to true to activate the plugin. Default: false
+#  class_name: S # Optional. Sets the name for the generated localization class. Default: S
+#  main_locale: en # Optional. Sets the main locale used for generating localization files. Provided value should comply with ISO-639-1 and ISO-3166-1 (e.g. "en", "en_GB"). Default: en

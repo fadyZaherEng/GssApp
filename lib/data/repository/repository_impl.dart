@@ -5,7 +5,8 @@ import 'package:gss/data/data_source/remote_data_source.dart';
 import 'package:gss/data/network/error_handler.dart';
 import 'package:gss/data/network/failure.dart';
 import 'package:gss/data/network/network_info.dart';
-import 'package:gss/domain/models/test_model.dart';
+import 'package:gss/domain/models/login_models/login_request/LogInRequestModel.dart';
+import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
 import 'package:gss/domain/repository/repository.dart';
 
 
@@ -16,39 +17,31 @@ class RepositoryImpl implements Repository {
   RepositoryImpl(this._remoteDataSource, this._networkInfo,this._localDataSource);
 
   @override
-  Future<Either<Failure, TestModelResponse>> getHomeData() async {
+  Future<Either<Failure, LoginResponseModel>> getLogInData(LogInRequestModel logInRequestModel) async{
     try {
       // get response from cache
-      TestModelResponse response = await _localDataSource.getHomeData();
+      LoginResponseModel response = await _localDataSource.getLogInData();
       return Right(response);
     } catch (cacheError) {
-      // cache is not existing or cache is not valid
-      // its the time to get from API side
       if (await _networkInfo.isConnected) {
-        // its connected to internet, its safe to call API
         try {
-          TestModelResponse testModelResponse = await _remoteDataSource.getHomeData();
-          if (testModelResponse.status == 'OK') {
+          LoginResponseModel loginResponse= await _remoteDataSource.getLogInData(logInRequestModel);
+          if (loginResponse.responseCode == 1) {
             // success
             // return data
             //return either right
             // save response in cache (local data source)
-            _localDataSource.saveHomeToCache(testModelResponse);
-            return Right(testModelResponse);
-          } else {
-            // failure --return business error
-            // return either left
-            return Left(Failure(ApiInternalStatus.FAILURE,
-                testModelResponse.status ?? ResponseMessage.DEFAULT));
+            _localDataSource.saveLogInToCache(loginResponse);
+            return Right(loginResponse);
+          }
+          else {
+            return Left(Failure(ApiInternalStatus.FAILURE, loginResponse.responseMessage ?? ResponseMessage.DEFAULT));
           }
         } catch (error) {
-          return Left(ErrorHandler
-              .handle(error)
-              .failure);
+          return Left(ErrorHandler.handle(error).failure);
         }
-      } else {
-        // return internet connection error
-        // return either left
+      }
+      else {
         return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
       }
     }
