@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/app/di.dart';
-import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_response/LoginResponseModel.dart';
 import 'package:gss/domain/usecase/login_usecase.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_bloc.dart';
 import 'package:gss/presentation/blocs/sign_in/sign_in_event.dart';

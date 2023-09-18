@@ -1,11 +1,14 @@
-class Gender {
-    int id;
-    String name;
+class Nationality {
+    int? id;
+    String? name;
 
-    Gender({required this.id,required this.name});
+    Nationality({
+        required this.id,
+        required this.name,
+    });
 
-    factory Gender.fromJson(Map<String, dynamic> json) {
-        return Gender(
+    factory Nationality.fromJson(Map<String, dynamic> json) {
+        return Nationality(
             id: json['id'], 
             name: json['name'], 
         );

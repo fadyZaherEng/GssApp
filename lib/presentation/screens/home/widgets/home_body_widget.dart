@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gss/domain/models/tower.dart';
+import 'package:gss/domain/models/home_models/tower.dart';
 import 'package:gss/presentation/screens/home/widgets/home_list_widget.dart';
 
 class HomeBodyWidget extends StatelessWidget {

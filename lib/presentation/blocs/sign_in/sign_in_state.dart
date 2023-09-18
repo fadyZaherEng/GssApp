@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
-import 'package:gss/domain/models/sign_in_validation_model.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_response/LoginResponseModel.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_validation_model.dart';
 
 abstract class AbstractionSignInState {}
 

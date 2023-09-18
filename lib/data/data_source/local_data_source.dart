@@ -1,7 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:gss/data/network/error_handler.dart';
-import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
+
+import 'package:gss/domain/models/sign_in_models/sign_in_response/LoginResponseModel.dart';
 
 const CACHE_HOME_KEY = "CACHE_HOME_KEY";
 const CACHE_HOME_INTERVAL = 60 * 1000; // 1 minute cache in millis

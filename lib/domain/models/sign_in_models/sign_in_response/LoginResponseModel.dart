@@ -1,15 +1,16 @@
-import 'package:gss/domain/models/login_models/login_response/Data.dart';
+
+import 'package:gss/domain/models/sign_in_models/sign_in_response/Data.dart';
 
 class LoginResponseModel {
-  dynamic loginData;
+  Data loginData;
   int responseCode;
-  dynamic responseMessage;
-  dynamic responseMessageAr;
-  dynamic responseMessageEn;
-  dynamic responseRemark;
+  String responseMessage;
+  String responseMessageAr;
+  String responseMessageEn;
+  String responseRemark;
 
   LoginResponseModel({
-    this.loginData,
+    required this.loginData,
     required this.responseCode,
     required this.responseMessage,
     required this.responseMessageAr,
@@ -19,7 +20,7 @@ class LoginResponseModel {
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
     return LoginResponseModel(
-      loginData:json['data']!=null ?Data.fromJson(json['data']):Map(),
+      loginData:json['data']!=null ?Data.fromJson(json['data']):Data.fromJson({}),
       responseCode: json['responseCode'],
       responseMessage: json['responseMessage'],
       responseMessageAr: json['responseMessageAr'],
@@ -35,9 +36,7 @@ class LoginResponseModel {
     data['responseMessageAr'] = responseMessageAr;
     data['responseMessageEn'] = responseMessageEn;
     data['responseRemark'] = responseRemark;
-    if (loginData != null) {
-      data['data'] = loginData!.toJson();
-    }
+    data['data'] = loginData.toJson();
     return data;
   }
 }

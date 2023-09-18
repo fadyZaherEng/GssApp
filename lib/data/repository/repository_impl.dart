@@ -1,21 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:gss/app/extension.dart';
 import 'package:gss/data/data_source/local_data_source.dart';
-import 'package:gss/data/data_source/remote_data_source.dart';
+import 'package:gss/data/network/login_service.dart';
 import 'package:gss/data/network/error_handler.dart';
 import 'package:gss/data/network/failure.dart';
 import 'package:gss/data/network/network_info.dart';
-import 'package:gss/domain/models/login_models/login_request/LogInRequestModel.dart';
-import 'package:gss/domain/models/login_models/login_response/LoginResponseModel.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_request/LogInRequestModel.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_response/LoginResponseModel.dart';
 import 'package:gss/domain/repository/repository.dart';
 
 
 class RepositoryImpl implements Repository {
-  final RemoteDataSource _remoteDataSource;
   final LocalDataSource _localDataSource;
   final NetworkInfo _networkInfo;
-  RepositoryImpl(this._remoteDataSource, this._networkInfo,this._localDataSource);
-
+  final LogInServiceClient _loginServiceClient;
+  RepositoryImpl(this._loginServiceClient, this._networkInfo,this._localDataSource);
   @override
   Future<Either<Failure, LoginResponseModel>> getLogInData(LogInRequestModel logInRequestModel) async{
     try {
@@ -25,12 +24,8 @@ class RepositoryImpl implements Repository {
     } catch (cacheError) {
       if (await _networkInfo.isConnected) {
         try {
-          LoginResponseModel loginResponse= await _remoteDataSource.getLogInData(logInRequestModel);
+          LoginResponseModel loginResponse= await _loginServiceClient.login(logInRequestModel);
           if (loginResponse.responseCode == 1) {
-            // success
-            // return data
-            //return either right
-            // save response in cache (local data source)
             _localDataSource.saveLogInToCache(loginResponse);
             return Right(loginResponse);
           }

@@ -1,20 +1,21 @@
-import 'package:gss/domain/models/login_models/login_response/Gender.dart';
-import 'package:gss/domain/models/login_models/login_response/Nationality.dart';
+
+import 'package:gss/domain/models/sign_in_models/sign_in_response/Gender.dart';
+import 'package:gss/domain/models/sign_in_models/sign_in_response/Nationality.dart';
 
 class Data {
-  dynamic allowUseAgentApp;
-  dynamic birtDate;
-  dynamic email;
-  dynamic fullName;
-  dynamic gender;
-  dynamic genderId;
-  dynamic id;
-  dynamic isActivation;
-  dynamic mobile;
-  dynamic nationality;
-  dynamic nationalityId;
-  dynamic profileImage;
-  dynamic registerType;
+  bool? allowUseAgentApp;
+  String? birtDate;
+  String? email;
+  String? fullName;
+  Gender? gender;
+  int? genderId;
+  int? id;
+  bool? isActivation;
+  String? mobile;
+  Nationality? nationality;
+  int? nationalityId;
+  String? profileImage;
+  int? registerType;
 
   Data({
    required this.allowUseAgentApp,
@@ -38,12 +39,12 @@ class Data {
       birtDate: json['birtDate'],
       email: json['email'],
       fullName: json['fullName'],
-      gender: Gender.fromJson(json['gender']) ,
+      gender:json['gender']!=null? Gender.fromJson(json['gender']) :Gender.fromJson({}),
       genderId: json['genderId'],
       id: json['id'],
       isActivation: json['isActivation'],
       mobile: json['mobile'],
-      nationality:  Nationality.fromJson(json['nationality']),
+      nationality: json['nationality']!=null? Nationality.fromJson(json['nationality']):Nationality.fromJson({}),
       nationalityId: json['nationalityId'],
       profileImage: json['profileImage'],
       registerType: json['registerType'],
@@ -64,10 +65,10 @@ class Data {
     data['profileImage'] = profileImage;
     data['registerType'] = registerType;
     if (gender != null) {
-      data['gender'] = gender.toJson();
+      data['gender'] = gender!.toJson();
     }
     if (nationality != null) {
-      data['nationality'] = nationality.toJson();
+      data['nationality'] = nationality!.toJson();
     }
     return data;
   }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_api.dart';
+part of 'login_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'app_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _AppServiceClient implements AppServiceClient {
-  _AppServiceClient(
+class _LogInServiceClient implements LogInServiceClient {
+  _LogInServiceClient(
     this._dio, {
     this.baseUrl,
   }) {
@@ -25,8 +25,7 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(logInRequestModel.toJson());
+    final _data = logInRequestModel;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<LoginResponseModel>(Options(
       method: 'POST',

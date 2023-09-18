@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gss/data/data_source/local_data_source.dart';
-import 'package:gss/data/data_source/remote_data_source.dart';
-import 'package:gss/data/network/app_api.dart';
+import 'package:gss/data/network/login_service.dart';
 import 'package:gss/data/network/dio_factory.dart';
 import 'package:gss/data/network/network_info.dart';
 import 'package:gss/data/repository/repository_impl.dart';
@@ -19,14 +18,12 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<DioFactory>(() => DioFactory());
   Dio dio = await instance<DioFactory>().getDio();
   //app service client
-  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
-  // remote data source
-  instance.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl(instance<AppServiceClient>()));
+  instance.registerLazySingleton<LogInServiceClient>(() =>LogInServiceClient(dio));
   // local data source
   instance.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
   // repository
   instance.registerLazySingleton<Repository>(() =>
-      RepositoryImpl(instance<RemoteDataSource>(), instance<NetworkInfo>(),instance<LocalDataSource>()));
+      RepositoryImpl(instance<LogInServiceClient>(), instance<NetworkInfo>(),instance<LocalDataSource>()));
   if (!GetIt.I.isRegistered<LogInUseCase>()) {
     instance.registerFactory<LogInUseCase>(() => LogInUseCase(instance()));
   }

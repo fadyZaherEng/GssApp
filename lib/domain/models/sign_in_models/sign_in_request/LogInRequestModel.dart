@@ -1,4 +1,5 @@
-import 'Data.dart';
+
+import 'package:gss/domain/models/sign_in_models/sign_in_request/Data.dart';
 
 class LogInRequestModel {
   String? ip;
