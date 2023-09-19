@@ -35,21 +35,21 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocConsumer<SignInBloc, AbstractionSignInState>(
       listener: (context, state) {
         if (state is SignInValidatePhoneNumberState) {
-          _validationMessagePhone = state.validationMassage;
+          _validationMessagePhone = state.signInPhoneValidationMassage;
         }
         if (state is SignInChangePasswordStates) {
-          _validationMessagePassword = state.validationMassage;
+          _validationMessagePassword = state.signInPasswordValidationMassage;
         }
         if (state is SignInSuccessState) {
-          loginResponseModel = state.loginResponseModel;
-          if(state.loginResponseModel.headerResponse.responseCode==1){
+          loginResponseModel = state.signInResponseModel;
+          if(state.signInResponseModel.headerResponse.responseCode==1){
             navigateToWithoutReturn(
               context: context,
               screen: const HomeScreen(),
             );
-            showToast(message: state.loginResponseModel.headerResponse.responseMessage.toString(), state: ToastState.SUCCESS);
+            showToast(message: state.signInResponseModel.headerResponse.responseMessage.toString(), state: ToastState.SUCCESS);
           }else{
-            showToast(message: state.loginResponseModel.headerResponse.responseMessage.toString(), state: ToastState.ERROR);
+            showToast(message: state.signInResponseModel.headerResponse.responseMessage.toString(), state: ToastState.ERROR);
           }
         }
         if (state is SignInNavigateToHomeScreenState) {
@@ -94,9 +94,9 @@ class _SignInScreenState extends State<SignInScreen> {
               navigateToHomeScreen: () {
                 _bloc.add(
                   SignInEvent(
-                      logInPhone: _phoneController.text,
-                      logInPassword: _passwordController.text,
-                      logInUseCase:instance<SignInUseCase>()
+                      signInPhone: _phoneController.text,
+                      signInPassword: _passwordController.text,
+                      signInUseCase:instance<SignInUseCase>()
                   ),
                 );
               },

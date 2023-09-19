@@ -40,8 +40,8 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
     emit(SignInLoadingState());
     await Future.delayed(const Duration(milliseconds: 100)).then((value)async {
       SignInValidationModel signInValidationModel = SignInValidationModel();
-      signInValidationModel.validationMassagePhoneNumber = await checkValidateMobile(event.logInPhone);
-      if (event.logInPassword.toString().length <6) {
+      signInValidationModel.validationMassagePhoneNumber = await checkValidateMobile(event.signInPhone);
+      if (event.signInPassword.toString().length <6) {
         signInValidationModel.validationMassagePassword =
         "Password is very Short";
       } else {
@@ -65,12 +65,12 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
              "SubscriberId": 2,
              "isWeb": false,
              "data": {
-               "mobile":event.logInPhone,//"555555555",
-               "password":event.logInPassword//"7654321"
+               "mobile":event.signInPhone,//"555555555",
+               "password":event.signInPassword//"7654321"
              }
            }
        );
-       (await event.logInUseCase.execute(logInRequestModel))
+       (await event.signInUseCase.execute(logInRequestModel))
            .fold((failure) {
          // left -> failure
          showToast(message: failure.message, state: ToastState.ERROR);
@@ -78,7 +78,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
        }, (response) {
          // right -> data (success)
          // content
-         emit(SignInSuccessState(loginResponseModel: response));
+         emit(SignInSuccessState(signInResponseModel: response));
        });
      }
      else{
@@ -95,7 +95,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
     emit(SignInLoadingState());
     await Future.delayed(const Duration(milliseconds: 200));
     await checkValidateMobile(event.validatePhoneNumber).then((value) {
-      emit(SignInValidatePhoneNumberState(validationMassage: value));
+      emit(SignInValidatePhoneNumberState(signInPhoneValidationMassage: value));
     }).catchError((onError) {
       emit(SignInErrorState());
     });
@@ -139,7 +139,7 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       } else {
         validationMassage = null;
       }
-      emit(SignInChangePasswordStates(validationMassage: validationMassage));
+      emit(SignInChangePasswordStates(signInPasswordValidationMassage: validationMassage));
     }).catchError((onError) {
       emit(SignInErrorState());
     });
@@ -150,8 +150,8 @@ class SignInBloc extends Bloc<AbstractSignInEvent, AbstractionSignInState> {
       Emitter<AbstractionSignInState> emit) async {
     await Future.delayed(const Duration(milliseconds: 200)).then((value) async {
       SignInValidationModel signInValidationModel = SignInValidationModel();
-      signInValidationModel.validationMassagePhoneNumber = await checkValidateMobile(event.phone);
-      if (event.password.toString().length < 7) {
+      signInValidationModel.validationMassagePhoneNumber = await checkValidateMobile(event.signInPhone);
+      if (event.signInPassword.toString().length < 7) {
         signInValidationModel.validationMassagePassword =
             "Password is very Short";
       } else {

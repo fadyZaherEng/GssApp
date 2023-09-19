@@ -43,5 +43,7 @@ void main() async {
   if (SharedHelper.get(key: 'lang') == null) {
     SharedHelper.save(value: 'arabic', key: 'lang');
   }
-  runApp(const MyApp(),);
+  runApp(
+    const MyApp(),
+  );
 }

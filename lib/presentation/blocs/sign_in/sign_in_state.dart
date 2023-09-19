@@ -25,9 +25,9 @@ class SignInNavigateToHomeScreenState extends AbstractionSignInState {
 class SignInNavigateToSignUpScreenState extends AbstractionSignInState {}
 
 class SignInChangePasswordStates extends AbstractionSignInState {
-  String? validationMassage;
+  String? signInPasswordValidationMassage;
 
-  SignInChangePasswordStates({required this.validationMassage});
+  SignInChangePasswordStates({required this.signInPasswordValidationMassage});
 }
 
 class SignInInitialStates extends AbstractionSignInState {}
@@ -35,15 +35,15 @@ class SignInInitialStates extends AbstractionSignInState {}
 class SignInLoadingState extends AbstractionSignInState {}
 
 class SignInSuccessState extends AbstractionSignInState {
-  SignInResponseModel loginResponseModel;
+  SignInResponseModel signInResponseModel;
 
-  SignInSuccessState({required this.loginResponseModel});
+  SignInSuccessState({required this.signInResponseModel});
 }
 
 class SignInErrorState extends AbstractionSignInState {}
 
 class SignInValidatePhoneNumberState extends AbstractionSignInState {
-  String? validationMassage;
+  String? signInPhoneValidationMassage;
 
-  SignInValidatePhoneNumberState({required this.validationMassage});
+  SignInValidatePhoneNumberState({required this.signInPhoneValidationMassage});
 }

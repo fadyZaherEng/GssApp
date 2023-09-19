@@ -4,13 +4,13 @@ import 'package:gss/domain/usecase/sign_in_usecase.dart';
 abstract class AbstractSignInEvent {}
 
 class SignInEvent extends AbstractSignInEvent {
-  SignInUseCase logInUseCase;
-  String logInPhone, logInPassword;
+  SignInUseCase signInUseCase;
+  String signInPhone, signInPassword;
 
   SignInEvent({
-    required this.logInUseCase,
-    required this.logInPassword,
-    required this.logInPhone,
+    required this.signInUseCase,
+    required this.signInPassword,
+    required this.signInPhone,
   });
 }
 
@@ -29,11 +29,11 @@ class SignInPressedForgetPasswordEvent extends AbstractSignInEvent {
 }
 
 class SignInNavigateToHomeScreenEvent extends AbstractSignInEvent {
-  String phone, password;
+  String signInPhone, signInPassword;
 
   SignInNavigateToHomeScreenEvent({
-    required this.phone,
-    required this.password,
+    required this.signInPhone,
+    required this.signInPassword,
   });
 }
 
@@ -57,12 +57,10 @@ class SignInChangePasswordEvent extends AbstractSignInEvent {
 
 class SignInValidatePhoneNumberEvent extends AbstractSignInEvent {
   String validatePhoneNumber;
-
   SignInValidatePhoneNumberEvent({required this.validatePhoneNumber});
 }
 
 class SignInChangeLangEvent extends AbstractSignInEvent {
   BuildContext context;
-
   SignInChangeLangEvent({required this.context});
 }
