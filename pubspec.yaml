@@ -16,7 +16,7 @@ dependencies:
   email_validator:
   flutter_localizations:
     sdk: flutter
-  intl: any
+  intl:
   sizer:
   #di
   get_it:
@@ -37,6 +37,8 @@ dependencies:
   flutter_local_notifications:
   flutter_phoenix:
   shared_preferences:
+  json_serializable:
+  json_annotation:
 
 
 dev_dependencies:
