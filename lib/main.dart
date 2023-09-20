@@ -40,7 +40,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 Future<void> firebaseMassageBackground(RemoteMessage message) async {
   LocalNotificationService.display(message);
 }
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await injectionApp();
@@ -84,7 +83,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    Locale _locale=const Locale("en");
+    Locale locale=const Locale("en");
     return MultiBlocProvider(
       providers:
       [
@@ -95,7 +94,7 @@ class _MyAppState extends State<MyApp> {
       child: BlocConsumer<SignInBloc,AbstractionSignInState>(
         listener: (context,state){
           if(state is SignInChangeLangState){
-            _locale=state.locale;
+            locale=state.locale;
           }
         },
         builder: (context,state){
@@ -105,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                 //flutter gen-l10n
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,
-                locale: _locale,
+                locale: locale,
                 home:  const SignInScreen(),
                 debugShowCheckedModeBanner: false,
                 theme: lightTheme(),
