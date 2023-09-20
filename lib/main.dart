@@ -28,9 +28,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  initModules();
-  initHive();
-  callFirebaseMassaging();
+  await initModules();
+  await initHive();
+  await callFirebaseMassaging();
   runApp(const MyApp());
 }
 
@@ -38,7 +38,7 @@ Future<void> firebaseMassageBackground(RemoteMessage message) async {
   LocalNotificationService.display(message);
 }
 
-void callFirebaseMassaging() async {
+Future<void> callFirebaseMassaging() async {
   var token = await FirebaseMessaging.instance.getToken();
   print("token:$token \n");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
@@ -53,7 +53,7 @@ void callFirebaseMassaging() async {
   }
 }
 
-void initHive() async {
+Future<void> initHive() async {
   final Directory dir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(dir.path);
   Hive.registerAdapter(TowerModelAdapter());
@@ -62,7 +62,7 @@ void initHive() async {
   }
 }
 
-void initModules() async {
+Future<void> initModules() async {
   await injectionApp();
   await dataLayerInjection();
   await repositoryInjection();
