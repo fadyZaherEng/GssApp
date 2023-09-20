@@ -6,6 +6,7 @@ import 'package:gss/src/config/themes/light_theme.dart';
 import 'package:gss/src/core/resources/firebase_options.dart';
 import 'package:gss/src/data/repositories/local_repositories/cashe_helper.dart';
 import 'package:gss/src/data/sources/remote/gbu/notification/local_notification.dart';
+import 'package:gss/src/di/bloc_injector.dart';
 import 'package:gss/src/di/data_layer_injector.dart';
 import 'package:gss/src/di/injector.dart';
 import 'package:gss/src/di/use_case_injector.dart';
@@ -25,38 +26,19 @@ import 'package:gss/src/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-//mapper
-//divide class response to header w body
-//do file as picture architure
-//@json serilizable and mapper in models
-//convert app to di
-//service w remote
-//repo
-//use case
-//bloc
-//router in article
-
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  initModules();
+  initHive();
+  callFirebaseMassaging();
+  runApp(const MyApp());
+}
 
 Future<void> firebaseMassageBackground(RemoteMessage message) async {
   LocalNotificationService.display(message);
 }
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await injectionApp();
-  await dataLayerInjection();
-  await repositoryInjection();
-  await useCaseInjection();
-  await LocalNotificationService.initialize();
-  await SharedHelper.init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  final Directory dir = await path_provider.getApplicationDocumentsDirectory();
-  Hive.init(dir.path);
-  Hive.registerAdapter(TowerModelAdapter());
-  if (!Hive.isBoxOpen('towers')) {
-    await Hive.openBox<TowerModel>('towers');
-  }
+
+void callFirebaseMassaging() async {
   var token = await FirebaseMessaging.instance.getToken();
   print("token:$token \n");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
@@ -69,13 +51,33 @@ void main() async {
   if (SharedHelper.get(key: 'lang') == null) {
     SharedHelper.save(value: 'arabic', key: 'lang');
   }
-  runApp(
-    const MyApp(),
+}
+
+void initHive() async {
+  final Directory dir = await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
+  Hive.registerAdapter(TowerModelAdapter());
+  if (!Hive.isBoxOpen('towers')) {
+    await Hive.openBox<TowerModel>('towers');
+  }
+}
+
+void initModules() async {
+  await injectionApp();
+  await dataLayerInjection();
+  await repositoryInjection();
+  await useCaseInjection();
+  await blocInjection();
+  await LocalNotificationService.initialize();
+  await SharedHelper.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -83,29 +85,28 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    Locale locale=const Locale("en");
+    Locale locale = const Locale("en");
     return MultiBlocProvider(
-      providers:
-      [
-        BlocProvider(create: (context)=>HomeBloc()),
-        BlocProvider(create: (context)=>SignUpBloc()),
-        BlocProvider(create: (context)=>SignInBloc()),
+      providers: [
+        BlocProvider(create: (context) => instance<HomeBloc>()),
+        BlocProvider(create: (context) => instance<SignUpBloc>()),
+        BlocProvider(create: (context) => instance<SignInBloc>()),
       ],
-      child: BlocConsumer<SignInBloc,AbstractionSignInState>(
-        listener: (context,state){
-          if(state is SignInChangeLangState){
-            locale=state.locale;
+      child: BlocConsumer<SignInBloc, AbstractionSignInState>(
+        listener: (context, state) {
+          if (state is SignInChangeLangState) {
+            locale = state.locale;
           }
         },
-        builder: (context,state){
-          return  Phoenix(
+        builder: (context, state) {
+          return Phoenix(
             child: Sizer(builder: (ctx, orentation, deviceType) {
               return MaterialApp(
                 //flutter gen-l10n
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,
                 locale: locale,
-                home:  const SignInScreen(),
+                home: const SignInScreen(),
                 debugShowCheckedModeBanner: false,
                 theme: lightTheme(),
               );

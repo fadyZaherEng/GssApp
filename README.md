@@ -51,3 +51,15 @@ return {
 };
 }
 }
+
+
+//mapper
+//divide class response to header w body
+//do file as picture architure
+//@json serilizable and mapper in models
+//convert app to di
+//service w remote
+//repo
+//use case
+//bloc
+//router in article
