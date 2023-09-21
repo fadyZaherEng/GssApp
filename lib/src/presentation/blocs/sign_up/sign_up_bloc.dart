@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gss/src/domain/entities/sign_up_models/sign_up_validation_model.dart';
+import 'package:gss/src/domain/usecase/sign_up_validation_usecase.dart';
 import 'package:gss/src/presentation/blocs/sign_up/sign_up_event.dart';
 import 'package:gss/src/presentation/blocs/sign_up/sign_up_state.dart';
 
@@ -28,20 +29,7 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
     on<SignUpChangedPasswordEvents>(_onSignUpChangedPasswordEvent);
   }
 
-  Future<String?> checkValidateMobile(value) async {
-    return validateMobile(value);
-  }
-
-  String? validateMobile(String value) {
-    String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = RegExp(patttern);
-    if (value.isEmpty) {
-      return 'Please enter mobile number';
-    } else if (!regExp.hasMatch(value)) {
-      return 'Please enter valid mobile number';
-    }
-    return null;
-  }
+  SignUpValidationUseCase signUpValidationUseCase = SignUpValidationUseCase();
 
   FutureOr<void> _onSignUpEvents(
       SignUpEvents event, Emitter<AbstractionSignUpState> emit) async {
@@ -49,17 +37,13 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
     await Future.delayed(const Duration(milliseconds: 100)).then((value) async {
       SignUpValidationModel validationModel = SignUpValidationModel();
       validationModel.validationMassagePhoneNumber =
-          await checkValidateMobile(event.phone);
+          await signUpValidationUseCase.checkValidateMobile(event.phone);
       validationModel.validationMassagePassword =
-          (event.password.length < 7) ? "Password is Very Short" : null;
+          signUpValidationUseCase.validatePassword(event.password);
       validationModel.validationMassageEmail =
-          (!EmailValidator.validate(event.email))
-              ? "Please Enter Your Valid Email Address"
-              : null;
+          signUpValidationUseCase.validateEmail(event.email);
       validationModel.validationMassageFullName =
-          (event.name.isEmpty || event.name.length < 3)
-              ? "Please Enter Valid Your Full Name"
-              : null;
+          signUpValidationUseCase.validateFullName(event.name);
       emit(SignUpNavigateToHomeScreenState(validationModel));
     }).catchError((onError) {
       emit(SignUpErrorState());
@@ -70,7 +54,7 @@ class SignUpBloc extends Bloc<AbstractionSignUpEvent, AbstractionSignUpState> {
       Emitter<AbstractionSignUpState> emit) async {
     emit(SignUpInitialState());
     await Future.delayed(const Duration(seconds: 1)).then((value) async {
-      await checkValidateMobile(event.signUpPhoneNumber).then((value) {
+      await signUpValidationUseCase.checkValidateMobile(event.signUpPhoneNumber).then((value) {
         emit(SignUpValidatePhoneNumberState(validationMassage: value));
       }).catchError((onError) {
         emit(SignUpErrorState());

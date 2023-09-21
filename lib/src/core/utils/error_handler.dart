@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dio/dio.dart';
 import 'package:gss/src/core/utils/constants/nums.dart';
 import 'package:gss/src/core/utils/extensions/data_source_extension.dart';

@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:gss/src/core/resources/cashe/sign_in_local_data_source.dart';
+import 'package:gss/src/data/sources/local/cashe/sign_in_local_data_source.dart';
 
 final instance = GetIt.instance;
 

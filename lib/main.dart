@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:gss/src/config/themes/light_theme.dart';
 import 'package:gss/src/core/resources/firebase_options.dart';
-import 'package:gss/src/data/repositories/local_repositories/cashe_helper.dart';
+import 'package:gss/src/data/sources/local/cashe_helper.dart';
 import 'package:gss/src/data/sources/remote/gbu/notification/local_notification.dart';
 import 'package:gss/src/di/bloc_injector.dart';
 import 'package:gss/src/di/data_layer_injector.dart';
@@ -83,9 +83,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Locale locale = const Locale("en");
+
   @override
   Widget build(BuildContext context) {
-    Locale locale = const Locale("en");
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => instance<HomeBloc>()),
