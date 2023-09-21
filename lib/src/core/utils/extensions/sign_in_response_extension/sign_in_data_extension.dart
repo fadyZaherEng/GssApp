@@ -1,4 +1,5 @@
 import 'package:gss/src/core/utils/constants/strings.dart';
+import 'package:gss/src/core/utils/extensions/bool_extension.dart';
 import 'package:gss/src/core/utils/extensions/int_extension.dart';
 import 'package:gss/src/core/utils/extensions/sign_in_response_extension/sign_in_gender_extension.dart';
 import 'package:gss/src/core/utils/extensions/sign_in_response_extension/sign_in_nationality_extension.dart';
@@ -10,13 +11,13 @@ extension SignInDataResponseMapper on SignInResponseData? {
   SignInData toDomain() {
     return SignInData(
       email: this?.email.orEmpty()??Constants.empty,
-      allowUseAgentApp:this?.allowUseAgentApp??false,
+      allowUseAgentApp:this?.allowUseAgentApp.orFalse()??Constants.falseVal,
       birtDate:this?.birtDate.orEmpty()??Constants.empty,
       fullName:this?.fullName.orEmpty()??Constants.empty,
       gender:this?.gender.toDomain(),
       genderId:this?.genderId.orZero()??Constants.zero,
       id:this?.id.orZero()??Constants.zero,
-      isActivation:this?.isActivation??false,
+      isActivation:this?.isActivation.orFalse()??Constants.falseVal,
       mobile:this?.mobile.orEmpty()??Constants.empty,
       nationality:this?.nationality.toDomain(),
       nationalityId:this?.nationalityId.orZero()??Constants.zero,

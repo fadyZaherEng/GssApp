@@ -10,11 +10,7 @@ import 'package:gss/src/domain/entities/responses/gbu_response_model.dart';
 
 extension GbuResponseMapper on GbuResponse? {
   GbuModel toDomain() {
-  String ar=this?.responseMessageAr.orEmpty()??Constants.empty;
-  print(ar);
-  //  dynamic result=SignInResponseData.fromJson(this?.result).toDomain().email;
-   // print(result);
-    GbuModel gbu= GbuModel(
+    return GbuModel(
         responseCode: this?.responseCode.orZero()??Constants.zero,
         responseMessage: this?.responseMessage.orEmpty()??Constants.empty,
         responseMessageAr: this?.responseMessageAr.orEmpty()??Constants.empty,
@@ -22,7 +18,5 @@ extension GbuResponseMapper on GbuResponse? {
         responseRemark: this?.responseRemark.orEmpty()??Constants.empty,
         result:this?.result==null?null:SignInResponseData.fromJson(this?.result).toDomain(),
     );
-    print(ar);
-    return gbu;
   }
 }

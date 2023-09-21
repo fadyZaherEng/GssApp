@@ -18,5 +18,7 @@ class Constants {
   static const String noInternetError = "no_internet_error";
   static const String empty = "";
   static const int zero = 0;
+  static const bool falseVal = false;
+  static const double zeroDouble = 0;
 
 }
