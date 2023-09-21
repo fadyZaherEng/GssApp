@@ -11,12 +11,14 @@ import 'package:gss/src/domain/entities/responses/gbu_response_model.dart';
 extension GbuResponseMapper on GbuResponse? {
   GbuModel toDomain() {
     return GbuModel(
-        responseCode: this?.responseCode.orZero()??Constants.zero,
-        responseMessage: this?.responseMessage.orEmpty()??Constants.empty,
-        responseMessageAr: this?.responseMessageAr.orEmpty()??Constants.empty,
-        responseMessageEn: this?.responseMessageEn.orEmpty()??Constants.empty,
-        responseRemark: this?.responseRemark.orEmpty()??Constants.empty,
-        result:this?.result==null?null:SignInResponseData.fromJson(this?.result).toDomain(),
+      responseCode: this?.responseCode.orZero() ?? Constants.zero,
+      responseMessage: this?.responseMessage.orEmpty() ?? Constants.empty,
+      responseMessageAr: this?.responseMessageAr.orEmpty() ?? Constants.empty,
+      responseMessageEn: this?.responseMessageEn.orEmpty() ?? Constants.empty,
+      responseRemark: this?.responseRemark.orEmpty() ?? Constants.empty,
+      result: this?.result == null
+          ? null
+          : SignInResponseData.fromJson(this?.result).toDomain(),
     );
   }
 }

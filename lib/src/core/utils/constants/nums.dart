@@ -1,4 +1,6 @@
 //num variable
+// ignore_for_file: constant_identifier_names
+
 enum ToastState {SUCCESS,ERROR,WARNING}
 
 enum DataSource {

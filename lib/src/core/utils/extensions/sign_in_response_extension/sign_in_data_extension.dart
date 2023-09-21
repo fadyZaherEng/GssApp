@@ -10,19 +10,19 @@ import 'package:gss/src/domain/entities/responses/sign_in_response/sign_in_respo
 extension SignInDataResponseMapper on SignInResponseData? {
   SignInData toDomain() {
     return SignInData(
-      email: this?.email.orEmpty()??Constants.empty,
-      allowUseAgentApp:this?.allowUseAgentApp.orFalse()??Constants.falseVal,
-      birtDate:this?.birtDate.orEmpty()??Constants.empty,
-      fullName:this?.fullName.orEmpty()??Constants.empty,
-      gender:this?.gender.toDomain(),
-      genderId:this?.genderId.orZero()??Constants.zero,
-      id:this?.id.orZero()??Constants.zero,
-      isActivation:this?.isActivation.orFalse()??Constants.falseVal,
-      mobile:this?.mobile.orEmpty()??Constants.empty,
-      nationality:this?.nationality.toDomain(),
-      nationalityId:this?.nationalityId.orZero()??Constants.zero,
-      profileImage:this?.profileImage.orEmpty()??Constants.empty,
-      registerType:this?.registerType.orZero()??Constants.zero,
+      email: this?.email.orEmpty() ?? Constants.empty,
+      allowUseAgentApp: this?.allowUseAgentApp.orFalse() ?? Constants.falseVal,
+      birtDate: this?.birtDate.orEmpty() ?? Constants.empty,
+      fullName: this?.fullName.orEmpty() ?? Constants.empty,
+      gender: this?.gender.toDomain(),
+      genderId: this?.genderId.orZero() ?? Constants.zero,
+      id: this?.id.orZero() ?? Constants.zero,
+      isActivation: this?.isActivation.orFalse() ?? Constants.falseVal,
+      mobile: this?.mobile.orEmpty() ?? Constants.empty,
+      nationality: this?.nationality.toDomain(),
+      nationalityId: this?.nationalityId.orZero() ?? Constants.zero,
+      profileImage: this?.profileImage.orEmpty() ?? Constants.empty,
+      registerType: this?.registerType.orZero() ?? Constants.zero,
     );
   }
 }

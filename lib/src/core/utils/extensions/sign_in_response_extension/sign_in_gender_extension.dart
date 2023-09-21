@@ -7,7 +7,7 @@ import 'package:gss/src/domain/entities/responses/sign_in_response/sign_in_respo
 extension GenderResponseMapper on SignInResponseGender? {
   SignInGender toDomain() {
     return SignInGender(
-      id: this?.id.orZero()?? Constants.zero,
+      id: this?.id.orZero() ?? Constants.zero,
       name: this?.name.orEmpty() ?? Constants.empty,
     );
   }
