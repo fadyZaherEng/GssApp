@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:gss/src/config/themes/light_theme.dart';
+import 'package:gss/src/core/resources/bloc_observer/observer.dart';
 import 'package:gss/src/core/resources/firebase_options.dart';
 import 'package:gss/src/data/sources/local/cashe_helper.dart';
 import 'package:gss/src/data/sources/remote/gbu/notification/local_notification.dart';
@@ -13,6 +14,8 @@ import 'package:gss/src/di/use_case_injector.dart';
 import 'package:gss/src/di/repository_injector.dart';
 import 'package:gss/src/domain/entities/responses/home_response/home_tower.dart';
 import 'package:flutter/material.dart';
+import 'package:gss/src/presentation/blocs/internet/internet_bloc.dart';
+import 'package:gss/src/presentation/blocs/theme/theme_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -31,9 +34,11 @@ void main() async {
   await initModules();
   await initHive();
   await callFirebaseMassaging();
+  Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
 }
-
+//ناقص freezed
+//عندي على كورس مينا ابقا اشوفها
 Future<void> firebaseMassageBackground(RemoteMessage message) async {
   LocalNotificationService.display(message);
 }
@@ -63,13 +68,13 @@ Future<void> initHive() async {
 }
 
 Future<void> initModules() async {
+  await SharedHelper.init();
   await injectionApp();
   await dataLayerInjection();
   await repositoryInjection();
   await useCaseInjection();
   await blocInjection();
   await LocalNotificationService.initialize();
-  await SharedHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -81,10 +86,14 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
+//theme locale and others need material app put in one bloc
+//then material listner on it
+//this bloc is the bloc that happen change in theme, local,elc
+//this main that it is main bloc or home bloc
 
 class _MyAppState extends State<MyApp> {
   Locale locale = const Locale("en");
-
+  ThemeData themeData=lightTheme();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -92,12 +101,18 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => instance<HomeBloc>()),
         BlocProvider(create: (context) => instance<SignUpBloc>()),
         BlocProvider(create: (context) => instance<SignInBloc>()),
+        BlocProvider(create: (context) => instance<InternetBloc>()),
+        BlocProvider(create: (context) => instance<ThemeBloc>()),
       ],
       child: BlocConsumer<SignInBloc, AbstractionSignInState>(
         listener: (context, state) {
           if (state is SignInChangeLangState) {
             locale = state.locale;
           }
+          //here get theme data
+          // if (state is LoadThemeState) {
+          //   themeData=state.themeData;
+          // }
         },
         builder: (context, state) {
           return Phoenix(
@@ -109,7 +124,7 @@ class _MyAppState extends State<MyApp> {
                 locale: locale,
                 home: const SignInScreen(),
                 debugShowCheckedModeBanner: false,
-                theme: lightTheme(),
+                theme: themeData,
               );
             }),
           );

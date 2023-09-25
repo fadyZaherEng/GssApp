@@ -19,3 +19,7 @@ enum DataSource {
   NO_INTERNET_CONNECTION,
   DEFAULT
 }
+enum AppTheme{
+  LIGHT,
+  DARK,
+}

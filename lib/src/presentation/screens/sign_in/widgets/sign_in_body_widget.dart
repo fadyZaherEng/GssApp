@@ -1,5 +1,9 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gss/src/di/injector.dart';
+import 'package:gss/src/presentation/blocs/internet/internet_bloc.dart';
+import 'package:gss/src/presentation/blocs/internet/internet_state.dart';
 import 'package:gss/src/presentation/screens/sign_in/widgets/sign_in_background_widget.dart';
 import 'package:gss/src/presentation/widgets/custom_text_field_widget.dart';
 import 'package:gss/src/presentation/widgets/password_text_field_widget.dart';
@@ -53,8 +57,15 @@ class _SignInBodyWidgetState extends State<SignInBodyWidget> {
             key: widget.formKey,
             child: Column(
               children: [
-                const SizedBox(
-                  height: 20,
+              const SizedBox(
+              height: 20,),
+                BlocBuilder<InternetBloc,AbstractionInternetState>(
+                  builder:(context,state)=>  state is ConnectAbstractionInternetState?
+                  Text(state.massage,):const SizedBox(),
+                ),
+                BlocBuilder<InternetBloc,AbstractionInternetState>(
+                  builder:(context,state)=>  state is DisconnectAbstractionInternetState?
+                  Text(state.massage,):const SizedBox(),
                 ),
                 Row(
                   children: [
