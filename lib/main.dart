@@ -37,8 +37,6 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
 }
-//ناقص freezed
-//عندي على كورس مينا ابقا اشوفها
 Future<void> firebaseMassageBackground(RemoteMessage message) async {
   LocalNotificationService.display(message);
 }

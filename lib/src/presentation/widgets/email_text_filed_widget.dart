@@ -1,18 +1,19 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class EmailTextFiledWidget extends StatelessWidget {
   TextEditingController controller;
   void Function(String value) onChangedEmail;
   String? errorMSG;
+
   EmailTextFiledWidget({
+    super.key,
     required this.controller,
     required this.onChangedEmail,
     required this.errorMSG,
   });
+
   @override
   Widget build(BuildContext context) {
-    print(errorMSG);
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -24,7 +25,6 @@ class EmailTextFiledWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: Color.fromRGBO(226, 226, 226, 1),
-
           ),
         ),
         enabledBorder: OutlineInputBorder(
@@ -33,15 +33,12 @@ class EmailTextFiledWidget extends StatelessWidget {
               color: Color.fromRGBO(226, 226, 226, 1),
             )),
       ),
-      style: Theme
-          .of(context)
-          .textTheme
-          .bodyMedium,
+      style: Theme.of(context).textTheme.bodyMedium,
       validator: (val) {
         return errorMSG;
       },
       keyboardType: TextInputType.emailAddress,
-      onChanged:onChangedEmail,
+      onChanged: onChangedEmail,
     );
   }
 }
