@@ -1,5 +1,7 @@
-# gss
-// ignore_for_file: non_constant_identifier_names
+# ✔️: local and global notification using local notification and fcm rest api firebase
+# ✔️:hive search updte add remove 
+# ✔️:localization using flutter localization to generated arb and english and so more
+
 
 import 'package:dio/dio.dart';
 class DioHelper {
