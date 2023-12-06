@@ -1,33 +1,30 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:gss/src/config/themes/light_theme.dart';
 import 'package:gss/src/core/resources/bloc_observer/observer.dart';
 import 'package:gss/src/core/resources/firebase_options.dart';
 import 'package:gss/src/data/sources/local/cashe_helper.dart';
 import 'package:gss/src/data/sources/remote/gbu/notification/local_notification.dart';
-import 'package:gss/src/di/bloc_injector.dart';
-import 'package:gss/src/di/data_layer_injector.dart';
 import 'package:gss/src/di/injector.dart';
-import 'package:gss/src/di/use_case_injector.dart';
-import 'package:gss/src/di/repository_injector.dart';
 import 'package:gss/src/domain/entities/responses/home_response/home_tower.dart';
-import 'package:flutter/material.dart';
-import 'package:gss/src/presentation/blocs/internet/internet_bloc.dart';
-import 'package:gss/src/presentation/blocs/theme/theme_bloc.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:gss/src/presentation/blocs/home/home_bloc.dart';
+import 'package:gss/src/presentation/blocs/internet/internet_bloc.dart';
 import 'package:gss/src/presentation/blocs/sign_in/sign_in_bloc.dart';
 import 'package:gss/src/presentation/blocs/sign_in/sign_in_state.dart';
 import 'package:gss/src/presentation/blocs/sign_up/sign_up_bloc.dart';
+import 'package:gss/src/presentation/blocs/theme/theme_bloc.dart';
 import 'package:gss/src/presentation/screens/sign_in/sign_in_screen.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:sizer/sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +34,7 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
 }
+
 Future<void> firebaseMassageBackground(RemoteMessage message) async {
   LocalNotificationService.display(message);
 }
@@ -68,10 +66,6 @@ Future<void> initHive() async {
 Future<void> initModules() async {
   await SharedHelper.init();
   await injectionApp();
-  await dataLayerInjection();
-  await repositoryInjection();
-  await useCaseInjection();
-  await blocInjection();
   await LocalNotificationService.initialize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -91,7 +85,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale locale = const Locale("en");
-  ThemeData themeData=lightTheme();
+  ThemeData themeData = lightTheme();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

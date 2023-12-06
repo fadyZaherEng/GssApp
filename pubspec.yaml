@@ -41,6 +41,7 @@ dependencies:
   json_annotation:
   connectivity:
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
